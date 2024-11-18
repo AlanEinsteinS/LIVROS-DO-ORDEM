@@ -1,0 +1,143 @@
+/* Fonte e reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1a1a1a; /* Preto suave */
+    color: #e0e0e0; /* Cinza claro */
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1.2s ease-out;
+}
+
+/* Cabeçalho */
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #000000, #2a2a2a); /* Preto para cinza escuro */
+    color: #f5f5f5;
+    border-bottom: 5px solid #8e8e8e; /* Cinza médio */
+}
+
+header h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    animation: fadeIn 1s ease-out;
+}
+
+header p {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+/* Seções de downloads */
+.downloads-section {
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 900px;
+    background: #2a2a2a; /* Cinza escuro */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1.5s ease-out;
+}
+
+.downloads-section h2 {
+    font-size: 2rem;
+    color: #cccccc; /* Cinza claro */
+    border-bottom: 2px solid #8e8e8e; /* Cinza médio */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Container de downloads */
+.download-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Botões de download */
+.download-btn {
+    background: linear-gradient(135deg, #4d4d4d, #3a3a3a); /* Cinza médio */
+    color: #f5f5f5;
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    position: relative;
+}
+
+.download-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: skewX(-45deg);
+    transition: left 0.5s ease;
+}
+
+.download-btn:hover::before {
+    left: 100%;
+}
+
+.download-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #2a2a2a; /* Cinza escuro */
+    color: #e0e0e0; /* Cinza claro */
+    border-top: 5px solid #8e8e8e; /* Cinza médio */
+    font-size: 0.9rem;
+    margin-top: 40px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.4rem;
+    }
+
+    .downloads-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .download-btn {
+        font-size: 0.9rem;
+        padding: 12px 15px;
+    }
+}
+
