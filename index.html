@@ -6,6 +6,7 @@
     <title>ORDO REMIER</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -13,14 +14,35 @@
         <p class="fade-in">Livros/Homebrews <b>atualmente</b> no sistema!</p>
     </header>
     <main>
-        <section class="downloads-section fade-in">
-            <h2>LIVROS OFICIAIS</h2>
-            <div class="download-container" id="official-books"></div>
+        <!-- Abas -->
+        <div class="tabs fade-in">
+            <button class="tab-btn active" data-tab="official-tab">Livros Oficiais</button>
+            <button class="tab-btn" data-tab="homebrew-tab">Homebrews / Não Oficiais</button>
+            <button class="tab-btn" data-tab="system-tab">Tabela Global</button>
+        </div>
+
+        <!-- Conteúdo das Abas -->
+        <section id="official-tab" class="tab-content active">
+            <div class="downloads-section">
+                <h2>LIVROS OFICIAIS</h2>
+                <div class="download-container" id="official-books"></div>
+            </div>
         </section>
-        <section class="downloads-section fade-in">
-            <h2>HOMEBREWS / NÃO OFICIAIS</h2>
-            <div class="download-container" id="homebrew-books"></div>
+        <section id="homebrew-tab" class="tab-content">
+            <div class="downloads-section">
+                <h2>HOMEBREWS / NÃO OFICIAIS</h2>
+                <div class="download-container" id="homebrew-books"></div>
+            </div>
         </section>
+        <section id="system-tab" class="tab-content">
+            <div class="downloads-section">
+                <h2>TABELA GLOBAL</h2>
+                <p class="system-info">Aqui ta a tabela global para qualquer classe no sistema.</p>
+                <div id="system-grid" class="system-grid"></div>
+            </div>
+        </section>
+        
+        
     </main>
     <footer>
         <p>&copy; 2024 | Desenvolvido por alan.</p>

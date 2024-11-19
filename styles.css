@@ -1,4 +1,4 @@
-/* Fonte e reset */
+/* Reset e fontes */
 * {
     margin: 0;
     padding: 0;
@@ -6,121 +6,188 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #1a1a1a; /* Preto suave */
-    color: #e0e0e0; /* Cinza claro */
+    font-family: 'Poppins', sans-serif;
+    background: #121212; /* Fundo escuro completo */
+    color: #e0e0e0; /* Cor clara para o texto */
     overflow-x: hidden;
     line-height: 1.6;
 }
 
 /* Animações */
 @keyframes fadeIn {
-    from {
+    0% {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(15px);
     }
-    to {
+    100% {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-.fade-in {
-    animation: fadeIn 1.2s ease-out;
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes glowPulse {
+    0% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(255, 0, 0, 0.6), 0 0 25px rgba(255, 0, 0, 0.4);
+    }
+    100% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+}
+
+/* Efeito glow nos títulos */
+.glowing-text {
+    animation: glowPulse 1.5s ease-in-out infinite;
 }
 
 /* Cabeçalho */
 header {
     text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #000000, #2a2a2a); /* Preto para cinza escuro */
-    color: #f5f5f5;
-    border-bottom: 5px solid #8e8e8e; /* Cinza médio */
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #1a1a1a, #333); /* Gradiente escuro */
+    color: #ffffff;
+    border-bottom: 5px solid #444;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 header h1 {
     font-family: 'Poppins', sans-serif;
-    font-size: 3rem;
-    margin-bottom: 10px;
-    animation: fadeIn 1s ease-out;
+    font-size: 3.8rem;
+    margin-bottom: 15px;
+    animation: scaleUp 1.3s ease-out;
+    color: #ff5722; /* Cor vibrante para o título (laranja escuro) */
 }
 
 header p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 300;
+    margin-top: 10px;
+    animation: fadeIn 1.3s ease-out;
+}
+
+/* Tabs (Abas) */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    background: #2b2b2b;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease-out;
+}
+
+.tab-btn {
+    background: #444;
+    color: #f1f1f1;
+    border: none;
+    padding: 12px 25px;
+    margin: 0 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5), inset -2px -2px 5px rgba(50, 50, 50, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tab-btn:hover {
+    background: #555;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+
+.tab-btn.active {
+    background: #ff5722; /* Cor vibrante para abas ativas */
+    color: #212121;
+    box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.5), inset -3px -3px 5px rgba(50, 50, 50, 0.2);
+}
+
+/* Conteúdo das Abas */
+.tab-content {
+    display: none;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.tab-content.active {
+    display: block;
 }
 
 /* Seções de downloads */
 .downloads-section {
     margin: 30px auto;
-    padding: 20px;
+    padding: 30px;
     max-width: 900px;
-    background: #2a2a2a; /* Cinza escuro */
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    animation: fadeIn 1.5s ease-out;
+    background: #333;
+    border-radius: 20px;
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.6), -15px -15px 30px rgba(50, 50, 50, 0.2);
+    animation: scaleUp 1s ease-out;
 }
 
 .downloads-section h2 {
-    font-size: 2rem;
-    color: #cccccc; /* Cinza claro */
-    border-bottom: 2px solid #8e8e8e; /* Cinza médio */
+    font-size: 2.6rem;
+    color: #e0e0e0;
+    border-bottom: 2px solid #444;
     padding-bottom: 10px;
     margin-bottom: 20px;
+    animation: fadeIn 1.3s ease-out;
+    font-weight: 600;
 }
 
-/* Container de downloads */
 .download-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
+    animation: fadeIn 1.5s ease-out;
 }
 
-/* Botões de download */
 .download-btn {
-    background: linear-gradient(135deg, #4d4d4d, #3a3a3a); /* Cinza médio */
-    color: #f5f5f5;
+    background: linear-gradient(145deg, #444, #555); /* Efeito 3D suave */
+    color: #f1f1f1;
     text-decoration: none;
-    padding: 15px 20px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 700;
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
     text-transform: uppercase;
-    transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    overflow: hidden;
     position: relative;
-}
-
-.download-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: skewX(-45deg);
-    transition: left 0.5s ease;
-}
-
-.download-btn:hover::before {
-    left: 100%;
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4), -8px -8px 20px rgba(50, 50, 50, 0.3);
+    transition: all 0.3s ease;
 }
 
 .download-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+    box-shadow: 12px 12px 30px rgba(0, 0, 0, 0.5), -12px -12px 30px rgba(50, 50, 50, 0.4);
+}
+
+.download-btn:active {
+    transform: scale(0.98);
 }
 
 /* Rodapé */
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #2a2a2a; /* Cinza escuro */
-    color: #e0e0e0; /* Cinza claro */
-    border-top: 5px solid #8e8e8e; /* Cinza médio */
+    background-color: #2b2b2b;
+    color: #ccc;
+    border-top: 5px solid #444;
     font-size: 0.9rem;
     margin-top: 40px;
 }
@@ -128,16 +195,72 @@ footer {
 /* Responsividade */
 @media (max-width: 768px) {
     header h1 {
-        font-size: 2.4rem;
+        font-size: 2.8rem;
     }
 
     .downloads-section h2 {
-        font-size: 1.6rem;
+        font-size: 2rem;
+    }
+
+    .tab-btn {
+        font-size: 1rem;
+        padding: 10px 18px;
     }
 
     .download-btn {
-        font-size: 0.9rem;
-        padding: 12px 15px;
+        padding: 12px 20px;
+        font-size: 1rem;
     }
 }
 
+/* Estilo do grid */
+#system-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajuste para mais flexibilidade */
+    gap: 20px; /* Espaçamento entre os itens */
+    margin-top: 20px;
+    padding: 0 10px;
+}
+
+/* Estilo para cada item no grid */
+.grid-item {
+    background-color: #222; /* Fundo escuro para cada item */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Hover para dar destaque ao item */
+.grid-item:hover {
+    background-color: #333;
+    transform: translateY(-5px); /* Pequeno efeito de elevação */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo para a porcentagem/contagem */
+.percentage {
+    font-weight: 700;
+    font-size: 20px;
+    color: #ddd; /* Cor mais clara para contraste */
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+/* Estilo para a descrição */
+.description {
+    font-size: 14px;
+    color: #bbb; /* Cor mais suave para o texto */
+    font-weight: 400;
+    margin-top: 10px;
+    line-height: 1.4;
+}

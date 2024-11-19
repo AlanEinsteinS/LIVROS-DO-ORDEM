@@ -21,7 +21,7 @@ const homebrewBooks = [
     { name: "A CONTEMPLAÇÃO DO OUTRO LADO", url: "https://drive.google.com/file/d/1_xIDhsPZ5iZMY38Q4Wjyfuy-rf6IgniT/view?usp=drive_link"},
 ];
 
-// Adiciona os botões de download dinamicamente
+// Função para adicionar botões de download
 function addDownloadButtons(books, containerId) {
     const container = document.getElementById(containerId);
     books.forEach(book => {
@@ -29,13 +29,76 @@ function addDownloadButtons(books, containerId) {
         button.href = book.url;
         button.textContent = book.name;
         button.className = "download-btn";
-        button.download = "";
+        button.target = "_blank";
         container.appendChild(button);
     });
 }
 
+// Alternar abas com animação
+document.querySelectorAll(".tab-btn").forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+        document.querySelectorAll(".tab-content").forEach(tab => {
+            tab.classList.remove("active");
+        });
+
+        button.classList.add("active");
+        const targetTab = document.getElementById(button.dataset.tab);
+        targetTab.classList.add("active");
+    });
+});
+
+// Função para gerar o grid com incrementos de 5% na porcentagem e 1 na contagem
+function generateSystemGrid() {
+    const gridContainer = document.getElementById("system-grid");
+    const descriptions = [
+        "1° Est. e P. de Combate | Hab. de Classe | Poder Geral",
+        "Poder de Classe",
+        "1° Poder da Trilha | Poder de Combate",
+        "Poder de Classe | Ponto de Atributo",
+        "Poder Geral e Paranormal | Upzinho na Hab. de Classe",
+        "Poder de Classe e Combate",
+        "Grau de Treinamento",
+        "Poder de Classe",
+        "2° Poder da Trilha | Poder de Combate",
+        "Versatilidade | Poder Geral, Classe e Paranormal | Afinidade/Clausura",
+        "Upzinho da Habilidade de Classe",
+        "Poder de Classe e Combate",
+        "3° Poder da Trilha",
+        "Poder de Classe",
+        "Grau de Treinamento | Poder Geral, Combate, Classe e Paranormal | 2° Est.",
+        "4° Poder de Trilha ou 1 Buffzin | Poder de Classe",
+        "Upzinho da Habilidade de Classe",
+        "Poder de Classe e de Combate",
+        "Ponto de Atributo",
+        "5°/4° Poder de Trilha | Poder de Classe, Geral, Combate e Paranormal"
+    ];
+
+    for (let i = 1; i <= 20; i++) { // Atualizado para ir até 20 (99%)
+        const percentage = i * 5; // Incrementa 5% a cada iteração
+        const count = i; // Contagem de 1 a 20
+        const gridItem = document.createElement("div");
+        gridItem.className = "grid-item";
+
+        // Ajuste para que o 20º item seja 99% / 20
+        const percentageText = (i === 20) ? `99% / ${count}` : `${percentage}% / ${count}`;
+
+        // Adicionando a descrição personalizada
+        const descriptionText = descriptions[i - 1];
+
+        gridItem.innerHTML = `
+            <div class="percentage">${percentageText}</div>
+            <div class="description">${descriptionText}</div>
+        `;
+
+        gridContainer.appendChild(gridItem);
+    }
+}
+
+// Chamar a função para gerar o grid
+generateSystemGrid();
 
 
-// Popula as seções
+// Adicionar botões
 addDownloadButtons(officialBooks, "official-books");
 addDownloadButtons(homebrewBooks, "homebrew-books");
