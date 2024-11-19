@@ -7,8 +7,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: #121212; /* Fundo escuro completo */
-    color: #e0e0e0; /* Cor clara para o texto */
+    background: #0f0f0f; /* Fundo mais escuro */
+    color: #e0e0e0; /* Texto claro */
     overflow-x: hidden;
     line-height: 1.6;
 }
@@ -38,17 +38,17 @@ body {
 
 @keyframes glowPulse {
     0% {
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     }
     50% {
-        text-shadow: 0 0 15px rgba(255, 0, 0, 0.6), 0 0 25px rgba(255, 0, 0, 0.4);
+        text-shadow: 0 0 20px rgba(247, 151, 29, 0.8);
     }
     100% {
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     }
 }
 
-/* Efeito glow nos títulos */
+/* Glow em títulos */
 .glowing-text {
     animation: glowPulse 1.5s ease-in-out infinite;
 }
@@ -57,71 +57,87 @@ body {
 header {
     text-align: center;
     padding: 60px 20px;
-    background: linear-gradient(135deg, #1a1a1a, #333); /* Gradiente escuro */
+    background: linear-gradient(145deg, #1c1c1c, #292929);
     color: #ffffff;
-    border-bottom: 5px solid #444;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    border-bottom: 4px solid #f7971d;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
 header h1 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 3.8rem;
+    font-size: 3.5rem;
     margin-bottom: 15px;
     animation: scaleUp 1.3s ease-out;
-    color: #ff5722; /* Cor vibrante para o título (laranja escuro) */
+    color: #f7971d;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 header p {
-    font-size: 1.5rem;
-    font-weight: 300;
+    font-size: 1.6rem;
     margin-top: 10px;
     animation: fadeIn 1.3s ease-out;
+    color: #b0b0b0;
 }
 
-/* Tabs (Abas) */
+/* Tabs */
 .tabs {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    align-items: center;
+    margin: 20px auto;
     background: #2b2b2b;
-    padding: 12px;
-    border-radius: 15px;
+    padding: 10px 20px;
+    border-radius: 12px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     animation: fadeIn 1s ease-out;
+    gap: 12px;
 }
 
 .tab-btn {
-    background: #444;
-    color: #f1f1f1;
-    border: none;
-    padding: 12px 25px;
-    margin: 0 5px;
-    font-family: 'Poppins', sans-serif;
+    background: #1C1E1F; /* Cor base cinza escuro */
+    color: #FFFFFF; /* Texto claro */
+    padding: 12px 24px;
     font-size: 1.2rem;
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
-    cursor: pointer;
-    border-radius: 12px;
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5), inset -2px -2px 5px rgba(50, 50, 50, 0.2);
-    transition: all 0.3s ease;
+    text-transform: uppercase;
+    border-radius: 8px;
     position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 0.5px;
+    border: 2px solid #f7971d; /* Alterando o destaque para o novo laranja */
 }
 
+/* Efeito de hover */
+.tab-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #f7971d, #ffd580, #f7971d); /* Gradiente laranja */
+    transition: transform 0.3s ease;
+    transform: skewX(-30deg);
+}
+
+.tab-btn:hover::before {
+    left: 100%;
+    transition: all 0.4s ease;
+}
+
+/* Efeito Hover */
 .tab-btn:hover {
-    background: #555;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-    z-index: 2;
+    background: #f7971d; /* Novo laranja no hover */
+    color: #1C1E1F; /* Contraste no texto */
+    box-shadow: 0 4px 15px rgba(247, 151, 29, 0.5); /* Glow com o novo laranja */
 }
 
-.tab-btn.active {
-    background: #ff5722; /* Cor vibrante para abas ativas */
-    color: #212121;
-    box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.5), inset -3px -3px 5px rgba(50, 50, 50, 0.2);
-}
-
-/* Conteúdo das Abas */
 .tab-content {
     display: none;
+    padding-top: 20px; /* Adiciona espaço entre o botão da aba e o conteúdo */
     animation: fadeIn 1.5s ease-out;
 }
 
@@ -131,136 +147,115 @@ header p {
 
 /* Seções de downloads */
 .downloads-section {
-    margin: 30px auto;
-    padding: 30px;
-    max-width: 900px;
-    background: #333;
+    margin: 40px auto;
+    padding: 40px;
+    max-width: 1000px;
+    background: #1e1e1e;
     border-radius: 20px;
-    box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.6), -15px -15px 30px rgba(50, 50, 50, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
     animation: scaleUp 1s ease-out;
 }
 
 .downloads-section h2 {
-    font-size: 2.6rem;
-    color: #e0e0e0;
-    border-bottom: 2px solid #444;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    animation: fadeIn 1.3s ease-out;
-    font-weight: 600;
+    margin-bottom: 20px; /* Espaço entre o título e o conteúdo */
+    font-size: 2rem; /* Ajusta o tamanho do título para destaque */
+    text-align: center; /* Centraliza o título */
+    color: #f7971d; /* Cor laranja para destacar */
 }
 
 .download-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px;
     justify-content: center;
-    animation: fadeIn 1.5s ease-out;
 }
 
+/* Botão de download */
 .download-btn {
-    background: linear-gradient(145deg, #444, #555); /* Efeito 3D suave */
-    color: #f1f1f1;
+    background: linear-gradient(145deg, #292929, #373737);
+    color: #ffffff;
     text-decoration: none;
-    padding: 15px 25px;
-    border-radius: 12px;
-    font-size: 1.1rem;
+    padding: 20px 30px;
+    border-radius: 15px;
+    font-size: 1.2rem;
     font-weight: bold;
     text-transform: uppercase;
-    position: relative;
-    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4), -8px -8px 20px rgba(50, 50, 50, 0.3);
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5), -8px -8px 20px rgba(50, 50, 50, 0.3);
     transition: all 0.3s ease;
 }
 
 .download-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 12px 12px 30px rgba(0, 0, 0, 0.5), -12px -12px 30px rgba(50, 50, 50, 0.4);
+    transform: scale(1.1);
+    background: #f7971d; /* Novo laranja no hover */
+    color: #121212;
+    box-shadow: 0 10px 30px rgba(247, 151, 29, 0.8); /* Glow com o novo laranja */
 }
 
-.download-btn:active {
-    transform: scale(0.98);
-}
-
-/* Rodapé */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #2b2b2b;
-    color: #ccc;
-    border-top: 5px solid #444;
-    font-size: 0.9rem;
-    margin-top: 40px;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 2.8rem;
-    }
-
-    .downloads-section h2 {
-        font-size: 2rem;
-    }
-
-    .tab-btn {
-        font-size: 1rem;
-        padding: 10px 18px;
-    }
-
-    .download-btn {
-        padding: 12px 20px;
-        font-size: 1rem;
-    }
-}
-
-/* Estilo do grid */
+/* Grid */
 #system-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajuste para mais flexibilidade */
-    gap: 20px; /* Espaçamento entre os itens */
-    margin-top: 20px;
-    padding: 0 10px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+    padding: 0 15px;
 }
 
-/* Estilo para cada item no grid */
+/* Grid Item */
 .grid-item {
-    background-color: #222; /* Fundo escuro para cada item */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    font-family: 'Poppins', sans-serif;
+    background-color: #292929;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     font-size: 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s ease;
     cursor: pointer;
     text-align: center;
-    overflow: hidden;
+    height: 200px; /* Definindo altura fixa para uniformidade */
 }
 
-/* Hover para dar destaque ao item */
-.grid-item:hover {
-    background-color: #333;
-    transform: translateY(-5px); /* Pequeno efeito de elevação */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Estilo para a porcentagem/contagem */
-.percentage {
-    font-weight: 700;
-    font-size: 20px;
-    color: #ddd; /* Cor mais clara para contraste */
+/* Estilizando a porcentagem e a contagem */
+.grid-item .percentage {
+    font-size: 1.8rem; /* Definir um tamanho fixo para a porcentagem */
+    font-weight: bold;
+    color: #f7971d; /* Laranja vibrante para destacar */
+    text-transform: uppercase;
     margin-bottom: 10px;
-    transition: color 0.3s ease;
+    letter-spacing: 1px;
+    display: inline-block;
 }
 
-/* Estilo para a descrição */
-.description {
-    font-size: 14px;
-    color: #bbb; /* Cor mais suave para o texto */
-    font-weight: 400;
-    margin-top: 10px;
-    line-height: 1.4;
+/* Estilizando a descrição */
+.grid-item .description {
+    font-size: 1.2rem;
+    color: #e0e0e0; /* Cor clara para o texto */
+    opacity: 0.9;
+    margin-top: 10px; /* Espaciamento entre a porcentagem e a descrição */
+}
+
+/* Efeito hover no grid */
+.grid-item:hover {
+    background-color: #f7971d; /* Novo laranja no hover */
+    color: #ffffff;
+    transform: translateY(-10px);
+}
+
+/* Efeito hover nas porcentagens e contagens */
+.grid-item:hover .percentage {
+    color: #ffffff; /* Branco para contraste */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px #f7971d; /* Glow mais forte no hover */
+}
+
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #181818;
+    color: #b0b0b0;
+    border-top: 5px solid #f7971d; /* Laranja no topo do rodapé */
+    margin-top: 40px;
 }
