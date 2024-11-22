@@ -52,7 +52,7 @@ document.querySelectorAll(".tab-btn").forEach(button => {
 function generateSystemGrid() {
     const gridContainer = document.getElementById("system-grid");
     const descriptions = [
-        "1° Est. e P. de Combate | Hab. de Classe | Poder Geral",
+        "1° Est. de Combate | Hab. de Classe | Poder Geral",
         "Poder de Classe",
         "1° Poder da Trilha | Poder de Combate",
         "Poder de Classe | Ponto de Atributo",
@@ -60,16 +60,16 @@ function generateSystemGrid() {
         "Poder de Classe e Combate",
         "Grau de Treinamento",
         "Poder de Classe",
-        "2° Poder da Trilha | Poder de Combate",
+        "2° Poder da Trilha",
         "Versatilidade | Poder Geral, Classe e Paranormal | Afinidade/Clausura",
         "Upzinho da Habilidade de Classe",
         "Poder de Classe e Combate",
         "3° Poder da Trilha",
         "Poder de Classe",
-        "Grau de Treinamento | Poder Geral, Combate, Classe e Paranormal | 2° Est.",
+        "Grau de Treinamento | Poder Geral, Classe e Paranormal | 2° Est.",
         "4° Poder de Trilha ou 1 Buffzin | Poder de Classe",
         "Upzinho da Habilidade de Classe",
-        "Poder de Classe e de Combate",
+        "Poder de Classe",
         "Ponto de Atributo",
         "5°/4° Poder de Trilha | Poder de Classe, Geral, Combate e Paranormal"
     ];

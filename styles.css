@@ -7,8 +7,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: #0f0f0f; /* Fundo mais escuro */
-    color: #e0e0e0; /* Texto claro */
+    background: #000000; /* Fundo completamente preto */
+    color: #e0e0e0; /* Texto claro para contraste */
     overflow-x: hidden;
     line-height: 1.6;
 }
@@ -57,19 +57,34 @@ body {
 header {
     text-align: center;
     padding: 60px 20px;
-    background: linear-gradient(145deg, #1c1c1c, #292929);
-    color: #ffffff;
-    border-bottom: 4px solid #f7971d;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    background: #000000; /* Fundo preto */
+    color: #ffffff; /* Texto branco */
+    border-bottom: 4px solid #f7971d; /* Detalhe de borda laranja */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* Sombra intensa */
 }
 
 header h1 {
     font-size: 3.5rem;
     margin-bottom: 15px;
-    animation: scaleUp 1.3s ease-out;
-    color: #f7971d;
     text-transform: uppercase;
     letter-spacing: 2px;
+    display: inline-block;
+}
+
+/* Primeira palavra em branco */
+header h1 .first-word {
+    color: #ffffff; /* Cor branca */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Leve glow branco */
+}
+
+/* Segunda palavra em preto dentro de fundo amarelo */
+header h1 .second-word {
+    background-color: #f7971d; /* Fundo amarelo */
+    color: #000000; /* Texto preto */
+    padding: 0 10px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+    animation: scaleUp 1.3s ease-out; /* Animação de entrada */
 }
 
 header p {
@@ -85,17 +100,17 @@ header p {
     justify-content: center;
     align-items: center;
     margin: 20px auto;
-    background: #2b2b2b;
+    background: #000000; /* Fundo preto */
     padding: 10px 20px;
     border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Sombra suave */
     animation: fadeIn 1s ease-out;
     gap: 12px;
 }
 
 .tab-btn {
-    background: #1C1E1F; /* Cor base cinza escuro */
-    color: #FFFFFF; /* Texto claro */
+    background: #000000; /* Fundo preto */
+    color: #FFFFFF; /* Texto branco */
     padding: 12px 24px;
     font-size: 1.2rem;
     font-family: 'Poppins', sans-serif;
@@ -107,7 +122,7 @@ header p {
     cursor: pointer;
     transition: all 0.4s ease;
     letter-spacing: 0.5px;
-    border: 2px solid #f7971d; /* Alterando o destaque para o novo laranja */
+    border: 2px solid #f7971d; /* Borda laranja */
 }
 
 /* Efeito de hover */
@@ -130,14 +145,14 @@ header p {
 
 /* Efeito Hover */
 .tab-btn:hover {
-    background: #f7971d; /* Novo laranja no hover */
-    color: #1C1E1F; /* Contraste no texto */
-    box-shadow: 0 4px 15px rgba(247, 151, 29, 0.5); /* Glow com o novo laranja */
+    background: #f7971d; /* Laranja no hover */
+    color: #000000; /* Texto preto no hover */
+    box-shadow: 0 4px 15px rgba(247, 151, 29, 0.5); /* Glow laranja no hover */
 }
 
 .tab-content {
     display: none;
-    padding-top: 20px; /* Adiciona espaço entre o botão da aba e o conteúdo */
+    padding-top: 20px;
     animation: fadeIn 1.5s ease-out;
 }
 
@@ -150,112 +165,180 @@ header p {
     margin: 40px auto;
     padding: 40px;
     max-width: 1000px;
-    background: #1e1e1e;
+    background: #000000; /* Fundo preto */
     border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9); /* Sombra escura */
     animation: scaleUp 1s ease-out;
 }
 
 .downloads-section h2 {
-    margin-bottom: 20px; /* Espaço entre o título e o conteúdo */
-    font-size: 2rem; /* Ajusta o tamanho do título para destaque */
-    text-align: center; /* Centraliza o título */
-    color: #f7971d; /* Cor laranja para destacar */
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-align: center;
+    color: #f7971d; /* Laranja para o título */
 }
 
+/* Container de downloads */
 .download-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 15px;
     justify-content: center;
 }
 
-/* Botão de download */
 .download-btn {
+    flex: 1 1 calc(33.33% - 30px);
+    max-width: 300px;
+    min-width: 150px;
     background: linear-gradient(145deg, #292929, #373737);
     color: #ffffff;
     text-decoration: none;
-    padding: 20px 30px;
+    padding: 20px 15px;
     border-radius: 15px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
     box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5), -8px -8px 20px rgba(50, 50, 50, 0.3);
     transition: all 0.3s ease;
+    text-align: center;
 }
 
+/* Hover no botão de download */
 .download-btn:hover {
     transform: scale(1.1);
-    background: #f7971d; /* Novo laranja no hover */
+    background: #f7971d; /* Laranja no hover */
     color: #121212;
-    box-shadow: 0 10px 30px rgba(247, 151, 29, 0.8); /* Glow com o novo laranja */
+    box-shadow: 0 10px 30px rgba(247, 151, 29, 0.8);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .download-btn {
+        flex: 1 1 calc(50% - 15px);
+    }
+}
+
+@media (max-width: 480px) {
+    .download-btn {
+        flex: 1 1 calc(100% - 10px);
+    }
 }
 
 /* Grid */
 #system-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 25px;
     margin-top: 25px;
     padding: 0 15px;
+    transition: transform 0.3s ease;
 }
 
-/* Grid Item */
+/* Estilo do container do grid */
 .grid-item {
-    background-color: #292929;
+    background-color: #222222; /* Fundo mais suave, mas ainda escuro */
     padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 15px; /* Bordas arredondadas */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
     font-size: 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    transition: all 0.4s ease;
-    cursor: pointer;
+    gap: 15px;
     text-align: center;
-    height: 200px; /* Definindo altura fixa para uniformidade */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
+    animation: fadeInUp 1s ease-out;
 }
 
-/* Estilizando a porcentagem e a contagem */
-.grid-item .percentage {
-    font-size: 1.8rem; /* Definir um tamanho fixo para a porcentagem */
+/* Títulos mais impactantes */
+.grid-item h3 {
+    font-size: 2.8rem; /* Tamanho ajustado para ser um pouco menor */
     font-weight: bold;
-    color: #f7971d; /* Laranja vibrante para destacar */
+    color: #f7971d; /* Cor laranja */
+    margin-bottom: 15px;
     text-transform: uppercase;
-    margin-bottom: 10px;
     letter-spacing: 1px;
-    display: inline-block;
+    transition: text-shadow 0.3s ease, transform 0.3s ease;
 }
 
-/* Estilizando a descrição */
+/* Efeito de glow no título */
+.grid-item h3:hover {
+    text-shadow: 0 0 15px rgba(247, 151, 29, 0.8), 0 0 30px rgba(247, 151, 29, 0.6); /* Glow mais suave */
+    transform: scale(1.03); /* Aumento leve de tamanho */
+}
+
+/* Estilo para porcentagens e contadores */
+.grid-item .percentage,
+.grid-item .counter {
+    font-size: 4rem; /* Tamanho ajustado */
+    font-weight: bold;
+    color: #f7971d; /* Cor laranja */
+    margin: 0;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease;
+}
+
+/* Efeito de aumento nas porcentagens e brilho */
+.grid-item:hover .percentage,
+.grid-item:hover .counter {
+    transform: scale(1.05);
+    filter: brightness(1.1); /* Aumento suave do brilho */
+}
+
+/* Descrição com mais estilo */
 .grid-item .description {
-    font-size: 1.2rem;
-    color: #e0e0e0; /* Cor clara para o texto */
-    opacity: 0.9;
-    margin-top: 10px; /* Espaciamento entre a porcentagem e a descrição */
+    font-size: 1.3rem; /* Tamanho ajustado */
+    color: #b0b0b0; /* Texto mais suave */
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/* Efeito hover no grid */
-.grid-item:hover {
-    background-color: #f7971d; /* Novo laranja no hover */
+/* Alterar cor da descrição e aumentar no hover */
+.grid-item:hover .description {
     color: #ffffff;
-    transform: translateY(-10px);
+    transform: scale(1.03);
 }
 
-/* Efeito hover nas porcentagens e contagens */
-.grid-item:hover .percentage {
-    color: #ffffff; /* Branco para contraste */
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px #f7971d; /* Glow mais forte no hover */
+/* Efeito de hover no grid */
+.grid-item:hover {
+    transform: translateY(-5px); /* Movimentação mais sutil */
+    box-shadow: 0 8px 20px rgba(247, 151, 29, 0.4); /* Glow suave no hover */
+    background-color: #333333; /* Fundo mais claro ao passar o mouse */
+    border: 2px solid #f7971d; /* Borda laranja suave no hover */
+    filter: brightness(1.05); /* Aumento leve no brilho */
 }
+
+/* Efeito de glow na borda */
+.grid-item:hover {
+    box-shadow: 0 8px 20px rgba(247, 151, 29, 0.5); /* Glow suave */
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)); /* Transição suave */
+    filter: brightness(1.05); /* Aumenta o brilho suavemente */
+}
+
+/* Transição de background color */
+.grid-item {
+    background: #222222;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.grid-item:hover {
+    background-color: #333333; /* Fundo suave ao passar o mouse */
+}
+
+/* Efeito de brilho na borda */
+.grid-item:hover {
+    border: 3px solid #f7971d; /* Borda laranja suave */
+}
+
 
 
 /* Rodapé */
 footer {
     text-align: center;
-    padding: 30px;
-    background-color: #181818;
-    color: #b0b0b0;
-    border-top: 5px solid #f7971d; /* Laranja no topo do rodapé */
-    margin-top: 40px;
+    padding: 30px 20px;
+    background-color: #000000; /* Fundo preto */
+    color: #f4f4f4;
+    border-top: 2px solid #f7971d; /* Detalhe laranja */
+    font-size: 1rem;
 }
