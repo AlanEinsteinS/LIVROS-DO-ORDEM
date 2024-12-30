@@ -205,7 +205,7 @@ header p {
 
 /* Hover no botão de download */
 .download-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.02);
     background: #f7971d; /* Laranja no hover */
     color: #121212;
     box-shadow: 0 10px 30px rgba(247, 151, 29, 0.8);
