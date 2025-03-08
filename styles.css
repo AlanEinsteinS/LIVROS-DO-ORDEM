@@ -5,19 +5,45 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #000000; /* Fundo completamente preto */
-    color: #e0e0e0; /* Texto claro para contraste */
-    overflow-x: hidden;
-    line-height: 1.6;
+:root {
+    --primary-color: #f7971d;
+    --primary-glow: rgba(247, 151, 29, 0.8);
+    --primary-light: #ffa940;
+    --dark-bg: #000000;
+    --dark-accent: #111111;
+    --text-light: #ffffff;
+    --text-dim: #cccccc;
+    --card-bg: #151515;
+    --card-hover: #222222;
+    --gradient-dark: linear-gradient(145deg, #1a1a1a, #000000);
+    --gradient-light: linear-gradient(145deg, #f7971d, #ffaf4d);
+    --glow-effect: 0 0 15px var(--primary-glow);
+    --button-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    --button-hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.7), 0 5px 15px rgba(247, 151, 29, 0.5);
 }
 
-/* Animações */
+@font-face {
+    font-family: 'Cyberpunk';
+    src: url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-light);
+    overflow-x: hidden;
+    line-height: 1.6;
+    background-image: 
+        radial-gradient(circle at 10% 10%, rgba(40, 40, 40, 0.2) 0%, transparent 60%),
+        radial-gradient(circle at 90% 90%, rgba(40, 40, 40, 0.2) 0%, transparent 60%);
+    background-attachment: fixed;
+}
+
+/* Animações aprimoradas */
 @keyframes fadeIn {
     0% {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(30px);
     }
     100% {
         opacity: 1;
@@ -25,320 +51,872 @@ body {
     }
 }
 
-@keyframes scaleUp {
-    0% {
-        transform: scale(0.95);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
 @keyframes glowPulse {
     0% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 10px rgba(247, 151, 29, 0.3);
+        box-shadow: 0 0 10px rgba(247, 151, 29, 0.3);
     }
     50% {
-        text-shadow: 0 0 20px rgba(247, 151, 29, 0.8);
+        text-shadow: 0 0 20px rgba(247, 151, 29, 0.8), 0 0 30px rgba(247, 151, 29, 0.6);
+        box-shadow: 0 0 20px rgba(247, 151, 29, 0.8), 0 0 30px rgba(247, 151, 29, 0.6);
     }
     100% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 10px rgba(247, 151, 29, 0.3);
+        box-shadow: 0 0 10px rgba(247, 151, 29, 0.3);
     }
 }
 
-/* Glow em títulos */
-.glowing-text {
-    animation: glowPulse 1.5s ease-in-out infinite;
+@keyframes borderGlow {
+    0% {
+        border-color: rgba(247, 151, 29, 0.5);
+    }
+    50% {
+        border-color: rgba(247, 151, 29, 1);
+    }
+    100% {
+        border-color: rgba(247, 151, 29, 0.5);
+    }
 }
 
-/* Cabeçalho */
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes shine {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1.2s ease-out forwards;
+}
+
+.glow-effect {
+    animation: glowPulse 2s infinite;
+}
+
+.float-animation {
+    animation: float 5s ease-in-out infinite;
+}
+
+/* Cabeçalho vibrante */
 header {
     text-align: center;
-    padding: 60px 20px;
-    background: #000000; /* Fundo preto */
-    color: #ffffff; /* Texto branco */
-    border-bottom: 4px solid #f7971d; /* Detalhe de borda laranja */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); /* Sombra intensa */
+    padding: 70px 20px;
+    background: var(--dark-bg);
+    color: var(--text-light);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(247, 151, 29, 0.15) 0%, transparent 70%);
+    z-index: 0;
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    animation: gradient 5s ease infinite;
+    background-size: 200% 200%;
+}
+
+.header-container {
+    position: relative;
+    z-index: 1;
 }
 
 header h1 {
-    font-size: 3.5rem;
-    margin-bottom: 15px;
+    font-size: 4.5rem;
+    margin-bottom: 20px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 5px;
     display: inline-block;
+    position: relative;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    animation: float 5s ease-in-out infinite;
 }
 
-/* Primeira palavra em branco */
+/* Primeira palavra com efeito metálico */
 header h1 .first-word {
-    color: #ffffff; /* Cor branca */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Leve glow branco */
+    color: var(--text-light);
+    font-weight: 800;
+    background: linear-gradient(to bottom, #ffffff, #a0a0a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+    position: relative;
 }
 
-/* Segunda palavra em preto dentro de fundo amarelo */
+header h1 .first-word::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    transform-origin: left;
+    transform: scaleX(1);
+    transition: transform 0.5s ease;
+}
+
+/* Segunda palavra estilizada com efeito de neon */
 header h1 .second-word {
-    background-color: #f7971d; /* Fundo amarelo */
-    color: #000000; /* Texto preto */
-    padding: 0 10px; /* Espaçamento interno */
-    border-radius: 5px; /* Bordas arredondadas */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-    animation: scaleUp 1.3s ease-out; /* Animação de entrada */
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+    padding: 5px 15px;
+    border-radius: 8px;
+    font-weight: 900;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(247, 151, 29, 0.6);
+    animation: glowPulse 2.5s infinite;
+    margin-left: 5px;
+}
+
+header h1 .second-word::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.5) 50%, transparent 55%);
+    background-size: 200% 100%;
+    animation: shine 3s infinite;
 }
 
 header p {
-    font-size: 1.6rem;
-    margin-top: 10px;
-    animation: fadeIn 1.3s ease-out;
-    color: #b0b0b0;
+    font-size: 1.7rem;
+    margin-top: 15px;
+    color: var(--text-dim);
+    position: relative;
+    display: inline-block;
+    padding: 5px 25px;
+    border-radius: 30px;
+    background: rgba(10, 10, 10, 0.6);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 1.5s ease-out;
+    max-width: 90%;
 }
 
-/* Tabs */
+header p b {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(247, 151, 29, 0.5);
+}
+
+/* Tabs com estilo futurista */
 .tabs {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px auto;
-    background: #000000; /* Fundo preto */
-    padding: 10px 20px;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Sombra suave */
-    animation: fadeIn 1s ease-out;
-    gap: 12px;
+    margin: 35px auto;
+    background: rgba(20, 20, 20, 0.8);
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: var(--button-shadow);
+    animation: fadeIn 1.2s ease-out;
+    gap: 15px;
+    position: relative;
+    max-width: 900px;
+    border: 1px solid rgba(247, 151, 29, 0.2);
+    overflow: hidden;
+}
+
+.tabs::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(247, 151, 29, 0.1), transparent 70%);
+    opacity: 0.7;
+    animation: gradient 15s ease infinite;
+    z-index: 0;
 }
 
 .tab-btn {
-    background: #000000; /* Fundo preto */
-    color: #FFFFFF; /* Texto branco */
-    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.6);
+    color: var(--text-light);
+    padding: 15px 30px;
     font-size: 1.2rem;
     font-family: 'Poppins', sans-serif;
-    font-weight: bold;
+    font-weight: 600;
     text-transform: uppercase;
-    border-radius: 8px;
+    border-radius: 50px;
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.4s ease;
-    letter-spacing: 0.5px;
-    border: 2px solid #f7971d; /* Borda laranja */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    letter-spacing: 1px;
+    border: 2px solid rgba(247, 151, 29, 0.3);
+    z-index: 1;
+    min-width: 180px;
+    text-align: center;
 }
 
-/* Efeito de hover */
 .tab-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.tab-btn:hover::before {
+    opacity: 1;
+}
+
+.tab-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.tab-btn:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.tab-btn:hover {
+    color: var(--dark-bg);
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(247, 151, 29, 0.4);
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    color: var(--dark-bg);
+    font-weight: 700;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(247, 151, 29, 0.5);
+}
+
+.tab-btn i {
+    margin-right: 8px;
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+}
+
+.tab-btn:hover i {
+    transform: scale(1.2);
+}
+
+/* Conteúdo das tabs */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.8s ease-out;
+    opacity: 0;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Seções de downloads com estilo cyberpunk */
+.downloads-section {
+    margin: 50px auto;
+    padding: 50px;
+    max-width: 1200px;
+    background: rgba(10, 10, 10, 0.8);
+    border-radius: 24px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(247, 151, 29, 0.2);
+    animation: fadeIn 1s ease-out;
+}
+
+.downloads-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+}
+
+.downloads-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 30%, rgba(247, 151, 29, 0.1), transparent 70%);
+    opacity: 0.5;
+}
+
+.downloads-section h2 {
+    margin-bottom: 40px;
+    font-size: 2.4rem;
+    text-align: center;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-bottom: 15px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(247, 151, 29, 0.5);
+}
+
+.downloads-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+}
+
+.downloads-section h2 i {
+    margin-right: 10px;
+    font-size: 0.9em;
+    animation: glowPulse 2s infinite;
+}
+
+/* Container de downloads com efeito de grade futurista */
+.download-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    z-index: 1;
+}
+
+.download-btn {
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(15, 15, 15, 0.9));
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 25px 20px;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(247, 151, 29, 0.3);
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 1px;
+}
+
+.download-btn::before {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, #f7971d, #ffd580, #f7971d); /* Gradiente laranja */
-    transition: transform 0.3s ease;
-    transform: skewX(-30deg);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
 }
 
-.tab-btn:hover::before {
+.download-btn:hover::before {
     left: 100%;
-    transition: all 0.4s ease;
 }
 
-/* Efeito Hover */
-.tab-btn:hover {
-    background: #f7971d; /* Laranja no hover */
-    color: #000000; /* Texto preto no hover */
-    box-shadow: 0 4px 15px rgba(247, 151, 29, 0.5); /* Glow laranja no hover */
+.download-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
 }
 
-.tab-content {
-    display: none;
-    padding-top: 20px;
-    animation: fadeIn 1.5s ease-out;
+.download-btn:hover::after {
+    transform: scaleX(1);
 }
 
-.tab-content.active {
-    display: block;
-}
-
-/* Seções de downloads */
-.downloads-section {
-    margin: 40px auto;
-    padding: 40px;
-    max-width: 1000px;
-    background: #000000; /* Fundo preto */
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9); /* Sombra escura */
-    animation: scaleUp 1s ease-out;
-}
-
-.downloads-section h2 {
-    margin-bottom: 20px;
-    font-size: 2rem;
-    text-align: center;
-    color: #f7971d; /* Laranja para o título */
-}
-
-/* Container de downloads */
-.download-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-}
-
-.download-btn {
-    flex: 1 1 calc(33.33% - 30px);
-    max-width: 300px;
-    min-width: 150px;
-    background: linear-gradient(145deg, #292929, #373737);
-    color: #ffffff;
-    text-decoration: none;
-    padding: 20px 15px;
-    border-radius: 15px;
-    font-size: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5), -8px -8px 20px rgba(50, 50, 50, 0.3);
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-/* Hover no botão de download */
 .download-btn:hover {
-    transform: scale(1.02);
-    background: #f7971d; /* Laranja no hover */
-    color: #121212;
-    box-shadow: 0 10px 30px rgba(247, 151, 29, 0.8);
+    transform: translateY(-10px) scale(1.05);
+    background: linear-gradient(145deg, rgba(40, 40, 40, 0.9), rgba(25, 25, 25, 0.9));
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 5px 15px rgba(247, 151, 29, 0.3);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-    .download-btn {
-        flex: 1 1 calc(50% - 15px);
-    }
+.download-btn i {
+    margin-right: 10px;
+    font-size: 1.3em;
+    transition: transform 0.3s ease;
 }
 
-@media (max-width: 480px) {
-    .download-btn {
-        flex: 1 1 calc(100% - 10px);
-    }
+.download-btn:hover i {
+    transform: scale(1.3);
+    color: var(--primary-color);
 }
 
-/* Grid */
+/* Informações do sistema com estilo futurista */
+.system-info {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--text-dim);
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    padding: 15px 30px;
+    background: rgba(20, 20, 20, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(247, 151, 29, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Grid do sistema com efeito futurista */
 #system-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-    margin-top: 25px;
-    padding: 0 15px;
-    transition: transform 0.3s ease;
+    gap: 30px;
+    margin-top: 30px;
+    padding: 15px;
+    position: relative;
+    z-index: 1;
 }
 
-/* Estilo do container do grid */
 .grid-item {
-    background-color: #222222; /* Fundo mais suave, mas ainda escuro */
-    padding: 25px;
-    border-radius: 15px; /* Bordas arredondadas */
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
-    font-size: 16px;
+    background: linear-gradient(145deg, rgba(25, 25, 25, 0.9), rgba(10, 10, 10, 0.9));
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
-    animation: fadeInUp 1s ease-out;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(247, 151, 29, 0.2);
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
 }
 
-/* Títulos mais impactantes */
-.grid-item h3 {
-    font-size: 2.8rem; /* Tamanho ajustado para ser um pouco menor */
-    font-weight: bold;
-    color: #f7971d; /* Cor laranja */
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: text-shadow 0.3s ease, transform 0.3s ease;
+.grid-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 70%, rgba(247, 151, 29, 0.1), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
-/* Efeito de glow no título */
-.grid-item h3:hover {
-    text-shadow: 0 0 15px rgba(247, 151, 29, 0.8), 0 0 30px rgba(247, 151, 29, 0.6); /* Glow mais suave */
-    transform: scale(1.03); /* Aumento leve de tamanho */
+.grid-item:hover::before {
+    opacity: 1;
 }
 
-/* Estilo para porcentagens e contadores */
-.grid-item .percentage,
-.grid-item .counter {
-    font-size: 4rem; /* Tamanho ajustado */
-    font-weight: bold;
-    color: #f7971d; /* Cor laranja */
+.grid-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 0;
+    background: var(--primary-color);
+    transition: height 0.4s ease;
+}
+
+.grid-item:hover::after {
+    height: 100%;
+}
+
+.grid-item .percentage {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary-color);
     margin: 0;
-    transition: transform 0.3s ease-in-out, filter 0.3s ease;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(247, 151, 29, 0.3);
+    position: relative;
 }
 
-/* Efeito de aumento nas porcentagens e brilho */
-.grid-item:hover .percentage,
-.grid-item:hover .counter {
-    transform: scale(1.05);
-    filter: brightness(1.1); /* Aumento suave do brilho */
+.grid-item:hover .percentage {
+    transform: scale(1.1);
+    text-shadow: 0 0 15px rgba(247, 151, 29, 0.6), 0 0 30px rgba(247, 151, 29, 0.4);
 }
 
-/* Descrição com mais estilo */
 .grid-item .description {
-    font-size: 1.3rem; /* Tamanho ajustado */
-    color: #b0b0b0; /* Texto mais suave */
-    line-height: 1.5;
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    line-height: 1.6;
     text-align: center;
-    margin-top: 10px;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-/* Alterar cor da descrição e aumentar no hover */
 .grid-item:hover .description {
-    color: #ffffff;
-    transform: scale(1.03);
-}
-
-/* Efeito de hover no grid */
-.grid-item:hover {
-    transform: translateY(-5px); /* Movimentação mais sutil */
-    box-shadow: 0 8px 20px rgba(247, 151, 29, 0.4); /* Glow suave no hover */
-    background-color: #333333; /* Fundo mais claro ao passar o mouse */
-    border: 2px solid #f7971d; /* Borda laranja suave no hover */
-    filter: brightness(1.05); /* Aumento leve no brilho */
-}
-
-/* Efeito de glow na borda */
-.grid-item:hover {
-    box-shadow: 0 8px 20px rgba(247, 151, 29, 0.5); /* Glow suave */
-    background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)); /* Transição suave */
-    filter: brightness(1.05); /* Aumenta o brilho suavemente */
-}
-
-/* Transição de background color */
-.grid-item {
-    background: #222222;
-    transition: background-color 0.3s ease-in-out;
+    color: var(--text-light);
 }
 
 .grid-item:hover {
-    background-color: #333333; /* Fundo suave ao passar o mouse */
+    transform: translateY(-15px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 5px 20px rgba(247, 151, 29, 0.3);
+    border-color: var(--primary-color);
+    background: linear-gradient(145deg, rgba(35, 35, 35, 0.9), rgba(15, 15, 15, 0.9));
 }
 
-/* Efeito de brilho na borda */
-.grid-item:hover {
-    border: 3px solid #f7971d; /* Borda laranja suave */
-}
-
-
-
-/* Rodapé */
+/* Rodapé estilizado */
 footer {
     text-align: center;
-    padding: 30px 20px;
-    background-color: #000000; /* Fundo preto */
-    color: #f4f4f4;
-    border-top: 2px solid #f7971d; /* Detalhe laranja */
-    font-size: 1rem;
+    padding: 40px 20px;
+    background-color: rgba(10, 10, 10, 0.95);
+    color: var(--text-dim);
+    border-top: 2px solid var(--primary-color);
+    font-size: 1.1rem;
+    position: relative;
+    margin-top: 80px;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+}
+
+footer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(247, 151, 29, 0.05), transparent 70%);
+}
+
+footer p {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    padding: 10px 25px;
+    background: rgba(20, 20, 20, 0.7);
+    border-radius: 50px;
+    border: 1px solid rgba(247, 151, 29, 0.2);
+}
+
+footer p i {
+    margin-left: 8px;
+    color: var(--primary-color);
+    animation: glowPulse 2s infinite;
+}
+
+/* Media queries */
+@media (max-width: 1200px) {
+    .downloads-section {
+        padding: 40px 30px;
+        margin: 40px 20px;
+    }
+    
+    header h1 {
+        font-size: 3.8rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .tabs {
+        flex-wrap: wrap;
+        border-radius: 20px;
+    }
+    
+    .tab-btn {
+        flex: 1 1 auto;
+        min-width: 200px;
+    }
+    
+    .download-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+    
+    header h1 {
+        font-size: 3.5rem;
+    }
+    
+    header p {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .downloads-section {
+        padding: 30px 20px;
+    }
+    
+    .grid-item {
+        min-height: 180px;
+        padding: 25px 20px;
+    }
+    
+    .grid-item .percentage {
+        font-size: 2.5rem;
+    }
+    
+    header h1 {
+        font-size: 3rem;
+    }
+    
+    header p {
+        font-size: 1.3rem;
+    }
+    
+    #system-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 576px) {
+    .download-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .tabs {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .tab-btn {
+        width: 100%;
+    }
+    
+    header h1 {
+        font-size: 2.6rem;
+    }
+    
+    header p {
+        font-size: 1.1rem;
+    }
+    
+    .downloads-section h2 {
+        font-size: 2rem;
+    }
+    
+    .grid-item {
+        padding: 20px 15px;
+    }
+    
+    #system-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Efeitos adicionais para acessibilidade e interatividade */
+.tab-btn:focus, .download-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(247, 151, 29, 0.5);
+}
+
+/* Estilo para cursor personalizado */
+.custom-cursor {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transition: width 0.3s, height 0.3s, border-color 0.3s;
+}
+
+.cursor-hover {
+    width: 60px;
+    height: 60px;
+    border-color: var(--primary-light);
+}
+
+.cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.dot-hover {
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary-light);
+}
+
+/* Partículas de fundo */
+.particle-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    opacity: 0.1;
+}
+
+/* Container para efeito de brilho */
+.glow-effect-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+/* Efeitos de animação adicionais */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse-animation {
+    animation: pulse 0.3s ease;
+}
+
+/* Efeito de revelação para seções */
+.reveal-animation {
+    animation: fadeIn 1s ease forwards;
+}
+
+/* Efeito de loading */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(247, 151, 29, 0.3);
+    border-radius: 50%;
+    border-top: 5px solid var(--primary-color);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Efeito de brilho no texto */
+.text-glow {
+    text-shadow: 0 0 10px rgba(247, 151, 29, 0.5);
+    color: var(--primary-color);
 }

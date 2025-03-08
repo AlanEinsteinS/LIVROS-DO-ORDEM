@@ -1,54 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORDO REMIER</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1 class="fade-in"><span class="first-word">ORDO</span> <span class="second-word">REMIER</span></h1>
-        <p class="fade-in">Livros/Homebrews <b>atualmente</b> no sistema!</p>
+        <div class="header-container fade-in">
+            <h1><span class="first-word">ORDO</span> <span class="second-word">REMIER</span></h1>
+            <p>Livros/Homebrews <b>atualmente</b> no sistema!</p>
+        </div>
     </header>
-    
     
     <main>
         <!-- Abas -->
         <div class="tabs fade-in">
-            <button class="tab-btn active" data-tab="official-tab">Livros Oficiais</button>
-            <button class="tab-btn" data-tab="homebrew-tab">Homebrews / Não Oficiais</button>
-            <button class="tab-btn" data-tab="system-tab">Tabela Global</button>
+            <button class="tab-btn active" data-tab="official-tab">
+                <i class="fas fa-book"></i> Livros Oficiais
+            </button>
+            <button class="tab-btn" data-tab="homebrew-tab">
+                <i class="fas fa-flask"></i> Homebrews / Não Oficiais
+            </button>
+            <button class="tab-btn" data-tab="system-tab">
+                <i class="fas fa-table"></i> Tabela Global
+            </button>
         </div>
 
         <!-- Conteúdo das Abas -->
         <section id="official-tab" class="tab-content active">
             <div class="downloads-section">
-                <h2>LIVROS OFICIAIS</h2>
-                <div class="download-container" id="official-books"></div>
+                <h2><i class="fas fa-bookmark"></i> LIVROS OFICIAIS</h2>
+                <div class="download-container" id="official-books">
+                    <!-- Conteúdo carregado via JavaScript -->
+                </div>
             </div>
         </section>
+        
         <section id="homebrew-tab" class="tab-content">
             <div class="downloads-section">
-                <h2>HOMEBREWS / NÃO OFICIAIS</h2>
-                <div class="download-container" id="homebrew-books"></div>
+                <h2><i class="fas fa-magic"></i> HOMEBREWS / NÃO OFICIAIS</h2>
+                <div class="download-container" id="homebrew-books">
+                    <!-- Conteúdo carregado via JavaScript -->
+                </div>
             </div>
         </section>
+        
         <section id="system-tab" class="tab-content">
             <div class="downloads-section">
-                <h2>TABELA GLOBAL</h2>
-                <p class="system-info">Aqui ta a tabela global para qualquer classe no sistema.</p>
-                <div id="system-grid" class="system-grid"></div>
+                <h2><i class="fas fa-chart-line"></i> TABELA GLOBAL</h2>
+                <p class="system-info">Aqui está a tabela global para qualquer classe no sistema.</p>
+                <div id="system-grid" class="system-grid">
+                    <!-- Conteúdo carregado via JavaScript -->
+                </div>
             </div>
         </section>
-        
-        
     </main>
+    
     <footer>
-        <p>&copy; 2024 | Desenvolvido por alan.</p>
+        <p>&copy; 2024 | Desenvolvido por alan <i class="fas fa-code"></i></p>
     </footer>
+    
     <script src="script.js"></script>
 </body>
 </html>
