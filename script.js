@@ -2,7 +2,22 @@
 const officialBooks = [
     { name: "MANUAL DO PORTILHO", url: "https://drive.google.com/file/d/1er3eVIGK2btomMUju1Izif5jvW5arYzn/view?usp=drive_link", icon: "fas fa-book" },
     { name: "ORDEM PARANORMAL V1.1", url: "https://drive.google.com/file/d/1Roq06lSvkjdOHyLDUsMWhhMcZFzuZQDJ/view?usp=sharing", icon: "fas fa-skull" },
-    { name: "SOBREVIVENDO AO HORROR V1.2", url: "https://drive.google.com/file/d/1MWTJVyBGpRE4DxuPcZqf8rZKK-WC3mDR/view?usp=sharing", icon: "fas fa-ghost" }
+    { name: "SOBREVIVENDO AO HORROR V1.2", url: "https://drive.google.com/file/d/1MWTJVyBGpRE4DxuPcZqf8rZKK-WC3mDR/view?usp=sharing", icon: "fas fa-ghost" },
+    { name: "Expandindo a Fenda V0.40", url: "https://drive.google.com/file/d/1H1hLltZoms8ZS_JjoEW_T9HVM-cAR4EW/view?usp=sharing", icon: "fas fa-virus" }
+
+];
+
+// Itens da seção "A Passagem"
+const passageItems = [
+    { name: "Edição 004", url: "https://drive.google.com/drive/folders/1T9p8XJU4eiaUjbHVOewd1fHiOpBtvAS5?usp=sharing", icon: "fas fa-file-pdf" },
+    { name: "Edição 005", url: "https://drive.google.com/drive/folders/1-_9_amA3EgkwhLrU8IEEnt2pwSHC06_M?usp=sharing", icon: "fas fa-file-pdf" },
+    { name: "Edição 006", url: "https://drive.google.com/drive/folders/1jMJvKIPWPOFdFUS3Ap96JUTOFZ5xCxpu?usp=sharing", icon: "fas fa-file-pdf" },
+    { name: "Edição 007", url: "https://drive.google.com/drive/folders/1vfpQyxpcRZs3A3YPSvhMu9KqIB95YTtN?usp=sharing", icon: "fas fa-file-pdf" },
+    { name: "Edição 008", url: "https://drive.google.com/drive/folders/1ZD5Y4Gq3q0h3dX3hT7s8uTedUfUIAsjD?usp=sharing", icon: "fas fa-file-pdf" },
+    { name: "Edição 009", url: "https://drive.google.com/drive/folders/1oBUGBu0OTzWbolQkuqjEDrE5mc8-FmQt?usp=sharing", icon: "fas fa-file-pdf" },
+    { name: "Edição 010", url: "https://drive.google.com/drive/folders/1oBUGBu0OTzWbolQkuqjEDrE5mc8-FmQt?usp=sharing", icon: "fas fa-file-pdf" },
+    { name: "Edição 011", url: "https://drive.google.com/drive/folders/1WIPOvmfOZKJhkQ_XwFnFZYZ16ClD5ntJ?usp=sharing", icon: "fas fa-file-pdf" },
+    { name: "Edição 012", url: "https://drive.google.com/drive/folders/1oYcX4HC8DnfPntHPovwtaNHIxSC5ciJl?usp=sharing", icon: "fas fa-file-pdf" }
 ];
 
 // Livros Homebrew / Não Oficial com ícones animados
@@ -22,10 +37,10 @@ const homebrewBooks = [
     { name: "CATALOGO MACABRO HB", url: "https://docs.google.com/document/d/12brs8IHPVm9YHsj4N7vB9WdUi-Sr3MWK/edit", icon: "fas fa-book-skull"}
 ];
 
-// Adicionar tela de carregamento
-document.addEventListener('DOMContentLoaded', function() {
-    // Iniciar imediatamente sem o loader para garantir que o conteúdo seja exibido
+// Inicialização do site quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
     initializeWebsite();
+    addDynamicCSS();
 });
 
 // Função para inicializar o website
@@ -33,6 +48,7 @@ function initializeWebsite() {
     // Adicionar botões de download 
     addDownloadButtons(officialBooks, "official-books");
     addDownloadButtons(homebrewBooks, "homebrew-books");
+    addDownloadButtons(passageItems, "passage-items");
     
     // Gerar o grid do sistema
     generateSystemGrid();
@@ -41,18 +57,19 @@ function initializeWebsite() {
     setupTabEvents();
 }
 
-// Função para adicionar botões de download com animações
+// Função para adicionar botões de download
 function addDownloadButtons(books, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return; // Verificação de segurança
     
     container.innerHTML = ''; // Limpar conteúdo atual
     
-    books.forEach((book, index) => {
+    books.forEach((book) => {
         const button = document.createElement("a");
         button.href = book.url;
         button.className = "download-btn";
         button.target = "_blank";
+        button.rel = "noopener noreferrer"; // Melhor prática de segurança
         
         // Adicionar ícone se disponível
         if (book.icon) {
@@ -77,13 +94,15 @@ function addDownloadButtons(books, containerId) {
 
 // Configurar eventos para as abas
 function setupTabEvents() {
-    document.querySelectorAll(".tab-btn").forEach(button => {
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    
+    tabButtons.forEach(button => {
         button.addEventListener("click", () => {
             // Se já estiver ativo, não faz nada
             if (button.classList.contains("active")) return;
             
             // Remove classe ativa de todos os botões
-            document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+            tabButtons.forEach(btn => btn.classList.remove("active"));
             
             // Adiciona classe ativa ao botão clicado
             button.classList.add("active");
@@ -145,7 +164,7 @@ function generateSystemGrid() {
         const percentageText = (i === 20) ? `99% / ${count}` : `${percentage}% / ${count}`;
         
         // Adicionando a descrição personalizada
-        const descriptionText = descriptions[i - 1];
+        const descriptionText = descriptions[i - 1] || `Nível ${i}`; // Fallback caso não tenha descrição
         
         // Criar o elemento de porcentagem
         const percentageDiv = document.createElement("div");
@@ -163,47 +182,6 @@ function generateSystemGrid() {
         
         // Adicionar ao container
         gridContainer.appendChild(gridItem);
-        
-        // Adicionar efeitos de hover
-        gridItem.addEventListener('mouseenter', function() {
-            this.style.transform = "translateY(-8px)";
-            this.style.boxShadow = "0 15px 30px rgba(0, 0, 0, 0.6), 0 5px 15px rgba(247, 151, 29, 0.3)";
-            this.style.borderColor = "#f7971d";
-            
-            // Destacar a porcentagem
-            const percentage = this.querySelector('.percentage');
-            if (percentage) {
-                percentage.style.color = "#ffa940";
-                percentage.style.transform = "scale(1.1)";
-                percentage.style.textShadow = "0 0 15px rgba(247, 151, 29, 0.6)";
-            }
-            
-            // Clarear a descrição
-            const description = this.querySelector('.description');
-            if (description) {
-                description.style.color = "#ffffff";
-            }
-        });
-        
-        gridItem.addEventListener('mouseleave', function() {
-            this.style.transform = "";
-            this.style.boxShadow = "";
-            this.style.borderColor = "";
-            
-            // Restaurar a porcentagem
-            const percentage = this.querySelector('.percentage');
-            if (percentage) {
-                percentage.style.color = "";
-                percentage.style.transform = "";
-                percentage.style.textShadow = "";
-            }
-            
-            // Restaurar a descrição
-            const description = this.querySelector('.description');
-            if (description) {
-                description.style.color = "";
-            }
-        });
     }
 }
 
@@ -213,7 +191,7 @@ function addDynamicCSS() {
     styleElement.textContent = `
         @keyframes floatAnimation {
             0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0); }
         }
         
@@ -232,7 +210,7 @@ function addDynamicCSS() {
         }
         
         .download-btn:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             background: linear-gradient(145deg, #333333, #222222);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 5px 15px rgba(247, 151, 29, 0.3);
             border-color: #f7971d;
@@ -268,8 +246,3 @@ function addDynamicCSS() {
     
     document.head.appendChild(styleElement);
 }
-
-// Chamar função para adicionar CSS dinâmico
-document.addEventListener('DOMContentLoaded', function() {
-    addDynamicCSS();
-});
