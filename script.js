@@ -34,7 +34,11 @@ const homebrewBooks = [
     { name: "EDIÇÃO EXPANSIVA OP", url: "https://drive.google.com/file/d/1Ml5M2YK4zmwRQ6jqiq4KiNXUWWLbXrm_/view?usp=drive_link", icon: "fas fa-expand"},
     { name: "HB'S DA AGATHA", url: "https://drive.google.com/file/d/165zHqAoWmsNWFJ_wVJHcPTwSYx4nAWbR/view?usp=drive_link", icon: "fas fa-wand-magic-sparkles"},
     { name: "A CONT. DO OUTRO LADO", url: "https://drive.google.com/file/d/1_xIDhsPZ5iZMY38Q4Wjyfuy-rf6IgniT/view?usp=drive_link", icon: "fas fa-door-open"},
-    { name: "CATALOGO MACABRO HB", url: "https://docs.google.com/document/d/12brs8IHPVm9YHsj4N7vB9WdUi-Sr3MWK/edit", icon: "fas fa-book-skull"}
+    { name: "CATALOGO MACABRO HB", url: "https://docs.google.com/document/d/12brs8IHPVm9YHsj4N7vB9WdUi-Sr3MWK/edit", icon: "fas fa-book-skull"},
+    { name: "Suplemento Idade das Trevas", url: "https://drive.google.com/file/d/1aYcXbq-a4hj55vwMQvIY5rpGflzOkge9/view?usp=drive_link", icon: "fas fa-mask"},
+    { name: "Grimorio Paranormal Rituais", url: "https://drive.google.com/drive/folders/1LojkQdOFxyUS8e5A4luT-VPW2smCbXSz?usp=sharing", icon: "fas fa-scroll"},
+    { name: "Grimorio Paranormal Itens", url: "https://drive.google.com/drive/folders/1ziQ1QbG_W7NpLloWeypOC69c9jZVpGCI?usp=sharing", icon: "fas fa-eye"},
+    { name: "Grimorio Paranormal DLC'S", url: "https://drive.google.com/drive/folders/1Z07qMe191BYQrxJTscBUlQSQyQbe8pQ7?usp=sharing", icon: "fas fa-star"}
 ];
 
 // Inicialização do site quando o DOM estiver carregado
