@@ -510,7 +510,7 @@ const officialBooks = [
     { name: "MANUAL DO PORTILHO", url: "https://drive.google.com/file/d/1er3eVIGK2btomMUju1Izif5jvW5arYzn/view?usp=drive_link", icon: "fas fa-book" },
     { name: "ORDEM PARANORMAL V1.1", url: "https://drive.google.com/file/d/1Roq06lSvkjdOHyLDUsMWhhMcZFzuZQDJ/view?usp=sharing", icon: "fas fa-skull" },
     { name: "SOBREVIVENDO AO HORROR V1.2", url: "https://drive.google.com/file/d/1MWTJVyBGpRE4DxuPcZqf8rZKK-WC3mDR/view?usp=sharing", icon: "fas fa-ghost" },
-    { name: "Expandindo a Fenda V0.40", url: "https://drive.google.com/file/d/1H1hLltZoms8ZS_JjoEW_T9HVM-cAR4EW/view?usp=sharing", icon: "fas fa-virus" }
+    { name: "Expandindo a Fenda V0.42", url: "https://drive.google.com/file/d/13ZbLh8F-tOHNNaPxd96c3AnP0iitamg7/view?usp=sharing", icon: "fas fa-virus" }
 ];
 
 // Itens da seção "A Passagem"
