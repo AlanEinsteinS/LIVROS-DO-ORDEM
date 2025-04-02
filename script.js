@@ -86,7 +86,7 @@ function addCyberpunkEffects() {
       "Grau de Treinamento",
       "Poder de Classe e Paranormal",
       "2° Poder da Trilha",
-      "Versatilidade | Poder Geral, Classe | Afinidade/Clausura",
+      "Versatilidade | Poder Geral, Classe | Afinidade/Clausura | 1 Pt. Atributo",
       "Upzinho da Habilidade de Classe | Poder Paranormal",
       "Poder de Classe e Combate",
       "3° Poder da Trilha",
