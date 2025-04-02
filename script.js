@@ -1,4 +1,4 @@
-// Versão limpa do script.js sem o enigma
+// Versão do script.js com botão discreto de olhos
 
 // Função para criar os efeitos cyberpunk no header
 function addCyberpunkEffects() {
@@ -204,6 +204,126 @@ function addCyberpunkEffects() {
     }
   }
   
+  // Função para adicionar o botão de olhos discreto
+  function addEyeButton() {
+    // Criar o elemento do botão
+    const eyeButton = document.createElement('a');
+    eyeButton.href = "https://theuselessweb.com"; // Substitua pela URL do site desejado
+    eyeButton.target = "_blank"; // Abrir em nova aba
+    eyeButton.className = 'eye-button';
+    eyeButton.innerHTML = '<i class="fas fa-eye"></i>';
+    eyeButton.setAttribute('title', 'Olhos que tudo vêem');
+    
+    // Adicionar estilos ao botão
+    const style = document.createElement('style');
+    style.textContent = `
+      .eye-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 32px;
+        height: 32px;
+        background: rgba(8, 8, 24, 0.7);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        color: rgba(0, 255, 213, 0.5);
+        text-decoration: none;
+        border: 1px solid rgba(0, 255, 213, 0.2);
+        opacity: 0.3;
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+      
+      .eye-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at center,
+          rgba(0, 255, 213, 0.1) 0%,
+          rgba(8, 8, 24, 0) 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .eye-button:hover {
+        opacity: 0.8;
+        border-color: rgba(0, 255, 213, 0.6);
+        color: rgba(0, 255, 213, 0.9);
+        box-shadow: 0 0 10px rgba(0, 255, 213, 0.4);
+        transform: scale(1.1);
+      }
+      
+      .eye-button:hover::before {
+        opacity: 1;
+      }
+      
+      .eye-button i {
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+      
+      .eye-button:hover i {
+        transform: scale(1.2);
+      }
+      
+      @media (max-width: 768px) {
+        .eye-button {
+          bottom: 15px;
+          left: 15px;
+          width: 28px;
+          height: 28px;
+        }
+        
+        .eye-button i {
+          font-size: 14px;
+        }
+      }
+    `;
+    
+    // Adicionar estilo e botão ao documento
+    document.head.appendChild(style);
+    document.body.appendChild(eyeButton);
+    
+    // Adicionar efeito de pulsação ocasional para chamar atenção
+    setTimeout(() => {
+      setInterval(() => {
+        eyeButton.classList.add('pulse');
+        setTimeout(() => {
+          eyeButton.classList.remove('pulse');
+        }, 1000);
+      }, 15000); // Pulsar a cada 15 segundos
+    }, 10000); // Começar a pulsar após 10 segundos
+    
+    // Adicionar estilo para animação de pulsação
+    const pulseStyle = document.createElement('style');
+    pulseStyle.textContent = `
+      @keyframes eye-pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(0, 255, 213, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(0, 255, 213, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(0, 255, 213, 0);
+        }
+      }
+      
+      .eye-button.pulse {
+        animation: eye-pulse 2s 1;
+      }
+    `;
+    document.head.appendChild(pulseStyle);
+  }
+  
   // Função principal de inicialização
   function initCyberpunkSite() {
     // Mostrar o preloader primeiro
@@ -225,6 +345,9 @@ function addCyberpunkEffects() {
       
       // Configurar animações de scroll
       setupScrollObserver();
+      
+      // Adicionar botão de olhos discreto
+      addEyeButton();
       
       // Adicionar classes para animar elementos específicos
       document.querySelectorAll('.downloads-section').forEach((section, index) => {
