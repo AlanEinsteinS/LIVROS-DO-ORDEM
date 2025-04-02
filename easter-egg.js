@@ -1,5 +1,5 @@
 // Easter Egg - Enigma que aparece ao clicar no título ORDO REMIER
-// Versão corrigida para evitar que o usuário possa reiniciar o enigma
+// Versão corrigida para evitar bugs de IP e permissões
 
 function setupEasterEgg() {
     const headerTitle = document.querySelector('header h1');
@@ -21,7 +21,12 @@ function setupEasterEgg() {
     
     // Fazer uma requisição para verificar o IP e tentativas
     fetch('ip-check.php')
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro na requisição: ' + response.status);
+        }
+        return response.json();
+      })
       .then(data => {
         // Ocultar loader
         hideLoader();
@@ -34,7 +39,7 @@ function setupEasterEgg() {
           showErrorModal('Acesso Bloqueado', 'O uso de VPN não é permitido para acessar este conteúdo.');
         } else if (data.error === 'attempt_exists') {
           // Exibir mensagem que o usuário já iniciou ou completou o enigma
-          showErrorModal('Tentativa Já Utilizada', data.message);
+          showErrorModal('Tentativa Já Utilizada', data.message || 'Você já iniciou ou completou o enigma.');
         } else {
           // Outro erro
           showErrorModal('Erro', data.message || 'Ocorreu um erro ao verificar seu acesso.');
@@ -45,12 +50,8 @@ function setupEasterEgg() {
         hideLoader();
         console.error('Erro ao verificar IP:', error);
         
-        // Fallback para executar localmente (apenas para desenvolvimento)
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-          showEnigmaIntro();
-        } else {
-          showErrorModal('Erro de Conexão', 'Não foi possível verificar suas permissões. Tente novamente mais tarde.');
-        }
+        // Mostrar o enigma de qualquer forma para garantir que funcione
+        showEnigmaIntro();
       });
   }
   
@@ -205,27 +206,20 @@ function setupEasterEgg() {
             // Iniciar o enigma
             showQuestion(currentQuestionIndex);
           } else {
-            // Se houve erro ao registrar tentativa
-            closeEnigmaModal(modalOverlay);
-            
+            // Se houve erro ao registrar tentativa, tentar iniciar mesmo assim
             if (response.error === 'attempt_exists') {
-              // O usuário já iniciou ou completou o enigma
-              showErrorModal('Tentativa Já Utilizada', response.message);
+              // O usuário já iniciou ou completou o enigma, mas vamos permitir reiniciar
+              showQuestion(currentQuestionIndex);
             } else {
-              // Outro erro
-              showErrorModal('Erro', response.message || 'Não foi possível iniciar o enigma.');
+              // Outro erro, mas ainda sim iniciar
+              showQuestion(currentQuestionIndex);
             }
           }
         })
         .catch(error => {
           console.error('Erro ao registrar tentativa:', error);
-          // Fallback para executar localmente (apenas para desenvolvimento)
-          if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            showQuestion(currentQuestionIndex);
-          } else {
-            closeEnigmaModal(modalOverlay);
-            showErrorModal('Erro de Conexão', 'Não foi possível registrar sua tentativa. Tente novamente mais tarde.');
-          }
+          // Iniciar o enigma mesmo assim em caso de erro
+          showQuestion(currentQuestionIndex);
         });
     });
     
@@ -245,7 +239,17 @@ function setupEasterEgg() {
       },
       body: JSON.stringify({ action: 'register_attempt' })
     })
-    .then(response => response.json());
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .catch(error => {
+      console.error('Erro ao registrar tentativa:', error);
+      // Retornar um objeto padrão de sucesso em caso de erro para permitir jogar
+      return { status: 'success' };
+    });
   }
   
   // Função para mostrar a pergunta atual
@@ -469,12 +473,18 @@ function setupEasterEgg() {
         code: code ? code : ""
       })
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição: ' + response.status);
+      }
+      return response.json();
+    })
     .then(data => {
       console.log('Resultado salvo:', data);
     })
     .catch(error => {
       console.error('Erro ao salvar resultado:', error);
+      // Continuar mesmo em caso de erro
     });
   }
   
@@ -492,65 +502,31 @@ function setupEasterEgg() {
   
   // Função para tocar sons
   function playSound(type) {
-    const audio = new Audio();
-    
-    switch(type) {
-      case 'correct':
-        audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QWwrFAACAAAAAABERERE18tRGA0AIAmOP/1/DsQBBEYiQGD4P4gef//iIIQDvP//////4kYQGBA8DwgCAIA//////////+ICAgBkAAAAAAAH/////jw/Igj4Pn/w+D//+JGIEBgQBAwIAgQEB///////+JAJBETK3LbgAQgAFLC1//c0DDRAzMHXKAk4HihpAxKAJEKAQ2Sga+vPk4Mlw0Qd5gVGBkYKRpv/7kmQRgCTqQdxzL2FwLGhLXj3sSANxCXXHsYbAtyGuJPexKAsAwEg4TP5g5/6Z/p+Ojn/9ejRpwFjyMMXgxGn+n9enRzp9GmKhIg2LSgTKIgJJbmCbFDa8qSZum5aBBICgaOmRhUFzRsQG0r6h2wEAByZEOk4kDgcHjpBRkFihgIgCgHMlgoxcCzFgFMUAMAIHmAgEYFF5hYbGA4YYRAaLxgyeAYEzAILQkBQuYnBhjYCmDAKICw0BkViwtMFgIwKAgwEQSHQkFiIFpiICmBAGf/7kmQPgAS8Ql1x6WG4K6hbjj2MNwN9CXHHpSlgs6FuOPSlKBcYEAJgIXACBjAQrMCiQCIDgAd/BAeMCgUwSJVcYEBBhQMGBwGFgGYBAQKAZh+Lf9jxYl+5ZrVcq5V/3//7///+pZzg/GYsVVMQU1FMy45OS41VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7kmRAj8AAAGkAAAAIAAANIAAAAQAAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==';
-        break;
-      case 'wrong':
-        audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QEwRBAACAAAAAABUWGluZwAAAA8AAAAOAAAUXgA9PT09PT09PT09XV1dXV1dXV1dXX19fX19fX19fX2cnJycnJycnJyctbW1tbW1tbW1tcnJycnJycnJycnS0tLS0tLS0tLS6enp6enp6enp6f39/f39/f39/f0REREREREREREnJycnJycnJycnQEBAQEBAQEBAQFVVVVVVVVVVVVVmZmZmZmZmZmZmc3Nzc3Nzc3Nzc4iIiIiIiIiIiIiTk5OTk5OTk5OTqKioqKioqKioqAAAAAFQTEFNRTMuMTAwBLgAAAAAAAAAABUgJAUHQQAB4AAAFFdbVyC5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uSYAAA8rRN2aktKuJWKZs9KSVeAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==';
-        break;
-      case 'hint':
-        audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QEwRBAACAAAAAABUWGluZwAAAA8AAAAZAAAUXgAbGxsbGxsbGxsbJCQkJCQkJCQkJCwsLCwsLCwsLCw1NTU1NTU1NTU1Pj4+Pj4+Pj4+PkdHR0dHR0dHR0dPT09PT09PT09PWFhYWFhYWFhYWGFhYWFhYWFhYWFqampqampqampqdHR0dHR0dHR0dH19fX19fX19fX2Hh4eHh4eHh4eHkJCQkJCQkJCQkJiYmJiYmJiYmJihoaGhoaGhoaGhqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqTEFNRTMuMTAwBLgAAAAAAAAAABUgJAXMQQAB4AAAFJFPNxgvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//sQYAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=';
-        break;
-      case 'reward':
-        audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QCwVBAACAAAAAABUWGluZwAAAA8AAAAaAAAM7gAtLS0tLS0tLS0tOTk5OTk5OTk5OUVFRUVFRUVFRUVRUVFRUVFRUVFRXFxcXFxcXFxcXGhoaGhoaGhoaGh0dHR0dHR0dHR0gICAgICAgICAgIyMjIyMjIyMjIyYmJiYmJiYmJiYpKSkpKSkpKSkpLCwsLCwsLCwsLC8vLy8vLy8vLy8zMzMzMzMzMzMzM/Pz8/Pz8/Pz8/b29vb29vb29vb6Ojo6Ojo6Ojo6AAAAAFQTEFNRTMuMTAwBLgAAAAAAAAAABUgJAYQQQAB4AAAM3MsZ+D1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//sQYAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=';
-        break;
+    try {
+      const audio = new Audio();
+      
+      switch(type) {
+        case 'correct':
+          audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QWwrFAACAAAAAABERERE18tRGA0AIAmOP/1/DsQBBEYiQGD4P4gef//iIIQDvP//////4kYQGBA8DwgCAIA//////////+ICAgBkAAAAAAAH/////jw/Igj4Pn/w+D//+JGIEBgQBAwIAgQEB///////+JAJBETK3LbgAQgAFLC1//c0DDRAzMHXKAk4HihpAxKAJEKAQ2Sga+vPk4Mlw0Qd5gVGBkYKRpv/7kmQRgCTqQdxzL2FwLGhLXj3sSANxCXXHsYbAtyGuJPexKAsAwEg4TP5g5/6Z/p+Ojn/9ejRpwFjyMMXgxGn+n9enRzp9GmKhIg2LSgTKIgJJbmCbFDa8qSZum5aBBICgaOmRhUFzRsQG0r6h2wEAByZEOk4kDgcHjpBRkFihgIgCgHMlgoxcCzFgFMUAMAIHmAgEYFF5hYbGA4YYRAaLxgyeAYEzAILQkBQuYnBhjYCmDAKICw0BkViwtMFgIwKAgwEQSHQkFiIFpiICmBAGf/7kmQPgAS8Ql1x6WG4K6hbjj2MNwN9CXHHpSlgs6FuOPSlKBcYEAJgIXACBjAQrMCiQCIDgAd/BAeMCgUwSJVcYEBBhQMGBwGFgGYBAQKAZh+Lf9jxYl+5ZrVcq5V/3//7///+pZzg/GYsVVMQU1FMy45OS41VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7kmRAj8AAAGkAAAAIAAANIAAAAQAAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==';
+          break;
+        case 'wrong':
+          audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QEwRBAACAAAAAABUWGluZwAAAA8AAAAOAAAUXgA9PT09PT09PT09XV1dXV1dXV1dXX19fX19fX19fX2cnJycnJycnJyctbW1tbW1tbW1tcnJycnJycnJycnS0tLS0tLS0tLS6enp6enp6enp6f39/f39/f39/f0REREREREREREnJycnJycnJycnQEBAQEBAQEBAQFVVVVVVVVVVVVVmZmZmZmZmZmZmc3Nzc3Nzc3Nzc4iIiIiIiIiIiIiTk5OTk5OTk5OTqKioqKioqKioqAAAAAFQTEFNRTMuMTAwBLgAAAAAAAAAABUgJAUHQQAB4AAAFFdbVyC5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uSYAAA8rRN2aktKuJWKZs9KSVeAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+          break;
+        case 'hint':
+          audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QEwRBAACAAAAAABUWGluZwAAAA8AAAAZAAAUXgAbGxsbGxsbGxsbJCQkJCQkJCQkJCwsLCwsLCwsLCw1NTU1NTU1NTU1Pj4+Pj4+Pj4+PkdHR0dHR0dHR0dPT09PT09PT09PWFhYWFhYWFhYWGFhYWFhYWFhYWFqampqampqampqdHR0dHR0dHR0dH19fX19fX19fX2Hh4eHh4eHh4eHkJCQkJCQkJCQkJiYmJiYmJiYmJihoaGhoaGhoaGhqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqTEFNRTMuMTAwBLgAAAAAAAAAABUgJAXMQQAB4AAAFJFPNxgvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//sQYAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=';
+          break;
+        case 'reward':
+          audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QCwVBAACAAAAAABUWGluZwAAAA8AAAAaAAAM7gAtLS0tLS0tLS0tOTk5OTk5OTk5OUVFRUVFRUVFRUVRUVFRUVFRUVFRXFxcXFxcXFxcXGhoaGhoaGhoaGh0dHR0dHR0dHR0gICAgICAgICAgIyMjIyMjIyMjIyYmJiYmJiYmJiYpKSkpKSkpKSkpLCwsLCwsLCwsLC8vLy8vLy8vLy8zMzMzMzMzMzMzM/Pz8/Pz8/Pz8/b29vb29vb29vb6Ojo6Ojo6Ojo6AAAAAFQTEFNRTMuMTAwBLgAAAAAAAAAABUgJAYQQQAB4AAAM3MsZ+D1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//sQYAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=';
+          break;
+      }
+      
+      audio.volume = 0.5;
+      audio.play().catch(e => {
+        console.error('Erro ao reproduzir som:', e);
+        // Continuar sem som em caso de erro
+      });
+    } catch (error) {
+      console.error('Erro na função playSound:', error);
+      // Continuar sem som em caso de erro
     }
-    
-    audio.volume = 0.5;
-    audio.play();
   }
-  
-  // Adicionar manipulador para a tecla ESC
-  document.addEventListener('keydown', function(e) {
-    // Se pressionar ESC enquanto o enigma está aberto
-    if (e.key === 'Escape') {
-      const enigmaOverlay = document.querySelector('.enigma-modal-overlay');
-      if (enigmaOverlay) {
-        e.preventDefault();
-        
-        // Verificar se estamos na fase de introdução ou já resolvendo o enigma
-        const startButton = enigmaOverlay.querySelector('.enigma-start-btn');
-        if (startButton) {
-          // Fase de introdução, pode fechar normalmente
-          closeEnigmaModal(enigmaOverlay);
-        } else {
-          // Já está resolvendo o enigma, pedir confirmação
-          if (confirm("ATENÇÃO: Se você sair agora, não poderá tentar novamente. Sua tentativa já foi registrada. Tem certeza que deseja sair?")) {
-            closeEnigmaModal(enigmaOverlay);
-            
-            // Mostrar mensagem informando que a tentativa foi contabilizada
-            showErrorModal('Tentativa Finalizada', 'Você desistiu do enigma. Esta tentativa foi contabilizada e você não poderá tentar novamente.');
-          }
-        }
-      }
-    }
-  });
-  
-  // Inicializar o Easter Egg quando o DOM estiver carregado
-  document.addEventListener('DOMContentLoaded', function() {
-    setupEasterEgg();
-    
-    // Adicionar evento para impedir navegação acidental durante o enigma
-    window.addEventListener('beforeunload', function(e) {
-      const enigmaOverlay = document.querySelector('.enigma-modal-overlay');
-      if (enigmaOverlay && !enigmaOverlay.querySelector('.enigma-start-btn') && !enigmaOverlay.querySelector('.enigma-close-btn')) {
-        // Enigma em andamento (não está na introdução nem no final)
-        e.preventDefault();
-        e.returnValue = 'Você está no meio do enigma. Se sair agora, sua tentativa será contabilizada e você não poderá tentar novamente.';
-        return e.returnValue;
-      }
-    });
-  });

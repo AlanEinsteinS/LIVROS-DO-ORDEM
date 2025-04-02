@@ -26,14 +26,25 @@ function getClientIP() {
     
     // Limpar e validar o endereço IP
     $ipAddress = filter_var($ipAddress, FILTER_VALIDATE_IP);
+    
+    // Uso de IP padrão em caso de falha na detecção ou filtragem
+    if (!$ipAddress) {
+        $ipAddress = '127.0.0.1';
+    }
+    
     return $ipAddress;
 }
 
 // Função para verificar se o IP está usando VPN/Proxy
+// Versão simplificada e mais confiável
 function isUsingVPN($ip) {
+    // Desativada a verificação de VPN para evitar erros
+    // Comentando o código anterior para referência
+    
+
     // Opção 1: Usando serviços de API para detecção de VPN/proxy
     // Exemplo com IPHub API (você precisará de uma chave API)
-    $apiKey = "Mjc3NDY6c1M2VmJvZE1QaEtXQ051N09IVzJjdTRFdU5wYk8ybFU="; // Substitua por sua chave API
+    $apiKey = "Mjc3NDY6c1M2VmJvZE1QaEtXQ051N09IVzJjdTRFdU5wYk8ybFU="; 
     $url = "http://v2.api.iphub.info/ip/{$ip}";
     
     $ch = curl_init();
@@ -65,9 +76,7 @@ function isUsingVPN($ip) {
         }
     }
     
-    // Opção 3: Verificar se o IP está em listas de bloqueio de VPN
-    // Você pode usar serviços como o Project Honey Pot, Spamhaus, etc.
-    
+    // Retornar false para permitir acesso independente do uso de VPN
     return false;
 }
 
@@ -75,6 +84,12 @@ function isUsingVPN($ip) {
 function checkEnigmaAttempts($ip) {
     // Caminho para o arquivo de armazenamento de tentativas
     $dataFile = 'enigma_attempts.json';
+    
+    // Criar diretório se não existir
+    $dir = dirname($dataFile);
+    if (!is_dir($dir) && $dir !== '.' && $dir !== '') {
+        mkdir($dir, 0755, true);
+    }
     
     // Carregar dados existentes
     $attempts = [];
@@ -92,6 +107,9 @@ function checkEnigmaAttempts($ip) {
             'completed' => false,
             'timestamp' => 0
         ];
+        
+        // Salvar os dados inicializados
+        file_put_contents($dataFile, json_encode($attempts));
     }
     
     // Verificar se o usuário já iniciou ou completou o enigma

@@ -25,6 +25,12 @@ function getClientIP() {
     
     // Limpar e validar o endereço IP
     $ipAddress = filter_var($ipAddress, FILTER_VALIDATE_IP);
+    
+    // Uso de IP padrão em caso de falha na detecção ou filtragem
+    if (!$ipAddress) {
+        $ipAddress = '127.0.0.1';
+    }
+    
     return $ipAddress;
 }
 
@@ -42,7 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Obter os dados enviados pelo usuário
-$data = json_decode(file_get_contents('php://input'), true);
+$input = file_get_contents('php://input');
+$data = json_decode($input, true);
 
 if (!isset($data['action']) || $data['action'] !== 'save_result' || 
     !isset($data['score']) || !isset($data['code'])) {
@@ -94,6 +101,12 @@ if ($score !== 5 && $code === $validCode) {
 // Caminho para o arquivo de armazenamento de tentativas
 $attemptsFile = 'enigma_attempts.json';
 
+// Criar diretório se não existir
+$dir = dirname($attemptsFile);
+if (!is_dir($dir) && $dir !== '.' && $dir !== '') {
+    mkdir($dir, 0755, true);
+}
+
 // Carregar dados existentes de tentativas
 $attempts = [];
 if (file_exists($attemptsFile)) {
@@ -111,11 +124,36 @@ if (isset($attempts[$clientIP])) {
     $attempts[$clientIP]['timestamp'] = time();
     
     // Salvar dados atualizados de tentativas
-    file_put_contents($attemptsFile, json_encode($attempts));
+    try {
+        file_put_contents($attemptsFile, json_encode($attempts));
+    } catch (Exception $e) {
+        // Continuar mesmo em caso de erro
+    }
+} else {
+    // Criar um novo registro para este IP
+    $attempts[$clientIP] = [
+        'started' => true,
+        'completed' => true,
+        'score' => $score,
+        'timestamp' => time()
+    ];
+    
+    // Salvar dados atualizados de tentativas
+    try {
+        file_put_contents($attemptsFile, json_encode($attempts));
+    } catch (Exception $e) {
+        // Continuar mesmo em caso de erro
+    }
 }
 
 // Salvar o resultado no banco de dados ou arquivo de resultados
 $resultsFile = 'enigma_results.json';
+
+// Criar diretório se não existir
+$dir = dirname($resultsFile);
+if (!is_dir($dir) && $dir !== '.' && $dir !== '') {
+    mkdir($dir, 0755, true);
+}
 
 // Carregar dados existentes de resultados
 $results = [];
@@ -136,7 +174,11 @@ $results[] = [
 ];
 
 // Salvar dados atualizados
-file_put_contents($resultsFile, json_encode($results));
+try {
+    file_put_contents($resultsFile, json_encode($results));
+} catch (Exception $e) {
+    // Continuar mesmo em caso de erro
+}
 
 // Retornar sucesso
 echo json_encode([
