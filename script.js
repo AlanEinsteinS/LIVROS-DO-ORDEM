@@ -1,3 +1,5 @@
+// Versão limpa do script.js sem o enigma
+
 // Função para criar os efeitos cyberpunk no header
 function addCyberpunkEffects() {
     // Adicionar caracteres aleatórios em estilo "Matrix" no fundo do header
@@ -257,50 +259,4 @@ function addCyberpunkEffects() {
         preloader.style.display = 'none';
       }, 500);
     }
-  });
-
-  // Adicionar este código ao final do seu arquivo script.js para garantir que o título seja clicável
-
-// Função para garantir que o título seja clicável
-function fixClickableTitle() {
-    console.log('Configurando evento de clique direto no título');
-    
-    const headerTitle = document.querySelector('header h1');
-    if (headerTitle) {
-      headerTitle.style.cursor = 'pointer';
-      
-      // Adicionar evento de clique diretamente
-      headerTitle.addEventListener('click', function(e) {
-        console.log('Título clicado diretamente');
-        
-        // Opção 1: Iniciar o enigma diretamente, sem verificação de IP
-        if (typeof showEnigmaIntro === 'function') {
-          showEnigmaIntro();
-        } 
-        // Opção 2: Se a função checkIPAndShowEnigma estiver disponível, usá-la
-        else if (typeof checkIPAndShowEnigma === 'function') {
-          checkIPAndShowEnigma();
-        }
-        // Opção 3: Se nada estiver disponível, mostrar uma mensagem para o usuário
-        else {
-          alert('Enigma encontrado! Porém ocorreu um erro ao iniciá-lo. Tente novamente mais tarde.');
-        }
-      });
-      
-      console.log('Evento de clique configurado com sucesso');
-    } else {
-      console.error('Título não encontrado na página');
-    }
-  }
-  
-  // Adicione esta função ao window.onload para garantir que seja executada após o carregamento da página
-  window.addEventListener('load', function() {
-    // Executar após um pequeno atraso para garantir que todos os outros scripts foram carregados
-    setTimeout(fixClickableTitle, 1000);
-  });
-  
-  // Execute também quando o DOM estiver pronto para garantir
-  document.addEventListener('DOMContentLoaded', function() {
-    // Execute após um pequeno atraso
-    setTimeout(fixClickableTitle, 1000);
   });
