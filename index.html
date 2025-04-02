@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORDO REMIER - Livros e Homebrews RPG</title>
-    <meta name="description" content="Coleção premium de livros oficiais e homebrews para o sistema Ordem Paranormal RPG">
+    <meta name="description" content="Coleção de livros oficiais e homebrews para o sistema Ordem Paranormal RPG">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="easter-egg.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta property="og:title" content="ORDO REMIER - Livros e Homebrews RPG">
@@ -16,20 +17,26 @@
     <meta property="og:type" content="website">
 </head>
 <body>
-    <!-- Overlay de carregamento avançado -->
+    <!-- Overlay de carregamento cyberpunk -->
     <div class="loading-overlay">
         <div class="loading-spinner"></div>
     </div>
 
     <header>
+        <!-- Efeitos de scanline e ruído cyberpunk -->
+        <div class="scan-lines"></div>
+        <div class="cyber-lines"></div>
+        <div class="hacker-bg"></div>
+        
         <div class="header-container">
             <h1><span class="first-word">ORDO</span><span class="second-word">REMIER</span></h1>
             <p>Livros/Homebrews <b>atualmente</b> no sistema!</p>
         </div>
+        <div class="scan-effect"></div>
     </header>
     
     <main>
-        <!-- Abas com design premium -->
+        <!-- Abas com design cyberpunk -->
         <div class="tabs">
             <button class="tab-btn active" data-tab="official-tab">
                 <i class="fas fa-book"></i> Livros Oficiais
@@ -47,41 +54,161 @@
 
         <!-- Conteúdo das Abas com efeitos visuais aprimorados -->
         <section id="official-tab" class="tab-content active">
-            <div class="downloads-section">
+            <div class="downloads-section animated">
                 <h2><i class="fas fa-bookmark"></i> LIVROS OFICIAIS</h2>
                 <p class="system-info">Livros oficiais do sistema Ordem Paranormal RPG/Ordem Remier RPG.</p>
                 <div class="download-container" id="official-books">
-                    <!-- Conteúdo carregado via JavaScript -->
+                    <!-- Conteúdo dos livros oficiais - mantendo links originais -->
+                    <a href="https://drive.google.com/file/d/1er3eVIGK2btomMUju1Izif5jvW5arYzn/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-book"></i>
+                        <span>MANUAL DO PORTILHO</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1Roq06lSvkjdOHyLDUsMWhhMcZFzuZQDJ/view?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-skull"></i>
+                        <span>ORDEM PARANORMAL V1.1</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1MWTJVyBGpRE4DxuPcZqf8rZKK-WC3mDR/view?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-ghost"></i>
+                        <span>SOBREVIVENDO AO HORROR V1.2</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/13ZbLh8F-tOHNNaPxd96c3AnP0iitamg7/view?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-virus"></i>
+                        <span>Expandindo a Fenda V0.42</span>
+                    </a>
                 </div>
             </div>
         </section>
         
         <section id="homebrew-tab" class="tab-content">
-            <div class="downloads-section">
+            <div class="downloads-section animated">
                 <h2><i class="fas fa-magic"></i> HOMEBREWS / NÃO OFICIAIS</h2>
                 <p class="system-info">Expansões e conteúdos criados pela comunidade.</p>
                 <div class="download-container" id="homebrew-books">
-                    <!-- Conteúdo carregado via JavaScript -->
+                    <!-- Conteúdo dos homebrews - mantendo links originais -->
+                    <a href="https://drive.google.com/file/d/1lXAbOsIZgtEWTWGTi4hnrKeXIwKfnOoZ/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-bolt"></i>
+                        <span>PROTOCOLOS DE ENERGIA</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1vijpsrS64oNKc0hwS-jEN3uQhAXM0j_Q/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-biohazard"></i>
+                        <span>ORDO CHAOS h4Ha</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1Dz6Mv5qvt_G9FRRDQCSbyoq2UnA8064K/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-eye"></i>
+                        <span>MISTERIOS DO OUTRO LADO</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1_N7kD1Yw8k0kReGm6-igKzcUjr2tIH7P/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-book-open"></i>
+                        <span>KIMI'S HOMEBOOK</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1IftsSO40ZBS82rd2GBRPo8-uI8B2MBZq/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-hat-wizard"></i>
+                        <span>HB'S DO EDUARD</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1Mqh0L1AqcEwfN7qCkCUyQLF6i_qdsmCl/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-fire"></i>
+                        <span>A PORRA DO REDSKIN!</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/101-RL2qK-TEbt123gdESb_iKDQqAXHOV/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-scroll"></i>
+                        <span>HB'S DO MAINVIC</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1A5p5-ZHpYbjh8817a904xHWA8lwJIPj6/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-gem"></i>
+                        <span>HB'S DA MEGA</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/10N9cWjZfIFEmwiaatE7eol0Y_h5VVnD3/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-spider"></i>
+                        <span>EXPANSÃO DO MEDO</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1Ml5M2YK4zmwRQ6jqiq4KiNXUWWLbXrm_/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-expand"></i>
+                        <span>EDIÇÃO EXPANSIVA OP</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/165zHqAoWmsNWFJ_wVJHcPTwSYx4nAWbR/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>HB'S DA AGATHA</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1_xIDhsPZ5iZMY38Q4Wjyfuy-rf6IgniT/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-door-open"></i>
+                        <span>A CONT. DO OUTRO LADO</span>
+                    </a>
+                    <a href="https://docs.google.com/document/d/12brs8IHPVm9YHsj4N7vB9WdUi-Sr3MWK/edit" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-book-skull"></i>
+                        <span>CATALOGO MACABRO HB</span>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1aYcXbq-a4hj55vwMQvIY5rpGflzOkge9/view?usp=drive_link" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-mask"></i>
+                        <span>Suplemento Idade das Trevas</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1LojkQdOFxyUS8e5A4luT-VPW2smCbXSz?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-scroll"></i>
+                        <span>Grimorio Paranormal Rituais</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1ziQ1QbG_W7NpLloWeypOC69c9jZVpGCI?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-eye"></i>
+                        <span>Grimorio Paranormal Itens</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1Z07qMe191BYQrxJTscBUlQSQyQbe8pQ7?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-star"></i>
+                        <span>Grimorio Paranormal DLC'S</span>
+                    </a>
                 </div>
             </div>
         </section>
         
         <section id="passage-tab" class="tab-content">
-            <div class="downloads-section">
+            <div class="downloads-section animated">
                 <h2><i class="fas fa-bone"></i> A PASSAGEM</h2>
                 <p class="system-info">Todas as edições que possuímos do catarse A PASSAGEM.</p>
                 <div class="download-container" id="passage-items">
-                    <!-- Conteúdo carregado via JavaScript -->
+                    <!-- Conteúdo de "A Passagem" - mantendo links originais -->
+                    <a href="https://drive.google.com/drive/folders/1T9p8XJU4eiaUjbHVOewd1fHiOpBtvAS5?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Edição 004</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1-_9_amA3EgkwhLrU8IEEnt2pwSHC06_M?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Edição 005</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1jMJvKIPWPOFdFUS3Ap96JUTOFZ5xCxpu?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Edição 006</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1vfpQyxpcRZs3A3YPSvhMu9KqIB95YTtN?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Edição 007</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1ZD5Y4Gq3q0h3dX3hT7s8uTedUfUIAsjD?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Edição 008</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1oBUGBu0OTzWbolQkuqjEDrE5mc8-FmQt?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Edição 009</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1oBUGBu0OTzWbolQkuqjEDrE5mc8-FmQt?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Edição 010</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1WIPOvmfOZKJhkQ_XwFnFZYZ16ClD5ntJ?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Edição 011</span>
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1oYcX4HC8DnfPntHPovwtaNHIxSC5ciJl?usp=sharing" class="download-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Edição 012</span>
+                    </a>
                 </div>
             </div>
         </section>
         
         <section id="system-tab" class="tab-content">
-            <div class="downloads-section">
+            <div class="downloads-section animated">
                 <h2><i class="fas fa-chart-line"></i> TABELA GLOBAL</h2>
                 <p class="system-info">Aqui está a tabela global para qualquer classe no sistema.</p>
                 <div id="system-grid" class="system-grid">
-                    <!-- Conteúdo carregado via JavaScript -->
+                    <!-- Conteúdo gerado via JavaScript -->
                 </div>
             </div>
         </section>
@@ -90,9 +217,9 @@
     <footer>
         <p>&copy; 2024 | Desenvolvido por alan. <i class="fas fa-code"></i></p>
         <div class="social-links">
-            <a href="https://discord.gg/DYmwj6yvYN" class="social-icon"><i class="fab fa-discord"></i></a>
-            <a href="https://github.com/AlanEinsteinS" class="social-icon"><i class="fab fa-github"></i></a>
-            <a href="https://www.instagram.com/darkudassos/" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://discord.gg/DYmwj6yvYN" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i></a>
+            <a href="https://github.com/AlanEinsteinS" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/darkudassos/" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
     
@@ -102,5 +229,6 @@
     </a>
     
     <script src="script.js"></script>
+    <script src="easter-egg.js"></script>
 </body>
 </html>
