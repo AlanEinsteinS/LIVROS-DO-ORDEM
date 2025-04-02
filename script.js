@@ -208,7 +208,7 @@ function addCyberpunkEffects() {
   function addEyeButton() {
     // Criar o elemento do botão
     const eyeButton = document.createElement('a');
-    eyeButton.href = "https://theuselessweb.com"; // Substitua pela URL do site desejado
+    eyeButton.href = "https://101010110001.vercel.app/"; // Substitua pela URL do site desejado
     eyeButton.target = "_blank"; // Abrir em nova aba
     eyeButton.className = 'eye-button';
     eyeButton.innerHTML = '<i class="fas fa-eye"></i>';
