@@ -1,130 +1,22 @@
 // Easter Egg - Enigma que aparece ao clicar no título ORDO REMIER
-// Versão corrigida para permitir o clique no título
+// Versão simplificada sem verificação de IP ou VPN
 
 // Função principal que configura o evento de clique no título
 function setupEasterEgg() {
-    console.log('Configurando Easter Egg...');
+    console.log('Configurando Easter Egg');
     
     // Seleciona o título principal do header
     const headerTitle = document.querySelector('header h1');
     
     if (headerTitle) {
-      console.log('Título encontrado, configurando evento de clique');
       headerTitle.style.cursor = 'pointer';
       
-      // Adiciona o evento de clique de forma direta e simples
+      // Adiciona o evento de clique
       headerTitle.onclick = function() {
         console.log('Título clicado, iniciando enigma');
-        checkIPAndShowEnigma();
-      };
-    } else {
-      console.error('Elemento do título não encontrado.');
-    }
-  }
-  
-  // Função para verificar o IP e permissões antes de mostrar o enigma
-  function checkIPAndShowEnigma() {
-    // Exibir loader
-    showLoader();
-    
-    // Fazer uma requisição para verificar o IP e tentativas
-    // Se falhar por qualquer motivo, mostra o enigma diretamente
-    fetch('ip-check.php')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Erro na requisição: ' + response.status);
-        }
-        return response.json();
-      })
-      .then(data => {
-        // Ocultar loader
-        hideLoader();
-        
-        if (data.status === 'success') {
-          // Usuário ainda não iniciou o enigma, pode começar
-          showEnigmaIntro();
-        } else if (data.error === 'vpn_detected') {
-          // Exibir mensagem de erro de VPN
-          showErrorModal('Acesso Bloqueado', 'O uso de VPN não é permitido para acessar este conteúdo.');
-        } else if (data.error === 'attempt_exists') {
-          // Exibir mensagem que o usuário já iniciou ou completou o enigma
-          showErrorModal('Tentativa Já Utilizada', data.message || 'Você já iniciou ou completou o enigma.');
-        } else {
-          // Outro erro, mas ainda sim iniciar o enigma
-          showEnigmaIntro();
-        }
-      })
-      .catch(error => {
-        // Ocultar loader
-        hideLoader();
-        console.error('Erro ao verificar IP:', error);
-        
-        // Mostrar o enigma mesmo com erro
         showEnigmaIntro();
-      });
-  }
-  
-  // Exibir um loader enquanto verifica o IP
-  function showLoader() {
-    const loaderOverlay = document.createElement('div');
-    loaderOverlay.className = 'enigma-loader-overlay';
-    
-    const loader = document.createElement('div');
-    loader.className = 'enigma-loader';
-    loader.innerHTML = '<div class="enigma-spinner"></div><p>Verificando acesso...</p>';
-    
-    loaderOverlay.appendChild(loader);
-    document.body.appendChild(loaderOverlay);
-    
-    setTimeout(() => {
-      loaderOverlay.classList.add('active');
-    }, 10);
-  }
-  
-  // Ocultar o loader
-  function hideLoader() {
-    const loaderOverlay = document.querySelector('.enigma-loader-overlay');
-    if (loaderOverlay) {
-      loaderOverlay.classList.remove('active');
-      setTimeout(() => {
-        loaderOverlay.remove();
-      }, 300);
+      };
     }
-  }
-  
-  // Exibir modal de erro
-  function showErrorModal(title, message) {
-    const modalOverlay = document.createElement('div');
-    modalOverlay.className = 'enigma-modal-overlay';
-    
-    const modalContent = document.createElement('div');
-    modalContent.className = 'enigma-modal error-modal';
-    
-    modalContent.innerHTML = `
-      <div class="enigma-header">
-        <h2>${title}</h2>
-      </div>
-      <div class="enigma-content">
-        <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
-        <p>${message}</p>
-      </div>
-      <div class="enigma-footer">
-        <button class="enigma-btn enigma-cancel-btn">Fechar</button>
-      </div>
-    `;
-    
-    modalOverlay.appendChild(modalContent);
-    document.body.appendChild(modalOverlay);
-    
-    setTimeout(() => {
-      modalOverlay.classList.add('active');
-      modalContent.classList.add('active');
-    }, 10);
-    
-    const closeButton = modalContent.querySelector('.enigma-cancel-btn');
-    closeButton.addEventListener('click', () => {
-      closeEnigmaModal(modalOverlay);
-    });
   }
   
   // Array com as perguntas do enigma
@@ -166,8 +58,6 @@ function setupEasterEgg() {
   
   // Função para mostrar a introdução do enigma
   function showEnigmaIntro() {
-    console.log('Mostrando introdução do enigma');
-    
     // Resetar o enigma
     currentQuestionIndex = 0;
     correctAnswers = 0;
@@ -184,13 +74,10 @@ function setupEasterEgg() {
       <div class="enigma-header">
         <h2>Enigma do Outro Lado</h2>
         <p>Prove seu conhecimento para desbloquear segredos ocultos.</p>
-        <div class="attempts-counter">Atenção: Você tem apenas <span>UMA</span> tentativa!</div>
       </div>
       <div class="enigma-content">
         <p>Você encontrou um portal secreto. Responda 5 enigmas para descobrir o que há além.</p>
         <div class="enigma-glitch-text">INICIAR O TESTE</div>
-        <div class="enigma-disclaimer">Esta é sua <strong>ÚNICA</strong> chance de resolver este enigma. Se sair ou desistir, não poderá tentar novamente.</div>
-        <div class="enigma-warning">Apenas aqueles que acertarem todas as perguntas receberão o código.</div>
       </div>
       <div class="enigma-footer">
         <button class="enigma-btn enigma-start-btn">Aceitar o Desafio</button>
@@ -210,16 +97,7 @@ function setupEasterEgg() {
     // Evento do botão "Aceitar o Desafio"
     const startButton = modalContent.querySelector('.enigma-start-btn');
     startButton.addEventListener('click', () => {
-      // Registrar tentativa no servidor, mas não impedir o avanço em caso de erro
-      registerAttempt()
-        .then(response => {
-          showQuestion(currentQuestionIndex);
-        })
-        .catch(error => {
-          console.error('Erro ao registrar tentativa:', error);
-          // Iniciar o enigma mesmo em caso de erro
-          showQuestion(currentQuestionIndex);
-        });
+      showQuestion(currentQuestionIndex);
     });
     
     // Evento do botão "Fechar Portal"
@@ -229,32 +107,8 @@ function setupEasterEgg() {
     });
   }
   
-  // Função para registrar uma tentativa no servidor
-  function registerAttempt() {
-    return fetch('register-attempt.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ action: 'register_attempt' })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Erro na requisição: ' + response.status);
-      }
-      return response.json();
-    })
-    .catch(error => {
-      console.error('Erro ao registrar tentativa:', error);
-      // Retornar um objeto padrão de sucesso em caso de erro para permitir jogar
-      return { status: 'success' };
-    });
-  }
-  
   // Função para mostrar a pergunta atual
   function showQuestion(index) {
-    console.log('Mostrando pergunta', index + 1);
-    
     if (index >= enigmaQuestions.length) {
       showResult();
       return;
@@ -302,11 +156,7 @@ function setupEasterEgg() {
           correctAnswers++;
           e.target.classList.add('correct');
           
-          try {
-            playSound('correct');
-          } catch (e) {
-            console.error('Erro ao reproduzir som:', e);
-          }
+          try { playSound('correct'); } catch(e) {}
           
           // Efeito visual de resposta correta
           const pulseEffect = document.createElement('div');
@@ -320,11 +170,7 @@ function setupEasterEgg() {
         } else {
           e.target.classList.add('wrong');
           
-          try {
-            playSound('wrong');
-          } catch (e) {
-            console.error('Erro ao reproduzir som:', e);
-          }
+          try { playSound('wrong'); } catch(e) {}
           
           // Mostrar qual era a resposta correta
           optionButtons[question.answer].classList.add('correct');
@@ -345,31 +191,22 @@ function setupEasterEgg() {
       hintText.style.display = 'block';
       hintButton.style.display = 'none';
       
-      try {
-        playSound('hint');
-      } catch (e) {
-        console.error('Erro ao reproduzir som:', e);
-      }
+      try { playSound('hint'); } catch(e) {}
     });
     
     // Evento do botão "Desistir"
     const cancelButton = modalContent.querySelector('.enigma-cancel-btn');
     cancelButton.addEventListener('click', () => {
       // Confirmar com o usuário se realmente deseja desistir
-      if (confirm("ATENÇÃO: Se você desistir agora, não poderá tentar novamente. Sua tentativa já foi registrada. Tem certeza que deseja sair?")) {
+      if (confirm("Tem certeza que deseja desistir do enigma?")) {
         const modalOverlay = document.querySelector('.enigma-modal-overlay');
         closeEnigmaModal(modalOverlay);
-        
-        // Mostrar mensagem informando que a tentativa foi contabilizada
-        showErrorModal('Tentativa Finalizada', 'Você desistiu do enigma. Esta tentativa foi contabilizada e você não poderá tentar novamente.');
       }
     });
   }
   
   // Função para mostrar o resultado final
   function showResult() {
-    console.log('Mostrando resultado, respostas corretas:', correctAnswers);
-    
     const modalContent = document.querySelector('.enigma-modal');
     
     // Agora só teremos uma recompensa para quem acerta tudo
@@ -428,14 +265,7 @@ function setupEasterEgg() {
           }
         }, 100);
         
-        try {
-          playSound('reward');
-        } catch (e) {
-          console.error('Erro ao reproduzir som:', e);
-        }
-        
-        // Salvar o resultado no servidor
-        saveEnigmaResult(correctAnswers, rewardCode);
+        try { playSound('reward'); } catch(e) {}
       }, 1000);
     } else {
       // Não acertou todas - não recebe código
@@ -456,7 +286,6 @@ function setupEasterEgg() {
             <p>Você não acertou todas as perguntas. Apenas aqueles que demonstram completo conhecimento recebem o código da Ordem.</p>
             <div class="enigma-failed">
               <i class="fas fa-lock"></i>
-              <p>Esta foi sua única chance. Não haverá outra oportunidade.</p>
             </div>
           </div>
         </div>
@@ -465,14 +294,7 @@ function setupEasterEgg() {
         </div>
       `;
       
-      try {
-        playSound('wrong');
-      } catch (e) {
-        console.error('Erro ao reproduzir som:', e);
-      }
-      
-      // Salvar o resultado como falha no servidor
-      saveEnigmaResult(correctAnswers, "");
+      try { playSound('wrong'); } catch(e) {}
     }
     
     // Evento do botão "Fechar Portal"
@@ -480,34 +302,6 @@ function setupEasterEgg() {
     closeButton.addEventListener('click', () => {
       const modalOverlay = document.querySelector('.enigma-modal-overlay');
       closeEnigmaModal(modalOverlay);
-    });
-  }
-  
-  // Função para salvar o resultado do enigma no servidor
-  function saveEnigmaResult(score, code) {
-    fetch('save-result.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        action: 'save_result',
-        score: score,
-        code: code ? code : ""
-      })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Erro na requisição: ' + response.status);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Resultado salvo:', data);
-    })
-    .catch(error => {
-      console.error('Erro ao salvar resultado:', error);
-      // Continuar mesmo em caso de erro
     });
   }
   
@@ -528,7 +322,7 @@ function setupEasterEgg() {
     }, 300);
   }
   
-  // Função para tocar sons
+  // Função para tocar sons (simplificada)
   function playSound(type) {
     try {
       const audio = new Audio();
@@ -549,13 +343,9 @@ function setupEasterEgg() {
       }
       
       audio.volume = 0.5;
-      audio.play().catch(e => {
-        console.error('Erro ao reproduzir som:', e);
-        // Continuar sem som em caso de erro
-      });
+      audio.play();
     } catch (error) {
-      console.error('Erro na função playSound:', error);
-      // Continuar sem som em caso de erro
+      // Ignorar erros de som
     }
   }
   
@@ -563,71 +353,15 @@ function setupEasterEgg() {
   document.addEventListener('keydown', function(e) {
     // Se pressionar ESC enquanto o enigma está aberto
     if (e.key === 'Escape') {
-      try {
-        const enigmaOverlay = document.querySelector('.enigma-modal-overlay');
-        if (enigmaOverlay) {
-          e.preventDefault();
-          
-          // Verificar se estamos na fase de introdução ou já resolvendo o enigma
-          const startButton = enigmaOverlay.querySelector('.enigma-start-btn');
-          if (startButton) {
-            // Fase de introdução, pode fechar normalmente
-            closeEnigmaModal(enigmaOverlay);
-          } else {
-            const closeButton = enigmaOverlay.querySelector('.enigma-close-btn');
-            if (closeButton) {
-              // Fase final, pode fechar normalmente
-              closeEnigmaModal(enigmaOverlay);
-            } else {
-              // Já está resolvendo o enigma, pedir confirmação
-              if (confirm("ATENÇÃO: Se você sair agora, não poderá tentar novamente. Sua tentativa já foi registrada. Tem certeza que deseja sair?")) {
-                closeEnigmaModal(enigmaOverlay);
-                
-                // Mostrar mensagem informando que a tentativa foi contabilizada
-                showErrorModal('Tentativa Finalizada', 'Você desistiu do enigma. Esta tentativa foi contabilizada e você não poderá tentar novamente.');
-              }
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Erro ao processar tecla ESC:', error);
+      const enigmaOverlay = document.querySelector('.enigma-modal-overlay');
+      if (enigmaOverlay) {
+        e.preventDefault();
+        closeEnigmaModal(enigmaOverlay);
       }
     }
   });
   
   // Inicializar o Easter Egg quando o DOM estiver carregado
   document.addEventListener('DOMContentLoaded', function() {
-    try {
-      console.log('DOM carregado, inicializando Easter Egg');
-      setupEasterEgg();
-      
-      // Adicionar evento para impedir navegação acidental durante o enigma
-      window.addEventListener('beforeunload', function(e) {
-        try {
-          const enigmaOverlay = document.querySelector('.enigma-modal-overlay');
-          if (enigmaOverlay && !enigmaOverlay.querySelector('.enigma-start-btn') && !enigmaOverlay.querySelector('.enigma-close-btn')) {
-            // Enigma em andamento (não está na introdução nem no final)
-            e.preventDefault();
-            e.returnValue = 'Você está no meio do enigma. Se sair agora, sua tentativa será contabilizada e você não poderá tentar novamente.';
-            return e.returnValue;
-          }
-        } catch (error) {
-          console.error('Erro no evento beforeunload:', error);
-        }
-      });
-      
-      // Verificar se o título está funcionando corretamente
-      setTimeout(() => {
-        const headerTitle = document.querySelector('header h1');
-        if (headerTitle) {
-          console.log('Verificando se o evento de clique está ativo');
-          if (!headerTitle.onclick) {
-            console.error('Evento de clique não encontrado, tentando novamente');
-            setupEasterEgg();
-          }
-        }
-      }, 2000);
-    } catch (error) {
-      console.error('Erro ao inicializar o Easter Egg:', error);
-    }
+    setupEasterEgg();
   });
