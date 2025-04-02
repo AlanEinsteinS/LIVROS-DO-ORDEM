@@ -1,16 +1,24 @@
 // Easter Egg - Enigma que aparece ao clicar no título ORDO REMIER
-// Versão corrigida para evitar bugs de IP e permissões
+// Versão corrigida para permitir o clique no título
 
+// Função principal que configura o evento de clique no título
 function setupEasterEgg() {
+    console.log('Configurando Easter Egg...');
+    
+    // Seleciona o título principal do header
     const headerTitle = document.querySelector('header h1');
     
     if (headerTitle) {
+      console.log('Título encontrado, configurando evento de clique');
       headerTitle.style.cursor = 'pointer';
       
-      headerTitle.addEventListener('click', function() {
-        // Verificar IP e permissão para acessar o enigma
+      // Adiciona o evento de clique de forma direta e simples
+      headerTitle.onclick = function() {
+        console.log('Título clicado, iniciando enigma');
         checkIPAndShowEnigma();
-      });
+      };
+    } else {
+      console.error('Elemento do título não encontrado.');
     }
   }
   
@@ -20,6 +28,7 @@ function setupEasterEgg() {
     showLoader();
     
     // Fazer uma requisição para verificar o IP e tentativas
+    // Se falhar por qualquer motivo, mostra o enigma diretamente
     fetch('ip-check.php')
       .then(response => {
         if (!response.ok) {
@@ -41,8 +50,8 @@ function setupEasterEgg() {
           // Exibir mensagem que o usuário já iniciou ou completou o enigma
           showErrorModal('Tentativa Já Utilizada', data.message || 'Você já iniciou ou completou o enigma.');
         } else {
-          // Outro erro
-          showErrorModal('Erro', data.message || 'Ocorreu um erro ao verificar seu acesso.');
+          // Outro erro, mas ainda sim iniciar o enigma
+          showEnigmaIntro();
         }
       })
       .catch(error => {
@@ -50,7 +59,7 @@ function setupEasterEgg() {
         hideLoader();
         console.error('Erro ao verificar IP:', error);
         
-        // Mostrar o enigma de qualquer forma para garantir que funcione
+        // Mostrar o enigma mesmo com erro
         showEnigmaIntro();
       });
   }
@@ -157,6 +166,8 @@ function setupEasterEgg() {
   
   // Função para mostrar a introdução do enigma
   function showEnigmaIntro() {
+    console.log('Mostrando introdução do enigma');
+    
     // Resetar o enigma
     currentQuestionIndex = 0;
     correctAnswers = 0;
@@ -199,26 +210,14 @@ function setupEasterEgg() {
     // Evento do botão "Aceitar o Desafio"
     const startButton = modalContent.querySelector('.enigma-start-btn');
     startButton.addEventListener('click', () => {
-      // Registrar tentativa no servidor
+      // Registrar tentativa no servidor, mas não impedir o avanço em caso de erro
       registerAttempt()
         .then(response => {
-          if (response.status === 'success') {
-            // Iniciar o enigma
-            showQuestion(currentQuestionIndex);
-          } else {
-            // Se houve erro ao registrar tentativa, tentar iniciar mesmo assim
-            if (response.error === 'attempt_exists') {
-              // O usuário já iniciou ou completou o enigma, mas vamos permitir reiniciar
-              showQuestion(currentQuestionIndex);
-            } else {
-              // Outro erro, mas ainda sim iniciar
-              showQuestion(currentQuestionIndex);
-            }
-          }
+          showQuestion(currentQuestionIndex);
         })
         .catch(error => {
           console.error('Erro ao registrar tentativa:', error);
-          // Iniciar o enigma mesmo assim em caso de erro
+          // Iniciar o enigma mesmo em caso de erro
           showQuestion(currentQuestionIndex);
         });
     });
@@ -254,6 +253,8 @@ function setupEasterEgg() {
   
   // Função para mostrar a pergunta atual
   function showQuestion(index) {
+    console.log('Mostrando pergunta', index + 1);
+    
     if (index >= enigmaQuestions.length) {
       showResult();
       return;
@@ -301,7 +302,11 @@ function setupEasterEgg() {
           correctAnswers++;
           e.target.classList.add('correct');
           
-          playSound('correct');
+          try {
+            playSound('correct');
+          } catch (e) {
+            console.error('Erro ao reproduzir som:', e);
+          }
           
           // Efeito visual de resposta correta
           const pulseEffect = document.createElement('div');
@@ -315,7 +320,11 @@ function setupEasterEgg() {
         } else {
           e.target.classList.add('wrong');
           
-          playSound('wrong');
+          try {
+            playSound('wrong');
+          } catch (e) {
+            console.error('Erro ao reproduzir som:', e);
+          }
           
           // Mostrar qual era a resposta correta
           optionButtons[question.answer].classList.add('correct');
@@ -336,7 +345,11 @@ function setupEasterEgg() {
       hintText.style.display = 'block';
       hintButton.style.display = 'none';
       
-      playSound('hint');
+      try {
+        playSound('hint');
+      } catch (e) {
+        console.error('Erro ao reproduzir som:', e);
+      }
     });
     
     // Evento do botão "Desistir"
@@ -355,6 +368,8 @@ function setupEasterEgg() {
   
   // Função para mostrar o resultado final
   function showResult() {
+    console.log('Mostrando resultado, respostas corretas:', correctAnswers);
+    
     const modalContent = document.querySelector('.enigma-modal');
     
     // Agora só teremos uma recompensa para quem acerta tudo
@@ -413,7 +428,11 @@ function setupEasterEgg() {
           }
         }, 100);
         
-        playSound('reward');
+        try {
+          playSound('reward');
+        } catch (e) {
+          console.error('Erro ao reproduzir som:', e);
+        }
         
         // Salvar o resultado no servidor
         saveEnigmaResult(correctAnswers, rewardCode);
@@ -446,7 +465,11 @@ function setupEasterEgg() {
         </div>
       `;
       
-      playSound('wrong');
+      try {
+        playSound('wrong');
+      } catch (e) {
+        console.error('Erro ao reproduzir som:', e);
+      }
       
       // Salvar o resultado como falha no servidor
       saveEnigmaResult(correctAnswers, "");
@@ -490,13 +513,18 @@ function setupEasterEgg() {
   
   // Função para fechar o modal
   function closeEnigmaModal(modalOverlay) {
-    const modalContent = modalOverlay.querySelector('.enigma-modal');
+    if (!modalOverlay) return;
     
-    modalContent.classList.remove('active');
+    const modalContent = modalOverlay.querySelector('.enigma-modal');
+    if (modalContent) {
+      modalContent.classList.remove('active');
+    }
     modalOverlay.classList.remove('active');
     
     setTimeout(() => {
-      modalOverlay.remove();
+      if (modalOverlay && modalOverlay.parentNode) {
+        modalOverlay.remove();
+      }
     }, 300);
   }
   
@@ -510,7 +538,7 @@ function setupEasterEgg() {
           audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QWwrFAACAAAAAABERERE18tRGA0AIAmOP/1/DsQBBEYiQGD4P4gef//iIIQDvP//////4kYQGBA8DwgCAIA//////////+ICAgBkAAAAAAAH/////jw/Igj4Pn/w+D//+JGIEBgQBAwIAgQEB///////+JAJBETK3LbgAQgAFLC1//c0DDRAzMHXKAk4HihpAxKAJEKAQ2Sga+vPk4Mlw0Qd5gVGBkYKRpv/7kmQRgCTqQdxzL2FwLGhLXj3sSANxCXXHsYbAtyGuJPexKAsAwEg4TP5g5/6Z/p+Ojn/9ejRpwFjyMMXgxGn+n9enRzp9GmKhIg2LSgTKIgJJbmCbFDa8qSZum5aBBICgaOmRhUFzRsQG0r6h2wEAByZEOk4kDgcHjpBRkFihgIgCgHMlgoxcCzFgFMUAMAIHmAgEYFF5hYbGA4YYRAaLxgyeAYEzAILQkBQuYnBhjYCmDAKICw0BkViwtMFgIwKAgwEQSHQkFiIFpiICmBAGf/7kmQPgAS8Ql1x6WG4K6hbjj2MNwN9CXHHpSlgs6FuOPSlKBcYEAJgIXACBjAQrMCiQCIDgAd/BAeMCgUwSJVcYEBBhQMGBwGFgGYBAQKAZh+Lf9jxYl+5ZrVcq5V/3//7///+pZzg/GYsVVMQU1FMy45OS41VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7kmRAj8AAAGkAAAAIAAANIAAAAQAAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==';
           break;
         case 'wrong':
-          audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QEwRBAACAAAAAABUWGluZwAAAA8AAAAOAAAUXgA9PT09PT09PT09XV1dXV1dXV1dXX19fX19fX19fX2cnJycnJycnJyctbW1tbW1tbW1tcnJycnJycnJycnS0tLS0tLS0tLS6enp6enp6enp6f39/f39/f39/f0REREREREREREnJycnJycnJycnQEBAQEBAQEBAQFVVVVVVVVVVVVVmZmZmZmZmZmZmc3Nzc3Nzc3Nzc4iIiIiIiIiIiIiTk5OTk5OTk5OTqKioqKioqKioqAAAAAFQTEFNRTMuMTAwBLgAAAAAAAAAABUgJAUHQQAB4AAAFFdbVyC5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uSYAAA8rRN2aktKuJWKZs9KSVeAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+          audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QEwRBAACAAAAAABUWGluZwAAAA8AAAAOAAAUXgA9PT09PT09PT09XV1dXV1dXV1dXX19fX19fX19fX2cnJycnJycnJyctbW1tbW1tbW1tcnJycnJycnJycnS0tLS0tLS0tLS6enp6enp6enp6f39/f39/f39/f0REREREREREREnJycnJycnJycnQEBAQEBAQEBAQFVVVVVVVVVVVVVmZmZmZmZmZmZmc3Nzc3Nzc3Nzc4iIiIiIiIiIiIiTk5OTk5OTk5OTqKioqKioqKioqAAAAAFQTEFNRTMuMTAwBLgAAAAAAAAAABUgJAUHQQAB4AAAFFdbVyC5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uSYAAA8rRN2aktKuJWKZs9KSVeAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
           break;
         case 'hint':
           audio.src = 'data:audio/mp3;base64,SUQzAwAAAAAAJlRQRTEAAAAcAAAAU291bmRKYXkuY29tIFNvdW5kIEVmZmVjdHMA//uSwAAAAAABLBQAAAL6QEwRBAACAAAAAABUWGluZwAAAA8AAAAZAAAUXgAbGxsbGxsbGxsbJCQkJCQkJCQkJCwsLCwsLCwsLCw1NTU1NTU1NTU1Pj4+Pj4+Pj4+PkdHR0dHR0dHR0dPT09PT09PT09PWFhYWFhYWFhYWGFhYWFhYWFhYWFqampqampqampqdHR0dHR0dHR0dH19fX19fX19fX2Hh4eHh4eHh4eHkJCQkJCQkJCQkJiYmJiYmJiYmJihoaGhoaGhoaGhqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqTEFNRTMuMTAwBLgAAAAAAAAAABUgJAXMQQAB4AAAFJFPNxgvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//sQYAAP8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=';
@@ -530,3 +558,76 @@ function setupEasterEgg() {
       // Continuar sem som em caso de erro
     }
   }
+  
+  // Adicionar manipulador para a tecla ESC
+  document.addEventListener('keydown', function(e) {
+    // Se pressionar ESC enquanto o enigma está aberto
+    if (e.key === 'Escape') {
+      try {
+        const enigmaOverlay = document.querySelector('.enigma-modal-overlay');
+        if (enigmaOverlay) {
+          e.preventDefault();
+          
+          // Verificar se estamos na fase de introdução ou já resolvendo o enigma
+          const startButton = enigmaOverlay.querySelector('.enigma-start-btn');
+          if (startButton) {
+            // Fase de introdução, pode fechar normalmente
+            closeEnigmaModal(enigmaOverlay);
+          } else {
+            const closeButton = enigmaOverlay.querySelector('.enigma-close-btn');
+            if (closeButton) {
+              // Fase final, pode fechar normalmente
+              closeEnigmaModal(enigmaOverlay);
+            } else {
+              // Já está resolvendo o enigma, pedir confirmação
+              if (confirm("ATENÇÃO: Se você sair agora, não poderá tentar novamente. Sua tentativa já foi registrada. Tem certeza que deseja sair?")) {
+                closeEnigmaModal(enigmaOverlay);
+                
+                // Mostrar mensagem informando que a tentativa foi contabilizada
+                showErrorModal('Tentativa Finalizada', 'Você desistiu do enigma. Esta tentativa foi contabilizada e você não poderá tentar novamente.');
+              }
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Erro ao processar tecla ESC:', error);
+      }
+    }
+  });
+  
+  // Inicializar o Easter Egg quando o DOM estiver carregado
+  document.addEventListener('DOMContentLoaded', function() {
+    try {
+      console.log('DOM carregado, inicializando Easter Egg');
+      setupEasterEgg();
+      
+      // Adicionar evento para impedir navegação acidental durante o enigma
+      window.addEventListener('beforeunload', function(e) {
+        try {
+          const enigmaOverlay = document.querySelector('.enigma-modal-overlay');
+          if (enigmaOverlay && !enigmaOverlay.querySelector('.enigma-start-btn') && !enigmaOverlay.querySelector('.enigma-close-btn')) {
+            // Enigma em andamento (não está na introdução nem no final)
+            e.preventDefault();
+            e.returnValue = 'Você está no meio do enigma. Se sair agora, sua tentativa será contabilizada e você não poderá tentar novamente.';
+            return e.returnValue;
+          }
+        } catch (error) {
+          console.error('Erro no evento beforeunload:', error);
+        }
+      });
+      
+      // Verificar se o título está funcionando corretamente
+      setTimeout(() => {
+        const headerTitle = document.querySelector('header h1');
+        if (headerTitle) {
+          console.log('Verificando se o evento de clique está ativo');
+          if (!headerTitle.onclick) {
+            console.error('Evento de clique não encontrado, tentando novamente');
+            setupEasterEgg();
+          }
+        }
+      }, 2000);
+    } catch (error) {
+      console.error('Erro ao inicializar o Easter Egg:', error);
+    }
+  });
