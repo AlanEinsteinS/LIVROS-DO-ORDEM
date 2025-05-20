@@ -1,40 +1,32 @@
-/* Variáveis para o tema cyberpunk */
 :root {
-    /* Cores principais - neon */
     --neon-cyan: #00ffd5;
     --neon-purple: #b967ff;
     --neon-pink: #ff36ab;
     --neon-yellow: #ffff00;
     --neon-blue: #36adff;
     
-    /* Cores de fundo */
     --dark-bg: #080818;
     --darker-bg: #050510;
     --card-bg: #10101e;
     
-    /* Cores de gradiente */
     --cyber-gradient-1: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue));
     --cyber-gradient-2: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
     --cyber-gradient-3: linear-gradient(90deg, var(--neon-cyan), var(--neon-yellow), var(--neon-pink));
     
-    /* Sombras de neon */
     --neon-cyan-glow: 0 0 10px rgba(0, 255, 213, 0.7), 0 0 20px rgba(0, 255, 213, 0.4);
     --neon-purple-glow: 0 0 10px rgba(185, 103, 255, 0.7), 0 0 20px rgba(185, 103, 255, 0.4);
     --neon-pink-glow: 0 0 10px rgba(255, 54, 171, 0.7), 0 0 20px rgba(255, 54, 171, 0.4);
     
-    /* Outros parâmetros */
     --border-radius: 4px;
     --border-width: 1px;
     --glitch-transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --cyber-transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --cyber-transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     
-    /* Fontes */
     --cyber-font: 'Rajdhani', sans-serif;
     --content-font: 'Titillium Web', sans-serif;
   }
   
-  /* Reset básico e configuração geral */
   * {
     margin: 0;
     padding: 0;
@@ -53,7 +45,6 @@
     background-attachment: fixed;
   }
   
-  /* Animações cyberpunk */
   @keyframes glitch {
     0% {
       text-shadow: 0.05em 0 0 var(--neon-cyan), -0.025em -0.05em 0 var(--neon-purple);
@@ -126,7 +117,6 @@
     50% { opacity: 0 }
   }
   
-  /* Efeitos de scanline e ruído */
   .scan-lines {
     position: absolute;
     top: 0;
@@ -214,7 +204,6 @@
     }
   }
   
-  /* Cabeçalho */
   header {
     position: relative;
     padding: 60px 20px 40px;
@@ -283,7 +272,6 @@
     text-shadow: var(--neon-pink-glow);
   }
   
-  /* Abas de navegação */
   .tabs {
     display: flex;
     flex-wrap: wrap;
@@ -355,7 +343,6 @@
     font-size: 1em;
   }
   
-  /* Conteúdo das abas */
   .tab-content {
     display: none;
     animation: fadeIn 0.3s ease-out;
@@ -370,7 +357,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
   
-  /* Seções de download */
   .downloads-section {
     max-width: 1000px;
     margin: 30px auto;
@@ -421,7 +407,6 @@
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
   }
   
-  /* Grid de download */
   .download-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -495,7 +480,6 @@
     color: var(--neon-cyan);
   }
   
-  /* Grid do sistema */
   #system-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -562,7 +546,6 @@
     box-shadow: var(--neon-cyan-glow);
   }
   
-  /* Rodapé */
   footer {
     text-align: center;
     padding: 30px 20px;
@@ -611,7 +594,6 @@
     transform: translateY(-5px);
   }
   
-  /* Botão voltar ao topo */
   .back-to-top {
     position: fixed;
     bottom: 20px;
@@ -644,7 +626,6 @@
     transform: translateY(-5px);
   }
   
-  /* Animação de carregamento */
   .loading-overlay {
     position: fixed;
     top: 0;
@@ -691,7 +672,6 @@
     100% { transform: rotate(360deg); }
   }
   
-  /* Classe para elementos animados ao entrar no viewport */
   .animated {
     opacity: 0;
     transform: translateY(20px);
@@ -703,7 +683,6 @@
     transform: translateY(0);
   }
   
-  /* Ajustes responsivos */
   @media (max-width: 768px) {
     header h1 {
       font-size: 2.5rem;
@@ -751,100 +730,94 @@
     }
   }
   
-  /* Scrollbar personalizada */
   ::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: rgba(8, 8, 24, 0.8);
-  }
-  
-/* Continuação da scrollbar personalizada */
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(8, 8, 24, 0.8);
+}
+
 ::-webkit-scrollbar-thumb {
-    background: var(--neon-cyan);
-    border-radius: 4px;
+  background: var(--neon-cyan);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-purple);
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cyber-text {
+  font-family: var(--cyber-font);
+  color: var(--neon-cyan);
+  text-shadow: var(--neon-cyan-glow);
+  letter-spacing: 1px;
+}
+
+.data-text {
+  font-family: monospace;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  color: var(--neon-blue);
+}
+
+.with-scan-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.with-scan-effect::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 213, 0.03) 0px,
+    rgba(0, 255, 213, 0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  animation: scan 10s linear infinite;
+}
+
+@media (max-width: 400px) {
+  .download-container, #system-grid {
+    grid-template-columns: 1fr;
   }
   
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--neon-purple);
-  }
-  
-  /* Animação quando os elementos entram na tela */
-  .fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
-  }
-  
-  .slide-up {
-    animation: slideUp 0.8s ease-out forwards;
-  }
-  
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Efeitos adicionais para os elementos de texto */
-  .cyber-text {
-    font-family: var(--cyber-font);
-    color: var(--neon-cyan);
-    text-shadow: var(--neon-cyan-glow);
-    letter-spacing: 1px;
-  }
-  
-  .data-text {
-    font-family: monospace;
+  .tab-btn {
+    padding: 10px;
     font-size: 0.8rem;
-    opacity: 0.7;
-    color: var(--neon-blue);
   }
   
-  /* Efeito de scanline para os containers */
-  .with-scan-effect {
-    position: relative;
-    overflow: hidden;
+  .tab-btn i {
+    margin-right: 5px;
   }
   
-  .with-scan-effect::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: 0;
-    width: 100%;
-    height: 200%;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(0, 255, 213, 0.03) 0px,
-      rgba(0, 255, 213, 0.03) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-    pointer-events: none;
-    animation: scan 10s linear infinite;
+  header h1 {
+    font-size: 1.8rem;
   }
-  
-  /* Estilo adicional para telas menores */
-  @media (max-width: 400px) {
-    .download-container, #system-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .tab-btn {
-      padding: 10px;
-      font-size: 0.8rem;
-    }
-    
-    .tab-btn i {
-      margin-right: 5px;
-    }
-    
-    header h1 {
-      font-size: 1.8rem;
-    }
-  }
+}
