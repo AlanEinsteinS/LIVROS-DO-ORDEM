@@ -1,12 +1,13 @@
 import { PrismaClient } from '@prisma/client';
+import { withAccelerate } from '@prisma/extension-accelerate';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const prisma = new PrismaClient({
-  datasourceUrl: process.env.DATABASE_URL
-});
+  accelerateUrl: process.env.DATABASE_URL
+}).$extends(withAccelerate());
 
 async function main() {
   console.log('🌱 Começando seed do banco de dados...');

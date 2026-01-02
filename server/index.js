@@ -3,13 +3,14 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
 dotenv.config();
 
 const app = express();
 const prisma = new PrismaClient({
-  datasourceUrl: process.env.DATABASE_URL
-});
+  accelerateUrl: process.env.DATABASE_URL
+}).$extends(withAccelerate());
 const PORT = process.env.PORT || 3001;
 
 // Middleware
