@@ -1,4 +1,7 @@
+/* 🩸 TEMA DE TERROR SANGRENTO 🩸 */
+
 :root {
+  /* Cores de Terror e Sangue */
   --blood-red: #8B0000;
   --dark-blood: #5C0000;
   --fresh-blood: #DC143C;
@@ -8,21 +11,21 @@
   --shadow-black: #0A0A0A;
   --fog-gray: #2B2B2B;
   --rust-orange: #CD5C5C;
-  --grave-purple: #3D1F3D;
 
+  /* Gradientes Macabros */
   --blood-gradient: linear-gradient(135deg, var(--blood-red), var(--dark-blood));
   --horror-gradient: linear-gradient(180deg, var(--shadow-black), var(--dried-blood));
-  --decay-gradient: linear-gradient(90deg, var(--decay-green), var(--shadow-black));
 
+  /* Sombras de Terror */
   --blood-glow: 0 0 20px rgba(139, 0, 0, 0.8), 0 0 40px rgba(139, 0, 0, 0.5), 0 0 60px rgba(139, 0, 0, 0.3);
   --death-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), inset 0 -2px 10px rgba(139, 0, 0, 0.3);
   --grave-shadow: 0 5px 25px rgba(0, 0, 0, 0.8);
 
+  /* Fontes de Horror */
   --horror-font: 'Creepster', cursive;
   --metal-font: 'Metal Mania', cursive;
   --blood-font: 'Nosifer', cursive;
   --butcher-font: 'Butcherman', cursive;
-  --decay-font: 'Eater', cursive;
 }
 
 * {
@@ -49,6 +52,7 @@ body {
   position: relative;
 }
 
+/* Efeito de Sangue Escorrendo no Topo */
 body::before {
   content: '';
   position: fixed;
@@ -68,20 +72,7 @@ body::before {
   z-index: 1;
 }
 
-@keyframes bloodDrip {
-  0% {
-    transform: translateY(0) scaleY(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh) scaleY(1);
-    opacity: 0;
-  }
-}
-
+/* Animações de Horror */
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
@@ -94,36 +85,18 @@ body::before {
 }
 
 @keyframes flicker {
-  0%, 100% {
-    opacity: 1;
-  }
-  41% {
-    opacity: 1;
-  }
-  42% {
-    opacity: 0.8;
-  }
-  43% {
-    opacity: 1;
-  }
-  45% {
-    opacity: 0.7;
-  }
-  46% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 1; }
+  41% { opacity: 1; }
+  42% { opacity: 0.8; }
+  43% { opacity: 1; }
+  45% { opacity: 0.7; }
+  46% { opacity: 1; }
 }
 
 @keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  10%, 30%, 50%, 70%, 90% {
-    transform: translateX(-2px);
-  }
-  20%, 40%, 60%, 80% {
-    transform: translateX(2px);
-  }
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
 }
 
 @keyframes ghostly {
@@ -137,6 +110,7 @@ body::before {
   }
 }
 
+/* Container Principal */
 .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -145,6 +119,7 @@ body::before {
   z-index: 2;
 }
 
+/* Header Macabro */
 header {
   text-align: center;
   padding: 60px 20px;
@@ -188,6 +163,11 @@ header h1 {
   filter: drop-shadow(0 5px 15px rgba(139, 0, 0, 0.5));
 }
 
+header h1 .first-word, header h1 .second-word {
+  display: inline-block;
+  margin: 0 10px;
+}
+
 header p {
   font-family: var(--horror-font);
   font-size: 1.3rem;
@@ -197,8 +177,10 @@ header p {
   animation: ghostly 4s ease-in-out infinite;
 }
 
-.book-section {
-  margin: 50px 0;
+/* Seções de Livros */
+.downloads-section {
+  margin: 50px auto;
+  max-width: 1000px;
   background: linear-gradient(135deg, rgba(43, 43, 43, 0.7), rgba(10, 10, 10, 0.9));
   border: 3px solid var(--dried-blood);
   border-radius: 10px;
@@ -209,7 +191,7 @@ header p {
   transition: all 0.4s ease;
 }
 
-.book-section::before {
+.downloads-section::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -227,13 +209,13 @@ header p {
   pointer-events: none;
 }
 
-.book-section:hover {
+.downloads-section:hover {
   border-color: var(--blood-red);
   box-shadow: var(--blood-glow);
   transform: translateY(-5px);
 }
 
-.book-section h2 {
+.downloads-section h2 {
   font-family: var(--butcher-font);
   font-size: 2.5rem;
   color: var(--blood-red);
@@ -247,14 +229,15 @@ header p {
   display: flex;
   align-items: center;
   gap: 15px;
+  padding-left: 15px;
 }
 
-.book-section h2 i {
+.downloads-section h2 i {
   filter: drop-shadow(0 0 10px var(--blood-red));
   animation: pulse 2s ease-in-out infinite;
 }
 
-.book-section p {
+.system-info {
   font-family: Georgia, serif;
   color: var(--rust-orange);
   font-size: 1.1rem;
@@ -263,9 +246,13 @@ header p {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   position: relative;
   z-index: 1;
+  padding: 12px;
+  background: rgba(16, 16, 40, 0.4);
+  border-left: 3px solid var(--blood-red);
 }
 
-.books-grid {
+/* Grid de Livros */
+.download-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 30px;
@@ -273,7 +260,8 @@ header p {
   z-index: 1;
 }
 
-.book-card {
+/* Cards dos Livros */
+.download-btn {
   background: linear-gradient(145deg, rgba(74, 14, 14, 0.4), rgba(10, 10, 10, 0.8));
   border: 2px solid var(--dried-blood);
   border-radius: 8px;
@@ -283,14 +271,16 @@ header p {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
   position: relative;
   overflow: hidden;
+  text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  text-decoration: none;
+  justify-content: center;
+  gap: 15px;
+  height: 150px;
 }
 
-.book-card::before {
+.download-btn::before {
   content: '';
   position: absolute;
   top: 0;
@@ -301,11 +291,11 @@ header p {
   transition: left 0.5s;
 }
 
-.book-card:hover::before {
+.download-btn:hover::before {
   left: 100%;
 }
 
-.book-card:hover {
+.download-btn:hover {
   transform: translateY(-8px) scale(1.02);
   border-color: var(--blood-red);
   box-shadow:
@@ -315,43 +305,48 @@ header p {
   animation: shake 0.5s ease-in-out;
 }
 
-.book-icon {
+.download-btn i {
   font-size: 3rem;
   color: var(--blood-red);
-  margin-bottom: 15px;
   text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
   filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
   transition: all 0.3s ease;
 }
 
-.book-card:hover .book-icon {
+.download-btn:hover i {
   transform: scale(1.2) rotate(5deg);
   filter: drop-shadow(0 0 20px var(--blood-red));
 }
 
-.book-title {
+.download-btn span {
   font-family: var(--metal-font);
   font-size: 1.3rem;
   color: var(--bone-white);
-  margin-bottom: 10px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
   letter-spacing: 2px;
   line-height: 1.4;
+  text-align: center;
 }
 
-.downloads-section {
-  max-width: 1400px;
-  margin: 50px auto;
-  padding: 40px;
+/* Sistema de Níveis */
+.system-grid {
   background: linear-gradient(135deg, rgba(43, 43, 43, 0.5), rgba(10, 10, 10, 0.9));
   border: 3px solid var(--dried-blood);
   border-radius: 10px;
+  padding: 40px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
   box-shadow: var(--grave-shadow);
   position: relative;
   overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
 }
 
-.downloads-section h2 {
+.system-grid h2 {
   font-family: var(--butcher-font);
   font-size: 2.8rem;
   color: var(--blood-red);
@@ -362,21 +357,7 @@ header p {
     4px 4px 0 var(--shadow-black);
   letter-spacing: 5px;
   animation: flicker 4s infinite;
-}
-
-.system-info {
-  color: var(--rust-orange);
-  font-size: 1.1rem;
-  text-align: center;
-  margin-bottom: 30px;
-  font-style: italic;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-.system-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-column: 1 / -1;
 }
 
 .grid-item {
@@ -386,6 +367,9 @@ header p {
   border-radius: 5px;
   transition: all 0.3s ease;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .grid-item:hover {
@@ -401,16 +385,15 @@ header p {
   color: var(--blood-red);
   font-weight: bold;
   text-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
-  margin-bottom: 10px;
 }
 
 .grid-item .description {
   color: var(--bone-white);
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  line-height: 1.5;
 }
 
+/* Loading Overlay */
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -419,22 +402,20 @@ header p {
   height: 100%;
   background: rgba(10, 10, 10, 0.95);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 20px;
   z-index: 9999;
-  border: 3px solid var(--blood-red);
 }
 
-.spinner {
-  width: 60px;
-  height: 60px;
+.loading-spinner, .spinner {
+  width: 50px;
+  height: 50px;
   border: 4px solid var(--dried-blood);
   border-top: 4px solid var(--blood-red);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 20px;
-  box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
 }
 
 @keyframes spin {
@@ -451,6 +432,7 @@ header p {
   animation: pulse 2s ease-in-out infinite;
 }
 
+/* Footer Macabro */
 footer {
   text-align: center;
   padding: 40px 20px;
@@ -481,26 +463,83 @@ footer::before {
   );
 }
 
-::-webkit-scrollbar {
-  width: 12px;
+footer p {
+  margin: 10px 0;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--shadow-black);
-  border-left: 2px solid var(--dried-blood);
+footer i {
+  color: var(--blood-red);
+  margin: 0 5px;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--blood-red);
-  border-radius: 6px;
-  box-shadow: inset 0 0 10px rgba(139, 0, 0, 0.5);
+/* Tabs */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 900px;
+  margin: 30px auto;
+  gap: 10px;
+  padding: 5px;
+  background: rgba(43, 43, 43, 0.6);
+  border: 2px solid var(--dried-blood);
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--fresh-blood);
-  box-shadow: 0 0 10px rgba(220, 20, 60, 0.8);
+.tab-btn {
+  background: rgba(74, 14, 14, 0.4);
+  color: var(--bone-white);
+  font-family: var(--metal-font);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 12px 15px;
+  border: 2px solid var(--dried-blood);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
+.tab-btn:hover {
+  color: var(--blood-red);
+  border-color: var(--blood-red);
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background: rgba(139, 0, 0, 0.3);
+  color: var(--blood-red);
+  border-color: var(--blood-red);
+  box-shadow: var(--blood-glow);
+}
+
+.tab-btn i {
+  font-size: 1em;
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
   header h1 {
     font-size: 2.5rem;
@@ -511,38 +550,33 @@ footer::before {
     font-size: 1rem;
   }
 
-  .book-section h2 {
-    font-size: 2rem;
-  }
-
-  .books-grid {
-    grid-template-columns: 1fr;
-  }
-
   .downloads-section h2 {
     font-size: 2rem;
   }
 
-  .system-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  .download-container {
+    grid-template-columns: 1fr;
+  }
+
+  .system-grid h2 {
+    font-size: 2rem;
   }
 }
 
-@media (max-width: 480px) {
-  header h1 {
-    font-size: 2rem;
-  }
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
-  .book-section h2 {
-    font-size: 1.5rem;
-    flex-direction: column;
-  }
+::-webkit-scrollbar-track {
+  background: var(--shadow-black);
+}
 
-  .downloads-section h2 {
-    font-size: 1.8rem;
-  }
+::-webkit-scrollbar-thumb {
+  background: var(--blood-red);
+  border-radius: 5px;
+}
 
-  .system-grid {
-    grid-template-columns: 1fr;
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fresh-blood);
 }

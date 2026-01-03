@@ -1,4 +1,4 @@
-/* Admin Controls */
+/* Admin Controls - Horror Theme */
 .admin-controls {
   position: fixed;
   top: 20px;
@@ -7,37 +7,40 @@
 }
 
 .admin-toggle-btn {
-  background: rgba(16, 16, 30, 0.95);
-  color: #ffffff;
-  border: 1px solid rgba(0, 255, 213, 0.3);
-  padding: 10px 20px;
-  border-radius: var(--border-radius);
+  background: linear-gradient(145deg, rgba(74, 14, 14, 0.9), rgba(10, 10, 10, 0.95));
+  color: var(--bone-white);
+  border: 2px solid var(--dried-blood);
+  padding: 12px 24px;
+  border-radius: 8px;
   cursor: pointer;
-  font-family: var(--cyber-font);
-  font-size: 0.9rem;
+  font-family: var(--horror-font);
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all var(--cyber-transition);
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
 
 .admin-toggle-btn:hover {
-  border-color: var(--neon-cyan);
-  box-shadow: var(--neon-cyan-glow);
-  transform: translateY(-2px);
+  border-color: var(--blood-red);
+  box-shadow: var(--blood-glow);
+  transform: translateY(-3px);
 }
 
 .admin-toggle-btn.active {
-  background: rgba(0, 255, 213, 0.15);
-  color: var(--neon-cyan);
-  border-color: var(--neon-cyan);
-  box-shadow: var(--neon-cyan-glow);
+  background: linear-gradient(145deg, rgba(139, 0, 0, 0.3), rgba(10, 10, 10, 0.9));
+  color: var(--blood-red);
+  border-color: var(--blood-red);
+  box-shadow: var(--blood-glow);
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .admin-toggle-btn i {
-  font-size: 1em;
+  font-size: 1.1em;
+  filter: drop-shadow(0 0 5px var(--blood-red));
 }
 
 /* Section Header with Admin Button */
@@ -51,26 +54,31 @@
 }
 
 .btn-add-book {
-  background: rgba(0, 255, 213, 0.1);
-  color: var(--neon-cyan);
-  border: 1px solid var(--neon-cyan);
-  padding: 10px 20px;
-  border-radius: var(--border-radius);
+  background: rgba(139, 0, 0, 0.2);
+  color: var(--blood-red);
+  border: 2px solid var(--blood-red);
+  padding: 12px 20px;
+  border-radius: 6px;
   cursor: pointer;
-  font-family: var(--cyber-font);
-  font-size: 0.9rem;
+  font-family: var(--metal-font);
+  font-size: 0.95rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all var(--cyber-transition);
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
 }
 
 .btn-add-book:hover {
-  background: rgba(0, 255, 213, 0.2);
-  box-shadow: var(--neon-cyan-glow);
-  transform: translateY(-2px);
+  background: rgba(139, 0, 0, 0.4);
+  box-shadow: var(--blood-glow);
+  transform: translateY(-3px);
+}
+
+.btn-add-book i {
+  filter: drop-shadow(0 0 5px var(--blood-red));
 }
 
 /* Book Item Wrapper */
@@ -80,21 +88,22 @@
 
 .btn-edit-book {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  background: rgba(185, 103, 255, 0.9);
-  color: #ffffff;
-  border: none;
-  width: 30px;
-  height: 30px;
+  top: 8px;
+  right: 8px;
+  background: rgba(139, 0, 0, 0.9);
+  color: var(--bone-white);
+  border: 2px solid var(--blood-red);
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--cyber-transition);
+  transition: all 0.3s ease;
   z-index: 10;
   opacity: 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
 }
 
 .book-item-wrapper:hover .btn-edit-book {
@@ -102,19 +111,19 @@
 }
 
 .btn-edit-book:hover {
-  background: var(--neon-purple);
-  box-shadow: var(--neon-purple-glow);
-  transform: scale(1.1);
+  background: var(--blood-red);
+  box-shadow: var(--blood-glow);
+  transform: scale(1.15) rotate(15deg);
 }
 
-/* Modal */
+/* Modal - Horror Theme */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(5, 5, 16, 0.95);
+  background: rgba(10, 10, 10, 0.97);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,29 +131,35 @@
   animation: fadeIn 0.3s ease-out;
   padding: 20px;
   overflow-y: auto;
+  backdrop-filter: blur(10px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .modal-content {
-  background: var(--card-bg);
-  border: 1px solid var(--neon-cyan);
-  border-radius: var(--border-radius);
+  background: linear-gradient(135deg, rgba(43, 43, 43, 0.95), rgba(10, 10, 10, 0.98));
+  border: 3px solid var(--blood-red);
+  border-radius: 10px;
   max-width: 600px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), var(--neon-cyan-glow);
-  animation: slideUp 0.3s ease-out;
+  box-shadow: var(--death-shadow);
+  animation: slideUp 0.4s ease-out;
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(50px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -152,152 +167,303 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid rgba(0, 255, 213, 0.2);
+  padding: 25px;
+  border-bottom: 2px solid var(--dried-blood);
+  background: rgba(74, 14, 14, 0.3);
 }
 
 .modal-header h2 {
-  font-family: var(--cyber-font);
-  font-size: 1.5rem;
-  color: var(--neon-cyan);
-  text-shadow: var(--neon-cyan-glow);
+  font-family: var(--butcher-font);
+  font-size: 1.8rem;
+  color: var(--blood-red);
+  text-shadow: 0 0 15px rgba(139, 0, 0, 0.7);
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  letter-spacing: 2px;
+}
+
+.modal-header h2 i {
+  filter: drop-shadow(0 0 10px var(--blood-red));
 }
 
 .modal-close {
   background: transparent;
-  border: none;
-  color: #ffffff;
+  border: 2px solid var(--blood-red);
+  color: var(--blood-red);
   font-size: 1.5rem;
   cursor: pointer;
-  transition: var(--cyber-transition);
-  width: 35px;
-  height: 35px;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
 }
 
 .modal-close:hover {
-  color: var(--neon-pink);
+  background: var(--blood-red);
+  color: var(--bone-white);
   transform: rotate(90deg);
+  box-shadow: var(--blood-glow);
 }
 
-.modal-form {
-  padding: 20px;
+.modal-form,
+.login-form {
+  padding: 25px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .form-group label {
   display: block;
-  color: var(--neon-cyan);
-  font-family: var(--cyber-font);
-  font-size: 0.9rem;
+  color: var(--blood-red);
+  font-family: var(--metal-font);
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 8px;
+  text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
+}
+
+.form-group label i {
+  filter: drop-shadow(0 0 5px var(--blood-red));
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
-  background: rgba(16, 16, 30, 0.9);
-  border: 1px solid rgba(0, 255, 213, 0.3);
-  color: #ffffff;
-  padding: 12px;
-  border-radius: var(--border-radius);
-  font-family: var(--content-font);
+  background: rgba(10, 10, 10, 0.8);
+  border: 2px solid var(--dried-blood);
+  color: var(--bone-white);
+  padding: 14px;
+  border-radius: 6px;
+  font-family: Georgia, serif;
   font-size: 1rem;
-  transition: all var(--cyber-transition);
+  transition: all 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: var(--neon-cyan);
-  box-shadow: var(--neon-cyan-glow);
+  border-color: var(--blood-red);
+  box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
+  background: rgba(10, 10, 10, 0.9);
 }
 
 .icon-preview {
-  margin-top: 10px;
-  padding: 15px;
-  background: rgba(16, 16, 30, 0.5);
-  border: 1px solid rgba(0, 255, 213, 0.2);
-  border-radius: var(--border-radius);
+  margin-top: 12px;
+  padding: 20px;
+  background: rgba(10, 10, 10, 0.6);
+  border: 2px solid var(--dried-blood);
+  border-radius: 6px;
   text-align: center;
 }
 
 .icon-preview i {
-  font-size: 2rem;
-  color: var(--neon-cyan);
+  font-size: 2.5rem;
+  color: var(--blood-red);
+  filter: drop-shadow(0 0 15px var(--blood-red));
 }
 
-.modal-actions {
+.modal-actions,
+.login-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   justify-content: flex-end;
   margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(0, 255, 213, 0.2);
+  padding-top: 25px;
+  border-top: 2px solid var(--dried-blood);
 }
 
-.modal-actions button {
-  padding: 10px 20px;
-  border-radius: var(--border-radius);
-  font-family: var(--cyber-font);
-  font-size: 0.9rem;
+.modal-actions button,
+.login-actions button {
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-family: var(--metal-font);
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   cursor: pointer;
-  transition: all var(--cyber-transition);
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   border: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
 }
 
 .btn-delete {
-  background: rgba(255, 54, 171, 0.1);
-  color: var(--neon-pink);
-  border: 1px solid var(--neon-pink);
+  background: rgba(139, 0, 0, 0.2);
+  color: var(--fresh-blood);
+  border: 2px solid var(--fresh-blood);
   margin-right: auto;
 }
 
 .btn-delete:hover {
-  background: rgba(255, 54, 171, 0.2);
-  box-shadow: var(--neon-pink-glow);
+  background: rgba(220, 20, 60, 0.3);
+  box-shadow: 0 0 20px rgba(220, 20, 60, 0.6);
+  transform: translateY(-3px);
 }
 
 .btn-cancel {
-  background: rgba(16, 16, 30, 0.9);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(43, 43, 43, 0.8);
+  color: var(--bone-white);
+  border: 2px solid var(--fog-gray);
 }
 
 .btn-cancel:hover {
-  border-color: #ffffff;
-  transform: translateY(-2px);
+  border-color: var(--bone-white);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
 
 .btn-save {
-  background: rgba(0, 255, 213, 0.1);
-  color: var(--neon-cyan);
-  border: 1px solid var(--neon-cyan);
+  background: rgba(139, 0, 0, 0.3);
+  color: var(--blood-red);
+  border: 2px solid var(--blood-red);
 }
 
 .btn-save:hover {
-  background: rgba(0, 255, 213, 0.2);
-  box-shadow: var(--neon-cyan-glow);
-  transform: translateY(-2px);
+  background: rgba(139, 0, 0, 0.5);
+  box-shadow: var(--blood-glow);
+  transform: translateY(-3px);
+}
+
+.btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Login Modal Specific */
+.login-modal-overlay {
+  backdrop-filter: blur(15px);
+}
+
+.login-modal {
+  max-width: 500px;
+  background: linear-gradient(135deg, rgba(43, 43, 43, 0.98), rgba(10, 10, 10, 0.99));
+}
+
+.login-info {
+  text-align: center;
+  padding: 25px;
+  margin-bottom: 20px;
+  background: rgba(139, 0, 0, 0.1);
+  border: 2px solid var(--dried-blood);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.login-info i {
+  font-size: 3rem;
+  color: var(--blood-red);
+  text-shadow: var(--blood-glow);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.login-info p {
+  color: var(--rust-orange);
+  font-size: 1rem;
+  margin: 0;
+  font-family: var(--horror-font);
+  letter-spacing: 1px;
+}
+
+.login-error {
+  background: rgba(220, 20, 60, 0.2);
+  border: 2px solid var(--fresh-blood);
+  color: var(--fresh-blood);
+  padding: 15px 18px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: shake 0.5s ease-in-out, pulse 2s ease-in-out infinite;
+  font-family: var(--horror-font);
+  letter-spacing: 1px;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.login-error i {
+  font-size: 1.3rem;
+  filter: drop-shadow(0 0 10px var(--fresh-blood));
+}
+
+.login-form .form-group {
+  margin-bottom: 28px;
+}
+
+.login-form input {
+  background: rgba(10, 10, 10, 0.9);
+  border: 2px solid var(--dried-blood);
+  font-size: 1.1rem;
+  padding: 16px;
+}
+
+.login-form input:focus {
+  border-color: var(--blood-red);
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.4);
+}
+
+.login-actions {
+  margin-top: 30px;
+  gap: 15px;
+}
+
+.login-actions button {
+  flex: 1;
+  padding: 16px 24px;
+  font-size: 1.1rem;
+}
+
+.login-footer {
+  padding: 20px;
+  border-top: 2px solid var(--dried-blood);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.login-footer p {
+  color: var(--fog-gray);
+  font-size: 0.9rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--horror-font);
+}
+
+.login-footer i {
+  color: var(--blood-red);
+}
+
+/* Spinner Animation */
+.fa-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Responsive */
@@ -308,8 +474,8 @@
   }
 
   .admin-toggle-btn {
-    padding: 8px 12px;
-    font-size: 0.8rem;
+    padding: 10px 16px;
+    font-size: 0.9rem;
   }
 
   .section-header-wrapper {
@@ -336,132 +502,6 @@
   }
 }
 
-/* Login Modal Specific Styles */
-.login-modal-overlay {
-  backdrop-filter: blur(10px);
-}
-
-.login-modal {
-  max-width: 450px;
-  background: linear-gradient(135deg, rgba(16, 16, 30, 0.98), rgba(8, 8, 24, 0.98));
-}
-
-.login-info {
-  text-align: center;
-  padding: 20px;
-  margin-bottom: 20px;
-  background: rgba(0, 255, 213, 0.05);
-  border: 1px solid rgba(0, 255, 213, 0.2);
-  border-radius: var(--border-radius);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.login-info i {
-  font-size: 2.5rem;
-  color: var(--neon-cyan);
-  text-shadow: var(--neon-cyan-glow);
-}
-
-.login-info p {
-  color: #d4d4d4;
-  font-size: 0.9rem;
-  margin: 0;
-}
-
-.login-error {
-  background: rgba(255, 54, 171, 0.1);
-  border: 1px solid var(--neon-pink);
-  color: var(--neon-pink);
-  padding: 12px 15px;
-  border-radius: var(--border-radius);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  animation: shake 0.5s ease-in-out;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
-}
-
-.login-error i {
-  font-size: 1.2rem;
-}
-
-.login-form {
-  padding: 20px;
-}
-
-.login-form .form-group {
-  margin-bottom: 25px;
-}
-
-.login-form input {
-  background: rgba(8, 8, 24, 0.8);
-  border: 2px solid rgba(0, 255, 213, 0.3);
-  font-size: 1.1rem;
-  padding: 14px;
-}
-
-.login-form input:focus {
-  border-color: var(--neon-cyan);
-  box-shadow: 0 0 15px rgba(0, 255, 213, 0.3);
-}
-
-.login-actions {
-  margin-top: 30px;
-  gap: 15px;
-}
-
-.login-actions button {
-  flex: 1;
-  padding: 14px 20px;
-  font-size: 1rem;
-}
-
-.login-actions .btn-save:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.login-footer {
-  padding: 15px 20px;
-  border-top: 1px solid rgba(0, 255, 213, 0.2);
-  text-align: center;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.login-footer p {
-  color: #888;
-  font-size: 0.85rem;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.login-footer i {
-  color: var(--neon-cyan);
-}
-
-/* Spinner Animation */
-.fa-spinner {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Mobile Responsive for Login */
 @media (max-width: 480px) {
   .login-modal {
     max-width: 100%;
@@ -469,12 +509,12 @@
   }
 
   .login-info i {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .login-form input {
     font-size: 1rem;
-    padding: 12px;
+    padding: 14px;
   }
 
   .login-actions {
@@ -483,5 +523,9 @@
 
   .login-actions button {
     width: 100%;
+  }
+
+  .modal-header h2 {
+    font-size: 1.4rem;
   }
 }
