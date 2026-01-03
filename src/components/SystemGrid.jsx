@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
-import { useSystemLevels } from '../hooks/useApi';
+import { useEffect, useRef, useState } from 'react';
+import { SYSTEM_LEVELS } from '../data/systemLevels';
 
 export default function SystemGrid() {
   const sectionRef = useRef(null);
-  const { levels, loading } = useSystemLevels();
+  const [activeTrail, setActiveTrail] = useState('combatente');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,29 +25,45 @@ export default function SystemGrid() {
     return () => observer.disconnect();
   }, []);
 
+  const trails = [
+    { id: 'combatente', name: 'COMBATENTE', icon: 'fa-sword' },
+    { id: 'especialista', name: 'ESPECIALISTA', icon: 'fa-user-gear' },
+    { id: 'ocultista', name: 'OCULTISTA', icon: 'fa-hand-sparkles' }
+  ];
+
   return (
     <div className="downloads-section animated" ref={sectionRef}>
-      <h2><i className="fas fa-chart-line"></i> TABELA GLOBAL</h2>
-      <p className="system-info">Aqui está a tabela global para qualquer classe no sistema.</p>
-      {loading ? (
-        <div style={{ padding: '40px', textAlign: 'center', color: 'var(--neon-cyan)' }}>
-          Carregando...
-        </div>
-      ) : (
-        <div className="system-grid">
-          {levels.map((levelData) => {
-            const percentageText = `${levelData.percentage}% / ${levelData.level}`;
+      <h2><i className="fas fa-chart-line"></i> TABELAS DE PROGRESSÃO</h2>
+      <p className="system-info">Escolha uma trilha para ver sua tabela de progressão por NEX.</p>
 
-            return (
-              <div key={levelData.id} className="grid-item">
-                <div className="percentage">{percentageText}</div>
-                <div className="description">{levelData.description}</div>
-                <div className="cyber-line"></div>
-              </div>
-            );
-          })}
+      <div className="trail-tabs">
+        {trails.map(trail => (
+          <button
+            key={trail.id}
+            className={`trail-tab ${activeTrail === trail.id ? 'active' : ''}`}
+            onClick={() => setActiveTrail(trail.id)}
+          >
+            <i className={`fas ${trail.icon}`}></i>
+            {trail.name}
+          </button>
+        ))}
+      </div>
+
+      <div className="system-table">
+        <div className="table-header">
+          <div className="header-nex">NEX</div>
+          <div className="header-benefit">BENEFÍCIO</div>
         </div>
-      )}
+
+        <div className="table-body">
+          {SYSTEM_LEVELS[activeTrail].map((level, index) => (
+            <div key={index} className="table-row">
+              <div className="cell-nex">{level.nex}</div>
+              <div className="cell-benefit">{level.benefit}</div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
