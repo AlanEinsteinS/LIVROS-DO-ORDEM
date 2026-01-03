@@ -577,18 +577,22 @@ footer i {
   }
 
   .cell-nex {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .cell-benefit {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+  }
+
+  .table-header {
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .trail-tab {
     padding: 12px 20px;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .table-header,
@@ -597,12 +601,17 @@ footer i {
     padding: 12px 10px;
   }
 
+  .table-header {
+    font-size: 0.85rem;
+    padding: 15px 10px;
+  }
+
   .cell-nex {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .cell-benefit {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -616,15 +625,16 @@ footer i {
 }
 
 .trail-tab {
-  font-family: var(--butcher-font);
+  font-family: 'Georgia', serif;
+  font-weight: bold;
   background: linear-gradient(135deg, rgba(74, 14, 14, 0.4), rgba(10, 10, 10, 0.8));
   color: var(--bone-white);
   border: 3px solid var(--dried-blood);
   padding: 15px 30px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
   position: relative;
   overflow: hidden;
@@ -678,10 +688,12 @@ footer i {
   background: linear-gradient(135deg, var(--blood-red), var(--dark-blood));
   border-bottom: 4px solid var(--fresh-blood);
   padding: 20px;
-  font-family: var(--butcher-font);
-  font-size: 1.4rem;
-  letter-spacing: 3px;
+  font-family: 'Georgia', serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 2px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+  text-transform: uppercase;
 }
 
 .header-nex,
@@ -716,20 +728,21 @@ footer i {
 }
 
 .cell-nex {
-  font-family: var(--horror-font);
+  font-family: 'Georgia', serif;
   color: var(--blood-red);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  text-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
+  text-shadow: 0 0 8px rgba(139, 0, 0, 0.5);
   display: flex;
   align-items: center;
 }
 
 .cell-benefit {
   color: var(--bone-white);
-  font-size: 1.05rem;
-  line-height: 1.6;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
 }
