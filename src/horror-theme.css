@@ -561,6 +561,177 @@ footer i {
   .system-grid h2 {
     font-size: 2rem;
   }
+
+  .trail-tabs {
+    flex-direction: column;
+  }
+
+  .trail-tab {
+    width: 100%;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 100px 1fr;
+    font-size: 0.9rem;
+  }
+
+  .cell-nex {
+    font-size: 1.2rem;
+  }
+
+  .cell-benefit {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .trail-tab {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+
+  .table-header,
+  .table-row {
+    grid-template-columns: 80px 1fr;
+    padding: 12px 10px;
+  }
+
+  .cell-nex {
+    font-size: 1rem;
+  }
+
+  .cell-benefit {
+    font-size: 0.85rem;
+  }
+}
+
+/* Trail tabs (Tabelas de progressão) */
+.trail-tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.trail-tab {
+  font-family: var(--butcher-font);
+  background: linear-gradient(135deg, rgba(74, 14, 14, 0.4), rgba(10, 10, 10, 0.8));
+  color: var(--bone-white);
+  border: 3px solid var(--dried-blood);
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 2px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.trail-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.trail-tab:hover::before {
+  left: 100%;
+}
+
+.trail-tab i {
+  margin-right: 10px;
+}
+
+.trail-tab:hover {
+  border-color: var(--blood-red);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.5);
+}
+
+.trail-tab.active {
+  background: linear-gradient(135deg, var(--blood-red), var(--dark-blood));
+  border-color: var(--fresh-blood);
+  color: var(--bone-white);
+  box-shadow: 0 0 25px rgba(139, 0, 0, 0.8);
+  font-weight: bold;
+}
+
+/* System table */
+.system-table {
+  background: rgba(10, 10, 10, 0.8);
+  border: 3px solid var(--dried-blood);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  background: linear-gradient(135deg, var(--blood-red), var(--dark-blood));
+  border-bottom: 4px solid var(--fresh-blood);
+  padding: 20px;
+  font-family: var(--butcher-font);
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+}
+
+.header-nex,
+.header-benefit {
+  color: var(--bone-white);
+  font-weight: bold;
+}
+
+.table-body {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  padding: 18px 20px;
+  border-bottom: 2px solid var(--dried-blood);
+  transition: all 0.3s ease;
+  background: linear-gradient(90deg, rgba(74, 14, 14, 0.2), rgba(10, 10, 10, 0.6));
+}
+
+.table-row:hover {
+  background: linear-gradient(90deg, rgba(139, 0, 0, 0.3), rgba(10, 10, 10, 0.9));
+  border-left: 5px solid var(--blood-red);
+  padding-left: 15px;
+  box-shadow: inset 0 0 20px rgba(139, 0, 0, 0.3);
+}
+
+.table-row:nth-child(odd) {
+  background: linear-gradient(90deg, rgba(74, 14, 14, 0.3), rgba(10, 10, 10, 0.7));
+}
+
+.cell-nex {
+  font-family: var(--horror-font);
+  color: var(--blood-red);
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+}
+
+.cell-benefit {
+  color: var(--bone-white);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
 }
 
 /* Scrollbar */
