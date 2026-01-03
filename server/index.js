@@ -14,7 +14,15 @@ const prisma = new PrismaClient({
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://*.vercel.app',
+    'https://livros-do-ordem.vercel.app'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Health check
