@@ -18,8 +18,7 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'http://localhost:5174',
-    'https://*.vercel.app',
-    'https://livros-do-ordem.vercel.app'
+    'https://livros-do-ordem-fcrv.vercel.app'
   ],
   credentials: true
 }));
