@@ -506,20 +506,19 @@
 
 .lock-overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
+  top: 8px;
+  right: 8px;
+  width: 45px;
+  height: 45px;
   background: linear-gradient(135deg, var(--blood-red), var(--dark-blood));
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow:
-    0 5px 20px rgba(139, 0, 0, 0.8),
-    0 0 40px rgba(139, 0, 0, 0.6),
-    inset 0 0 20px rgba(0, 0, 0, 0.5);
+    0 4px 15px rgba(139, 0, 0, 0.8),
+    0 0 30px rgba(139, 0, 0, 0.6),
+    inset 0 0 15px rgba(0, 0, 0, 0.5);
   z-index: 10;
   border: 3px solid var(--dried-blood);
   animation: pulseLock 2s ease-in-out infinite;
@@ -527,30 +526,30 @@
 
 @keyframes pulseLock {
   0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
     box-shadow:
-      0 5px 20px rgba(139, 0, 0, 0.8),
-      0 0 40px rgba(139, 0, 0, 0.6);
+      0 4px 15px rgba(139, 0, 0, 0.8),
+      0 0 30px rgba(139, 0, 0, 0.6);
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: scale(1.15);
     box-shadow:
-      0 8px 30px rgba(139, 0, 0, 1),
-      0 0 60px rgba(139, 0, 0, 0.8);
+      0 6px 25px rgba(139, 0, 0, 1),
+      0 0 50px rgba(139, 0, 0, 0.9);
   }
 }
 
 .lock-overlay i {
   color: var(--bone-white);
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.8));
   animation: shakeLock 3s ease-in-out infinite;
 }
 
 @keyframes shakeLock {
   0%, 100% { transform: rotate(0deg); }
-  10%, 30% { transform: rotate(-5deg); }
-  20%, 40% { transform: rotate(5deg); }
+  10%, 30% { transform: rotate(-8deg); }
+  20%, 40% { transform: rotate(8deg); }
   50% { transform: rotate(0deg); }
 }
 

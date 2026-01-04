@@ -49,7 +49,9 @@ export default function BookSection({ category, books, loading, isAdminMode, onE
         <h2><i className={`fas ${category.icon}`}></i> {category.name}</h2>
         <p className="system-info">{category.description}</p>
         <div className="download-container">
-          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--neon-cyan)' }}>
+          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--bone-white)' }}>
+            <i className="fas fa-spinner fa-spin" style={{ fontSize: '2rem', marginBottom: '10px' }}></i>
+            <br />
             Carregando...
           </div>
         </div>
@@ -70,6 +72,7 @@ export default function BookSection({ category, books, loading, isAdminMode, onE
           </button>
         )}
       </div>
+
       <div className="download-container">
         {books.map((book) => {
           const unlocked = isBookUnlocked(book);
