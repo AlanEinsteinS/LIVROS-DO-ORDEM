@@ -148,19 +148,16 @@ header::after {
 }
 
 header h1 {
-  font-family: var(--blood-font);
-  font-size: 4.5rem;
+  font-family: 'Georgia', serif;
+  font-size: 3.5rem;
+  font-weight: bold;
   color: var(--blood-red);
   text-shadow:
-    0 0 10px rgba(139, 0, 0, 0.8),
-    0 0 20px rgba(139, 0, 0, 0.6),
-    0 0 30px rgba(139, 0, 0, 0.4),
-    3px 3px 0 var(--shadow-black);
-  letter-spacing: 8px;
-  animation: flicker 3s infinite, pulse 2s ease-in-out infinite;
+    0 0 15px rgba(139, 0, 0, 0.6),
+    2px 2px 4px var(--shadow-black);
+  letter-spacing: 4px;
   margin-bottom: 15px;
   text-transform: uppercase;
-  filter: drop-shadow(0 5px 15px rgba(139, 0, 0, 0.5));
 }
 
 header h1 .first-word, header h1 .second-word {
@@ -169,12 +166,11 @@ header h1 .first-word, header h1 .second-word {
 }
 
 header p {
-  font-family: var(--horror-font);
-  font-size: 1.3rem;
-  color: var(--rust-orange);
+  font-family: 'Georgia', serif;
+  font-size: 1.2rem;
+  color: var(--bone-white);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
-  letter-spacing: 3px;
-  animation: ghostly 4s ease-in-out infinite;
+  letter-spacing: 1px;
 }
 
 /* Seções de Livros */
@@ -216,7 +212,8 @@ header p {
 }
 
 .downloads-section h2 {
-  font-family: var(--butcher-font);
+  font-family: 'Georgia', serif;
+  font-weight: bold;
   font-size: 2.5rem;
   color: var(--blood-red);
   text-shadow:
@@ -319,11 +316,12 @@ header p {
 }
 
 .download-btn span {
-  font-family: var(--metal-font);
-  font-size: 1.3rem;
+  font-family: 'Georgia', serif;
+  font-size: 1.1rem;
+  font-weight: bold;
   color: var(--bone-white);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
-  letter-spacing: 2px;
+  letter-spacing: 0.5px;
   line-height: 1.4;
   text-align: center;
 }
@@ -347,16 +345,14 @@ header p {
 }
 
 .system-grid h2 {
-  font-family: var(--butcher-font);
-  font-size: 2.8rem;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  font-size: 2.2rem;
   color: var(--blood-red);
   text-align: center;
   margin-bottom: 40px;
-  text-shadow:
-    0 0 20px rgba(139, 0, 0, 0.8),
-    4px 4px 0 var(--shadow-black);
-  letter-spacing: 5px;
-  animation: flicker 4s infinite;
+  text-shadow: 0 0 15px rgba(139, 0, 0, 0.6), 2px 2px 4px var(--shadow-black);
+  letter-spacing: 2px;
   grid-column: 1 / -1;
 }
 
@@ -440,10 +436,10 @@ footer {
   background: var(--horror-gradient);
   border-top: 4px solid var(--blood-red);
   box-shadow: var(--death-shadow);
-  font-family: var(--horror-font);
-  color: var(--rust-orange);
-  font-size: 1.2rem;
-  letter-spacing: 2px;
+  font-family: 'Georgia', serif;
+  color: var(--bone-white);
+  font-size: 1rem;
+  letter-spacing: 1px;
   position: relative;
 }
 
@@ -490,10 +486,11 @@ footer i {
 .tab-btn {
   background: rgba(74, 14, 14, 0.4);
   color: var(--bone-white);
-  font-family: var(--metal-font);
-  font-size: 0.9rem;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   padding: 12px 15px;
   border: 2px solid var(--dried-blood);
   border-radius: 5px;
