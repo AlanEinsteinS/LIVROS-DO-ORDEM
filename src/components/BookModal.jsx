@@ -5,7 +5,9 @@ export default function BookModal({ book, category, onClose, onSave, onDelete })
     title: '',
     icon: 'fa-book',
     url: '',
-    order: 0
+    order: 0,
+    locked: false,
+    accessKey: ''
   });
 
   useEffect(() => {
@@ -14,7 +16,9 @@ export default function BookModal({ book, category, onClose, onSave, onDelete })
         title: book.title,
         icon: book.icon,
         url: book.url,
-        order: book.order
+        order: book.order,
+        locked: book.locked || false,
+        accessKey: book.accessKey || ''
       });
     }
   }, [book]);
@@ -115,6 +119,37 @@ export default function BookModal({ book, category, onClose, onSave, onDelete })
               min="0"
             />
           </div>
+
+          <div className="form-group-checkbox">
+            <label htmlFor="locked" className="checkbox-label">
+              <input
+                type="checkbox"
+                id="locked"
+                checked={formData.locked}
+                onChange={(e) => setFormData({ ...formData, locked: e.target.checked })}
+              />
+              <i className="fas fa-lock"></i> Bloquear com chave de acesso
+            </label>
+          </div>
+
+          {formData.locked && (
+            <div className="form-group lock-key-group">
+              <label htmlFor="accessKey">
+                <i className="fas fa-key"></i> Chave de Acesso
+              </label>
+              <input
+                type="text"
+                id="accessKey"
+                value={formData.accessKey}
+                onChange={(e) => setFormData({ ...formData, accessKey: e.target.value })}
+                placeholder="Digite uma chave de acesso..."
+                required={formData.locked}
+              />
+              <small className="help-text">
+                Usuários precisarão desta chave para acessar o conteúdo
+              </small>
+            </div>
+          )}
 
           <div className="modal-actions">
             {book && (

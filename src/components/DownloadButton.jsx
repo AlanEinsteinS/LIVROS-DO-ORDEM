@@ -1,4 +1,4 @@
-export default function DownloadButton({ icon, title, url }) {
+export default function DownloadButton({ icon, title, url, locked, onClick }) {
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -8,14 +8,27 @@ export default function DownloadButton({ icon, title, url }) {
     e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
   };
 
+  const handleClick = (e) => {
+    if (locked) {
+      e.preventDefault();
+      onClick && onClick();
+    }
+  };
+
   return (
     <a
-      href={url}
-      className="download-btn"
-      target="_blank"
-      rel="noopener noreferrer"
+      href={locked ? '#' : url}
+      className={`download-btn ${locked ? 'locked' : ''}`}
+      target={locked ? undefined : "_blank"}
+      rel={locked ? undefined : "noopener noreferrer"}
       onMouseMove={handleMouseMove}
+      onClick={handleClick}
     >
+      {locked && (
+        <div className="lock-overlay">
+          <i className="fas fa-lock"></i>
+        </div>
+      )}
       <i className={`fas ${icon}`}></i>
       <span>{title}</span>
     </a>
