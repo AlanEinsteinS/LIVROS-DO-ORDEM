@@ -140,7 +140,7 @@ app.post('/api/auth/login', async (req, res) => {
 // Create a new book
 app.post('/api/books', async (req, res) => {
   try {
-    const { title, icon, url, categoryId, order } = req.body;
+    const { title, icon, url, categoryId, order, locked, accessKey } = req.body;
 
     const book = await prisma.book.create({
       data: {
@@ -148,7 +148,9 @@ app.post('/api/books', async (req, res) => {
         icon,
         url,
         categoryId,
-        order: order || 0
+        order: order || 0,
+        locked: locked || false,
+        accessKey: locked ? accessKey : null
       }
     });
 
@@ -163,7 +165,7 @@ app.post('/api/books', async (req, res) => {
 app.put('/api/books/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, icon, url, order } = req.body;
+    const { title, icon, url, order, locked, accessKey } = req.body;
 
     const book = await prisma.book.update({
       where: { id },
@@ -171,7 +173,9 @@ app.put('/api/books/:id', async (req, res) => {
         title,
         icon,
         url,
-        order
+        order,
+        locked: locked || false,
+        accessKey: locked ? accessKey : null
       }
     });
 
