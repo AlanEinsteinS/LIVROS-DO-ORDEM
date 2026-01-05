@@ -26,7 +26,7 @@ export default function SystemGrid() {
   }, []);
 
   const trails = [
-    { id: 'combatente', name: 'COMBATENTE', icon: 'fa-sword' },
+    { id: 'combatente', name: 'COMBATENTE', icon: 'fa-shield' },
     { id: 'especialista', name: 'ESPECIALISTA', icon: 'fa-user-gear' },
     { id: 'ocultista', name: 'OCULTISTA', icon: 'fa-hand-sparkles' }
   ];

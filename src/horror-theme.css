@@ -204,40 +204,20 @@ header p {
   transition: all 0.4s ease;
 }
 
-.downloads-section::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 10px,
-    rgba(139, 0, 0, 0.02) 10px,
-    rgba(139, 0, 0, 0.02) 20px
-  );
-  animation: pulse 8s ease-in-out infinite;
-  pointer-events: none;
-}
-
 .downloads-section:hover {
   border-color: var(--blood-red);
-  box-shadow: var(--blood-glow);
-  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(139, 0, 0, 0.4);
+  transform: translateY(-3px);
 }
 
 .downloads-section h2 {
   font-family: 'Georgia', serif;
   font-weight: bold;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: var(--blood-red);
-  text-shadow:
-    0 0 15px rgba(139, 0, 0, 0.7),
-    3px 3px 0 var(--shadow-black);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
   margin-bottom: 10px;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   position: relative;
   z-index: 1;
   display: flex;
@@ -247,17 +227,15 @@ header p {
 }
 
 .downloads-section h2 i {
-  filter: drop-shadow(0 0 10px var(--blood-red));
-  animation: pulse 2s ease-in-out infinite;
+  font-size: 1em;
 }
 
 .system-info {
   font-family: Georgia, serif;
   color: var(--rust-orange);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   margin-bottom: 30px;
   font-style: italic;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   position: relative;
   z-index: 1;
   padding: 12px;
@@ -294,42 +272,23 @@ header p {
   height: 150px;
 }
 
-.download-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.download-btn:hover::before {
-  left: 100%;
-}
-
 .download-btn:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-5px);
   border-color: var(--blood-red);
   box-shadow:
-    0 10px 40px rgba(139, 0, 0, 0.4),
-    0 0 30px rgba(139, 0, 0, 0.3),
-    inset 0 0 20px rgba(139, 0, 0, 0.1);
-  animation: shake 0.5s ease-in-out;
+    0 8px 25px rgba(139, 0, 0, 0.3),
+    0 0 20px rgba(139, 0, 0, 0.2);
 }
 
 .download-btn i {
   font-size: 3rem;
   color: var(--blood-red);
-  text-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
-  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.5));
   transition: all 0.3s ease;
 }
 
 .download-btn:hover i {
-  transform: scale(1.2) rotate(5deg);
-  filter: drop-shadow(0 0 20px var(--blood-red));
+  transform: scale(1.1);
 }
 
 .download-btn span {
@@ -532,7 +491,7 @@ footer i {
   background: rgba(139, 0, 0, 0.3);
   color: var(--blood-red);
   border-color: var(--blood-red);
-  box-shadow: var(--blood-glow);
+  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.5);
 }
 
 .tab-btn i {
@@ -654,36 +613,21 @@ footer i {
   overflow: hidden;
 }
 
-.trail-tab::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.3), transparent);
-  transition: left 0.5s ease;
-}
-
-.trail-tab:hover::before {
-  left: 100%;
-}
-
 .trail-tab i {
   margin-right: 10px;
 }
 
 .trail-tab:hover {
   border-color: var(--blood-red);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(139, 0, 0, 0.4);
 }
 
 .trail-tab.active {
   background: linear-gradient(135deg, var(--blood-red), var(--dark-blood));
   border-color: var(--fresh-blood);
   color: var(--bone-white);
-  box-shadow: 0 0 25px rgba(139, 0, 0, 0.8);
+  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.5);
   font-weight: bold;
 }
 
@@ -732,9 +676,8 @@ footer i {
 
 .table-row:hover {
   background: linear-gradient(90deg, rgba(139, 0, 0, 0.3), rgba(10, 10, 10, 0.9));
-  border-left: 5px solid var(--blood-red);
-  padding-left: 15px;
-  box-shadow: inset 0 0 20px rgba(139, 0, 0, 0.3);
+  border-left: 4px solid var(--blood-red);
+  padding-left: 16px;
 }
 
 .table-row:nth-child(odd) {
@@ -746,7 +689,6 @@ footer i {
   color: var(--blood-red);
   font-size: 1.3rem;
   font-weight: bold;
-  text-shadow: 0 0 8px rgba(139, 0, 0, 0.5);
   display: flex;
   align-items: center;
 }
@@ -756,7 +698,6 @@ footer i {
   font-family: 'Georgia', serif;
   font-size: 1rem;
   line-height: 1.7;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
 }
@@ -792,25 +733,9 @@ footer i {
 
 .back-to-top:hover {
   background: linear-gradient(135deg, var(--fresh-blood), var(--blood-red));
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(139, 0, 0, 0.7);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.5);
   border-color: var(--fresh-blood);
-}
-
-.back-to-top i {
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-8px);
-  }
-  60% {
-    transform: translateY(-4px);
-  }
 }
 
 /* Scrollbar */

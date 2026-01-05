@@ -13,10 +13,10 @@
   padding: 12px 24px;
   border-radius: 8px;
   cursor: pointer;
-  font-family: var(--horror-font);
-  font-size: 1rem;
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
@@ -26,21 +26,19 @@
 
 .admin-toggle-btn:hover {
   border-color: var(--blood-red);
-  box-shadow: var(--blood-glow);
-  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(139, 0, 0, 0.4);
+  transform: translateY(-2px);
 }
 
 .admin-toggle-btn.active {
   background: linear-gradient(145deg, rgba(139, 0, 0, 0.3), rgba(10, 10, 10, 0.9));
   color: var(--blood-red);
   border-color: var(--blood-red);
-  box-shadow: var(--blood-glow);
-  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 5px 20px rgba(139, 0, 0, 0.4);
 }
 
 .admin-toggle-btn i {
   font-size: 1.1em;
-  filter: drop-shadow(0 0 5px var(--blood-red));
 }
 
 /* Section Header with Admin Button */
@@ -60,10 +58,10 @@
   padding: 12px 20px;
   border-radius: 6px;
   cursor: pointer;
-  font-family: var(--metal-font);
+  font-family: Georgia, serif;
   font-size: 0.95rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
@@ -73,12 +71,12 @@
 
 .btn-add-book:hover {
   background: rgba(139, 0, 0, 0.4);
-  box-shadow: var(--blood-glow);
-  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+  transform: translateY(-2px);
 }
 
 .btn-add-book i {
-  filter: drop-shadow(0 0 5px var(--blood-red));
+  font-size: 1em;
 }
 
 /* Book Item Wrapper */
@@ -112,8 +110,8 @@
 
 .btn-edit-book:hover {
   background: var(--blood-red);
-  box-shadow: var(--blood-glow);
-  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 3px 15px rgba(139, 0, 0, 0.5);
+  transform: scale(1.1);
 }
 
 /* Modal - Horror Theme */
@@ -173,19 +171,19 @@
 }
 
 .modal-header h2 {
-  font-family: var(--butcher-font);
-  font-size: 1.8rem;
+  font-family: Georgia, serif;
+  font-size: 1.6rem;
   color: var(--blood-red);
-  text-shadow: 0 0 15px rgba(139, 0, 0, 0.7);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   margin: 0;
   display: flex;
   align-items: center;
   gap: 12px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .modal-header h2 i {
-  filter: drop-shadow(0 0 10px var(--blood-red));
+  font-size: 1.2em;
 }
 
 .modal-close {
@@ -222,19 +220,18 @@
 .form-group label {
   display: block;
   color: var(--blood-red);
-  font-family: var(--metal-font);
-  font-size: 1rem;
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 8px;
-  text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
 }
 
 .form-group label i {
-  filter: drop-shadow(0 0 5px var(--blood-red));
+  font-size: 1em;
 }
 
 .form-group input,
@@ -270,7 +267,6 @@
 .icon-preview i {
   font-size: 2.5rem;
   color: var(--blood-red);
-  filter: drop-shadow(0 0 15px var(--blood-red));
 }
 
 .modal-actions,
@@ -287,10 +283,10 @@
 .login-actions button {
   padding: 12px 24px;
   border-radius: 6px;
-  font-family: var(--metal-font);
-  font-size: 1rem;
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -309,8 +305,8 @@
 
 .btn-delete:hover {
   background: rgba(220, 20, 60, 0.3);
-  box-shadow: 0 0 20px rgba(220, 20, 60, 0.6);
-  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(220, 20, 60, 0.4);
+  transform: translateY(-2px);
 }
 
 .btn-cancel {
@@ -321,7 +317,7 @@
 
 .btn-cancel:hover {
   border-color: var(--bone-white);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
 
@@ -333,8 +329,8 @@
 
 .btn-save:hover {
   background: rgba(139, 0, 0, 0.5);
-  box-shadow: var(--blood-glow);
-  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(139, 0, 0, 0.4);
+  transform: translateY(-2px);
 }
 
 .btn-save:disabled {
@@ -369,16 +365,14 @@
 .login-info i {
   font-size: 3rem;
   color: var(--blood-red);
-  text-shadow: var(--blood-glow);
-  animation: pulse 2s ease-in-out infinite;
 }
 
 .login-info p {
   color: var(--rust-orange);
   font-size: 1rem;
   margin: 0;
-  font-family: var(--horror-font);
-  letter-spacing: 1px;
+  font-family: Georgia, serif;
+  letter-spacing: 0.5px;
 }
 
 .login-error {
@@ -391,9 +385,9 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  animation: shake 0.5s ease-in-out, pulse 2s ease-in-out infinite;
-  font-family: var(--horror-font);
-  letter-spacing: 1px;
+  animation: shake 0.5s ease-in-out;
+  font-family: Georgia, serif;
+  letter-spacing: 0.5px;
 }
 
 @keyframes shake {
@@ -404,7 +398,6 @@
 
 .login-error i {
   font-size: 1.3rem;
-  filter: drop-shadow(0 0 10px var(--fresh-blood));
 }
 
 .login-form .form-group {
@@ -449,11 +442,12 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-family: var(--horror-font);
+  font-family: Georgia, serif;
 }
 
 .login-footer i {
   color: var(--blood-red);
+  font-size: 1em;
 }
 
 /* Spinner Animation */
@@ -516,26 +510,21 @@
   align-items: center;
   justify-content: center;
   box-shadow:
-    0 4px 15px rgba(139, 0, 0, 0.8),
-    0 0 30px rgba(139, 0, 0, 0.6),
+    0 4px 15px rgba(139, 0, 0, 0.6),
     inset 0 0 15px rgba(0, 0, 0, 0.5);
   z-index: 10;
   border: 3px solid var(--dried-blood);
-  animation: pulseLock 2s ease-in-out infinite;
+  animation: pulseLock 3s ease-in-out infinite;
 }
 
 @keyframes pulseLock {
   0%, 100% {
     transform: scale(1);
-    box-shadow:
-      0 4px 15px rgba(139, 0, 0, 0.8),
-      0 0 30px rgba(139, 0, 0, 0.6);
+    opacity: 0.9;
   }
   50% {
-    transform: scale(1.15);
-    box-shadow:
-      0 6px 25px rgba(139, 0, 0, 1),
-      0 0 50px rgba(139, 0, 0, 0.9);
+    transform: scale(1.08);
+    opacity: 1;
   }
 }
 
@@ -543,14 +532,6 @@
   color: var(--bone-white);
   font-size: 1.3rem;
   filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.8));
-  animation: shakeLock 3s ease-in-out infinite;
-}
-
-@keyframes shakeLock {
-  0%, 100% { transform: rotate(0deg); }
-  10%, 30% { transform: rotate(-8deg); }
-  20%, 40% { transform: rotate(8deg); }
-  50% { transform: rotate(0deg); }
 }
 
 /* Access Key Modal */
@@ -560,8 +541,7 @@
   border: 3px solid var(--blood-red);
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.9),
-    0 0 80px rgba(139, 0, 0, 0.6),
-    inset 0 0 50px rgba(139, 0, 0, 0.1);
+    0 5px 30px rgba(139, 0, 0, 0.4);
 }
 
 .access-key-modal .modal-header {
@@ -570,34 +550,20 @@
   padding: 30px;
   background: linear-gradient(135deg, rgba(74, 14, 14, 0.4), rgba(10, 10, 10, 0.6));
   border-bottom: 3px solid var(--blood-red);
-  box-shadow: 0 5px 20px rgba(139, 0, 0, 0.3);
 }
 
 .access-key-modal .modal-header i.fa-lock {
-  animation: pulseLockIcon 2s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px var(--blood-red));
-}
-
-@keyframes pulseLockIcon {
-  0%, 100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 20px var(--blood-red));
-  }
-  50% {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 35px var(--blood-red));
-  }
+  font-size: 3rem;
 }
 
 .access-key-modal .modal-header h2 {
   width: 100%;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.6rem;
+  font-family: Georgia, serif;
   margin: 0;
-  letter-spacing: 3px;
-  text-shadow:
-    0 0 15px rgba(139, 0, 0, 0.8),
-    0 0 30px rgba(139, 0, 0, 0.5);
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .locked-book-title {
@@ -638,21 +604,19 @@
 
 .access-key-modal .form-group input {
   padding: 16px;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   background: rgba(10, 10, 10, 0.9);
   border: 2px solid var(--dried-blood);
   text-align: center;
-  letter-spacing: 3px;
-  font-family: var(--metal-font);
+  letter-spacing: 2px;
+  font-family: Georgia, serif;
   text-transform: uppercase;
   transition: all 0.3s ease;
 }
 
 .access-key-modal .form-group input:focus {
   border-color: var(--blood-red);
-  box-shadow:
-    0 0 25px rgba(139, 0, 0, 0.5),
-    inset 0 0 15px rgba(139, 0, 0, 0.2);
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.4);
   background: rgba(10, 10, 10, 1);
 }
 
@@ -660,6 +624,7 @@
   color: var(--fog-gray);
   letter-spacing: 1px;
   text-transform: none;
+  font-size: 0.95rem;
 }
 
 .access-key-modal .modal-actions {
@@ -674,14 +639,15 @@
   color: var(--bone-white);
   border: 2px solid var(--fog-gray);
   padding: 14px 28px;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-family: Georgia, serif;
   transition: all 0.3s ease;
 }
 
 .access-key-modal .btn-secondary:hover:not(:disabled) {
   border-color: var(--bone-white);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
 
 .access-key-modal .btn-primary {
@@ -689,16 +655,15 @@
   color: var(--blood-red);
   border: 2px solid var(--blood-red);
   padding: 14px 28px;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-family: Georgia, serif;
   transition: all 0.3s ease;
 }
 
 .access-key-modal .btn-primary:hover:not(:disabled) {
   background: linear-gradient(135deg, rgba(139, 0, 0, 0.6), rgba(74, 14, 14, 0.8));
-  box-shadow:
-    var(--blood-glow),
-    0 8px 20px rgba(0, 0, 0, 0.7);
-  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(139, 0, 0, 0.4);
+  transform: translateY(-2px);
 }
 
 .access-key-modal .btn-primary:disabled,
@@ -711,35 +676,18 @@
 .access-key-modal .error-message {
   margin-bottom: 20px;
   padding: 18px;
-  background: linear-gradient(135deg, rgba(220, 20, 60, 0.25), rgba(139, 0, 0, 0.3));
+  background: rgba(220, 20, 60, 0.2);
   border: 2px solid var(--fresh-blood);
   border-radius: 8px;
   color: var(--fresh-blood);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-family: Georgia, serif;
-  text-shadow: 0 0 5px rgba(220, 20, 60, 0.5);
-  box-shadow:
-    0 5px 15px rgba(220, 20, 60, 0.4),
-    inset 0 0 20px rgba(0, 0, 0, 0.5);
-  animation: shake 0.5s ease, pulseError 2s ease-in-out infinite;
-}
-
-@keyframes pulseError {
-  0%, 100% {
-    box-shadow:
-      0 5px 15px rgba(220, 20, 60, 0.4),
-      inset 0 0 20px rgba(0, 0, 0, 0.5);
-  }
-  50% {
-    box-shadow:
-      0 5px 25px rgba(220, 20, 60, 0.7),
-      inset 0 0 30px rgba(220, 20, 60, 0.2);
-  }
+  box-shadow: 0 3px 10px rgba(220, 20, 60, 0.3);
+  animation: shake 0.5s ease;
 }
 
 .access-key-modal .error-message i {
-  font-size: 1.3rem;
-  filter: drop-shadow(0 0 10px var(--fresh-blood));
+  font-size: 1.2rem;
 }
 
 /* Lock Form Fields */

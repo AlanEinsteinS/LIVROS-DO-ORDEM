@@ -27,7 +27,7 @@ function App() {
   const tabs = [
     { id: 'official', icon: 'fa-book', label: 'Livros Oficiais' },
     { id: 'homebrew', icon: 'fa-flask', label: 'Homebrews / Não Oficiais' },
-    { id: 'passage', icon: 'fa-portal-enter', label: 'A Passagem' },
+    { id: 'passage', icon: 'fa-door-open', label: 'A Passagem' },
     { id: 'system', icon: 'fa-table', label: 'Tabela Global' }
   ];
 
