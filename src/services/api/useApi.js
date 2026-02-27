@@ -1,9 +1,21 @@
 import { useState, useEffect } from 'react';
 
 const API_URL = import.meta.env.VITE_API_URL || '/api';
+const CATEGORIES_CACHE_KEY = 'categories_cache_v1';
+
+const readCachedCategories = () => {
+  try {
+    const raw = localStorage.getItem(CATEGORIES_CACHE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
 
 export function useCategories() {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(() => readCachedCategories());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -14,10 +26,21 @@ export function useCategories() {
   const fetchCategories = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_URL}/categories`);
+      const response = await fetch(`${API_URL}/categories`, {
+        cache: 'no-cache'
+      });
+
+      if (response.status === 304) {
+        const cached = readCachedCategories();
+        setCategories(cached);
+        setError(null);
+        return;
+      }
+
       if (!response.ok) throw new Error('Failed to fetch categories');
       const data = await response.json();
       setCategories(data);
+      localStorage.setItem(CATEGORIES_CACHE_KEY, JSON.stringify(data));
       setError(null);
     } catch (err) {
       setError(err.message);
