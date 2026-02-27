@@ -35,9 +35,9 @@ export default function SystemGrid() {
     <div className="reveal spotlight-panel p-6 md:p-8" ref={sectionRef}>
       <h2 className="text-accent-heading mb-2 flex items-center justify-center gap-3 text-center text-2xl font-bold tracking-wide md:text-3xl">
         <i className="fas fa-chart-line text-red-300"></i>
-        TABELAS DE PROGRESSAO
+        Tabelas de Progressão
       </h2>
-      <p className="text-subtle-lead mb-6 text-center text-sm">Escolha uma trilha para ver sua progressao por NEX.</p>
+      <p className="text-subtle-lead mb-6 text-center text-sm">Escolha uma trilha para ver sua progressão por NEX.</p>
 
       <div className="mb-6 flex flex-wrap justify-center gap-2">
         {trails.map((trail) => (
@@ -59,7 +59,7 @@ export default function SystemGrid() {
       <div className="overflow-hidden rounded-xl border border-white/10 bg-black/40">
         <div className="grid grid-cols-[88px,1fr] bg-gradient-to-r from-red-700/35 via-red-800/25 to-black/90 px-4 py-3 text-xs font-bold uppercase tracking-[0.08em] text-red-100 md:grid-cols-[120px,1fr] md:text-sm">
           <div>NEX</div>
-          <div>Beneficio</div>
+          <div>Benefício</div>
         </div>
 
         <div className="max-h-[560px] overflow-y-auto bg-gradient-to-b from-black/25 via-black/35 to-black/45">
