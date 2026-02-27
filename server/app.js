@@ -251,31 +251,44 @@ const authenticateAdmin = async (req, res, next) => {
   }
 };
 
-const allowedOrigins = [
+const allowedOrigins = new Set([
   'http://localhost:5173',
   'http://localhost:5174',
-  'https://livros-do-ordem-fcrv.vercel.app'
-];
+  'https://livros-do-ordem.alaneinstein.com.br/',
+  ...((process.env.CORS_ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean))
+]);
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
+const corsOptionsDelegate = (req, callback) => {
+  const origin = req.header('Origin');
+  if (!origin) return callback(null, { origin: true, credentials: true });
 
-    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+  try {
+    const originUrl = new URL(origin);
+    const requestHost = req.headers.host;
+
+    if (requestHost && originUrl.host === requestHost) {
+      return callback(null, { origin: true, credentials: true });
     }
-  },
-  credentials: true
-}));
+  } catch {
+  }
+
+  if (allowedOrigins.has(origin) || origin.endsWith('.vercel.app')) {
+    return callback(null, { origin: true, credentials: true });
+  }
+
+  return callback(new Error('Not allowed by CORS'));
+};
+
+app.use(cors(corsOptionsDelegate));
 app.disable('x-powered-by');
 app.use(helmet());
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: false, limit: '100kb' }));
 
-// On some serverless routers the "/api" prefix can be stripped before Express.
-// Normalize to keep the existing route definitions stable.
+
 app.use((req, res, next) => {
   if (!req.url.startsWith('/api/')) {
     req.url = `/api${req.url.startsWith('/') ? req.url : `/${req.url}`}`;
@@ -378,7 +391,6 @@ app.get('/api/categories/:slug/books', async (req, res) => {
 });
 
 app.get('/api/system-levels', async (req, res) => {
-  // System levels are mocked on frontend (src/data/systemLevels.js)
   res.json([]);
 });
 
