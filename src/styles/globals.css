@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Sora:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    scrollbar-color: rgba(220, 38, 38, 0.35) rgba(10, 10, 10, 0.65);
+  }
+
+  body {
+    @apply bg-abyss text-zinc-100 antialiased;
+    font-family: 'Sora', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    background-image:
+      radial-gradient(circle at 12% -4%, rgba(220, 38, 38, 0.26), transparent 34%),
+      radial-gradient(circle at 86% 4%, rgba(220, 38, 38, 0.18), transparent 34%),
+      radial-gradient(circle at 45% 110%, rgba(185, 28, 28, 0.13), transparent 38%),
+      linear-gradient(180deg, #060606 0%, #0a0a0a 50%, #030303 100%);
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: 'Cinzel', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+    letter-spacing: 0.02em;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] shadow-ambient backdrop-blur-xl;
+  }
+
+  .spotlight-panel {
+    @apply relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-zinc-950/90 via-black/85 to-zinc-950/95 shadow-ambient;
+  }
+
+  .spotlight-panel::before {
+    content: '';
+    position: absolute;
+    inset: -35% auto auto 50%;
+    width: 28rem;
+    height: 18rem;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgba(248, 113, 113, 0.2), transparent 72%);
+    filter: blur(12px);
+    pointer-events: none;
+  }
+
+  .fancy-border {
+    @apply relative overflow-hidden rounded-2xl;
+  }
+
+  .fancy-border::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 240%;
+    height: 240%;
+    background: conic-gradient(
+      from 90deg,
+      rgba(248, 113, 113, 0.02),
+      rgba(248, 113, 113, 0.2),
+      rgba(185, 28, 28, 0.18),
+      rgba(248, 113, 113, 0.08),
+      rgba(248, 113, 113, 0.02)
+    );
+    opacity: 0.45;
+    transition: opacity 220ms ease;
+    pointer-events: none;
+  }
+
+  .fancy-border:hover::before {
+    opacity: 0.75;
+  }
+
+  .fancy-border > .fancy-border-inner {
+    @apply relative z-10 rounded-[15px] border border-white/10 bg-gradient-to-b from-zinc-950/95 to-black;
+    margin: 1px;
+  }
+
+  .tab-pill {
+    @apply relative inline-flex min-w-[150px] flex-1 items-center justify-center gap-2 overflow-hidden rounded-xl border px-4 py-3 text-xs font-semibold uppercase tracking-[0.08em] transition-all duration-300 md:text-sm;
+  }
+
+  .tab-pill-active {
+    @apply border-red-300/60 bg-gradient-to-r from-red-600/30 via-red-500/15 to-zinc-900/70 text-red-100 shadow-glow;
+  }
+
+  .tab-pill-idle {
+    @apply border-white/10 bg-white/[0.02] text-zinc-300 hover:border-white/25 hover:bg-white/[0.04] hover:text-zinc-100;
+  }
+
+  .book-card {
+    @apply relative flex h-44 w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-zinc-950/95 via-black to-zinc-950/90 p-5 text-center transition-all duration-300;
+  }
+
+  .book-card:hover {
+    @apply -translate-y-1 border-red-300/40 shadow-[0_12px_32px_rgba(185,28,28,.2)];
+  }
+
+  .book-card-locked {
+    @apply cursor-pointer border-red-900/50 from-zinc-900/85 to-zinc-950/95 text-zinc-400;
+  }
+
+  .book-card-locked:hover {
+    @apply translate-y-0 border-red-800/80 shadow-none;
+  }
+
+  .book-icon-wrap {
+    @apply relative z-10 grid h-14 w-14 place-items-center rounded-2xl border border-white/10 bg-white/[0.03];
+  }
+
+  .book-title {
+    @apply relative z-10 max-w-[92%] text-sm font-semibold uppercase tracking-[0.06em] text-zinc-100;
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  .reveal {
+    @apply translate-y-6 opacity-0 transition-all duration-700;
+  }
+
+  .reveal.show {
+    @apply translate-y-0 opacity-100;
+  }
+
+  .text-blood-title {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(180deg, #fecaca 0%, #f87171 45%, #b91c1c 100%);
+    background-size: 180% 180%;
+    animation: textFlow 8s ease-in-out infinite;
+    text-shadow: 0 0 28px rgba(220, 38, 38, 0.22);
+  }
+
+  .text-bone-title {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(180deg, #ffffff 0%, #e4e4e7 48%, #a1a1aa 100%);
+    background-size: 180% 180%;
+    animation: textFlow 10s ease-in-out infinite;
+  }
+
+  .text-accent-heading {
+    @apply text-zinc-100;
+    text-shadow: 0 0 22px rgba(248, 113, 113, 0.16);
+  }
+
+  .text-subtle-lead {
+    @apply text-zinc-300;
+    letter-spacing: 0.02em;
+    text-wrap: balance;
+  }
+
+  .text-tab {
+    @apply relative z-10;
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.08);
+  }
+
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md;
+  }
+
+  .modal-content {
+    @apply glass-panel w-full max-w-2xl max-h-[90vh] overflow-y-auto;
+  }
+}
+
+@keyframes textFlow {
+  0%, 100% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+}

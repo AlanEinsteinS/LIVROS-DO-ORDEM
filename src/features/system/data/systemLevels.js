@@ -1,4 +1,3 @@
-// Tabelas de progressão por trilha - Hard-coded
 export const SYSTEM_LEVELS = {
   combatente: [
     { nex: '5%', benefit: 'Ataque especial (2 PE, +5)' },
